@@ -1,0 +1,124 @@
+WARNING(LGCMCVT102)  
+        ** Signal "Z2_Samsung_Disconnect" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "Airzone_Disconnect" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "Z1_Samsung_Disconnect" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "Z1_Audio_Disconnect" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "Z2_Audio_Disconnect" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "Z3_Audio_Disconnect" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "Z3_Samsung_Disconnect" has no driving source.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Home" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Last" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_SB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_SF" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Record" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_DVR" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Red" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Green" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_Samsung_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_Samsung_RX" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Yellow" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Blue" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_TV_HB_Voice" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Airzone_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Airzone_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_Samsung_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_Audio_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_Audio_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z1_Audio_RX" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "AC_Temp_AnalogValue" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Airzone_IsOn_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Home" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Last" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_SB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_SF" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Record" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_DVR" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Red" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Green" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Yellow" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Blue" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_TV_HB_Voice" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_Samsung_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_Samsung_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_Samsung_RX" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_Samsung_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_Samsung_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_Samsung_RX" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_Audio_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Home" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Last" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_SB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_SF" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Record" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_DVR" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Red" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Green" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Yellow" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Blue" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_TV_HB_Voice" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_Audio_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z3_Audio_RX" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_Audio_Connected_FB" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_Audio_Status" has no destination.
+NOTICE (LGCMCVT103)  
+        ** Signal "Z2_Audio_RX" has no destination.

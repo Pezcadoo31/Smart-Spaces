@@ -1,0 +1,22 @@
+{FileMetadata}
+Schema = "1.0.0.0"
+CreatedByAppHost = "2.901.21.0"
+Created = 2026-04-16 10:04:15.896524-06:00
+LastModifiedByAppHost = "2.901.21.0"
+Modified = 2026-04-16 10:04:15.896514-06:00
+CreatedByProjectApp = "1.4501.42.0"
+LastModifiedByProjectApp = "1.4501.42.0"
+MinimumProjectApp = ""
+MinimumAppHost = "2.901.0"
+
+{AssetAttributes}
+
+[Attributes]
+Id = "0894f31b-ce3f-4116-bf72-6681debd14b7"
+Name = "Subir"
+SourceUri = "Subir.png"
+AspectRatio = "1"
+AssetSourceType = "File"
+Username = ""
+Password = ""
+

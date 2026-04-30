@@ -1,0 +1,22 @@
+{FileMetadata}
+Schema = "1.0.0.0"
+CreatedByAppHost = "2.901.21.0"
+Created = 2026-04-16 10:04:15.903758-06:00
+LastModifiedByAppHost = "2.901.21.0"
+Modified = 2026-04-16 10:04:15.903752-06:00
+CreatedByProjectApp = "1.4501.42.0"
+LastModifiedByProjectApp = "1.4501.42.0"
+MinimumProjectApp = ""
+MinimumAppHost = "2.901.0"
+
+{AssetAttributes}
+
+[Attributes]
+Id = "7952150d-a74e-4808-b792-e8357e1db29d"
+Name = "Bajar"
+SourceUri = "Bajar.png"
+AspectRatio = "1"
+AssetSourceType = "File"
+Username = ""
+Password = ""
+

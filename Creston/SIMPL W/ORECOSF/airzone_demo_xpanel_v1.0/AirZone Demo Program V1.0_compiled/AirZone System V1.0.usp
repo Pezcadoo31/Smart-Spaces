@@ -1,0 +1,297 @@
+#CATEGORY "46" "AirZone" // Custom
+
+#USER_SIMPLSHARP_LIBRARY "AirZone"
+#ENABLE_TRACE
+#HELP_PDF_FILE "Airzone HVAC V1.0 Help file.pdf"
+
+DIGITAL_INPUT _SKIP_, _SKIP_, _SKIP_, _SKIP_, _SKIP_;
+DIGITAL_INPUT ManualPoll, _SKIP_;
+DIGITAL_INPUT Modes_Stop_Set, Modes_Cooling_Set, Modes_Heating_Set, Modes_Fan_Set, Modes_Dry_Set, Modes_Auto_Set;
+DIGITAL_INPUT _SKIP_;
+DIGITAL_INPUT FanSpeeds_Auto_Set, FanSpeeds_1_Set, FanSpeeds_2_Set, FanSpeeds_3_Set, FanSpeeds_4_Set, FanSpeeds_5_Set, FanSpeeds_6_Set, FanSpeeds_7_Set;
+
+ANALOG_INPUT _SKIP_;
+ANALOG_INPUT Modes_Value_Set, FanSpeeds_Value_Set;
+
+DIGITAL_OUTPUT _SKIP_, _SKIP_, _SKIP_;
+DIGITAL_OUTPUT Initialized, _SKIP_, Polling;
+
+DIGITAL_OUTPUT _SKIP_, _SKIP_;
+DIGITAL_OUTPUT Modes_Available, Modes_Controllable;
+DIGITAL_OUTPUT _SKIP_;
+DIGITAL_OUTPUT Modes_Stop_Available, Modes_Cooling_Available, Modes_Heating_Available, Modes_Fan_Available, Modes_Dry_Available, Modes_Auto_Available;
+DIGITAL_OUTPUT _SKIP_;
+DIGITAL_OUTPUT Modes_Stop_Active, Modes_Cooling_Active, Modes_Heating_Active, Modes_Fan_Active, Modes_Dry_Active, Modes_Auto_Active;
+
+DIGITAL_OUTPUT _SKIP_, _SKIP_;
+DIGITAL_OUTPUT Fanspeeds_Available, FanSpeeds_Controllable;
+DIGITAL_OUTPUT _SKIP_;
+DIGITAL_OUTPUT FanSpeeds_Auto_Available, FanSpeeds_1_Available, FanSpeeds_2_Available, FanSpeeds_3_Available, FanSpeeds_4_Available, FanSpeeds_5_Available, FanSpeeds_6_Available, FanSpeeds_7_Available;
+DIGITAL_OUTPUT _SKIP_;
+DIGITAL_OUTPUT FanSpeeds_Auto_Active, FanSpeeds_1_Active, FanSpeeds_2_Active, FanSpeeds_3_Active, FanSpeeds_4_Active, FanSpeeds_5_Active, FanSpeeds_6_Active, FanSpeeds_7_Active;
+
+ANALOG_OUTPUT _SKIP_, _SKIP_;
+ANALOG_OUTPUT Modes_Active_Analog, FanSpeeds_Active_Analog;
+STRING_OUTPUT _SKIP_;
+STRING_OUTPUT Modes_Active_Serial, FanSpeeds_Active_Serial;
+   
+INTEGER_PARAMETER SystemNumberParam; 
+INTEGER_PARAMETER SetpointModeParam;
+                        
+AirzoneSystemSimpl  myAirzoneSystemSimpl;
+
+/*******************************************************************************************
+  Global Variables
+*******************************************************************************************/
+
+/*******************************************************************************************
+  Functions
+*******************************************************************************************/
+
+/*******************************************************************************************
+  Signals
+*******************************************************************************************/
+PUSH ManualPoll
+{
+	myAirzoneSystemSimpl.ManualPoll();
+}
+
+PUSH Modes_Stop_Set
+{
+	myAirzoneSystemSimpl.SetModus(1);
+}
+
+PUSH Modes_Cooling_Set
+{
+	myAirzoneSystemSimpl.SetModus(2);
+}
+
+PUSH Modes_Heating_Set
+{
+	myAirzoneSystemSimpl.SetModus(3);
+}
+
+PUSH Modes_Fan_Set
+{
+	myAirzoneSystemSimpl.SetModus(4);
+}
+
+PUSH Modes_Dry_Set
+{
+	myAirzoneSystemSimpl.SetModus(5);
+}
+
+PUSH Modes_Auto_Set
+{
+	myAirzoneSystemSimpl.SetModus(7);
+}
+
+CHANGE Modes_Value_Set
+{
+	myAirzoneSystemSimpl.SetModus(Modes_Value_Set);
+}
+
+PUSH FanSpeeds_Auto_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(0);
+}
+
+PUSH FanSpeeds_1_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(1);
+}
+
+
+PUSH FanSpeeds_2_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(2);
+}
+
+
+PUSH FanSpeeds_3_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(3);
+}
+
+PUSH FanSpeeds_4_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(4);
+}
+
+PUSH FanSpeeds_5_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(5);
+}
+
+PUSH FanSpeeds_6_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(6);
+}
+
+
+PUSH FanSpeeds_7_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(7);
+}
+
+CHANGE FanSpeeds_Value_Set
+{
+	myAirzoneSystemSimpl.SetFanspeed(FanSpeeds_Value_Set);
+}
+
+/*******************************************************************************************
+  Event Handlers
+*******************************************************************************************/
+EventHandler OnInitializedChanged(AirzoneSystemSimpl sender, SimplUShortEventArgs e)
+{
+	Initialized = e.Value;
+}
+
+EventHandler OnPolling(AirzoneSystemSimpl sender, Eventargs e)
+{
+	PULSE(10, Polling);
+}
+
+EventHandler OnLoaded(AirzoneSystemSimpl sender, SimplSystemLoadedEventArgs e)
+{
+	Modes_Available = e.ModesAvailable;
+	Modes_Controllable = e.ModeControllable;	
+
+	Modes_Stop_Available = e.ModeStopAvailable;
+	Modes_Cooling_Available = e.ModeCoolingAvailable;
+	Modes_Heating_Available = e.ModeHeatingAvailable;
+	Modes_Fan_Available = e.ModeFanAvailable;
+	Modes_Dry_Available = e.ModeDryAvailable;
+	Modes_Auto_Available = e.ModeAutoAvailable;
+	
+	Modes_Stop_Active = e.ModeStopActive;
+	Modes_Cooling_Active = e.ModeCoolingActive;
+	Modes_Heating_Active = e.ModeHeatingActive;
+	Modes_Fan_Active = e.ModeFanActive;
+	Modes_Dry_Active = e.ModeDryActive;
+	Modes_Auto_Active = e.ModeAutoActive;
+	
+	Modes_Active_Analog = e.ActiveModeAnalog;
+	Modes_Active_Serial = e.ActiveModeSerial;
+
+	FanSpeeds_Available = e.SpeedsAvailable;
+	FanSpeeds_Controllable = e.SpeedControllable;	
+
+	FanSpeeds_Auto_Available = e.SpeedAutoAvailable;
+	FanSpeeds_1_Available = e.SpeedOneAvailable;
+	FanSpeeds_2_Available = e.SpeedTwoAvailable;
+	FanSpeeds_3_Available = e.SpeedThreeAvailable;
+	FanSpeeds_4_Available = e.SpeedFourAvailable;
+	FanSpeeds_5_Available = e.SpeedFiveAvailable;
+	FanSpeeds_6_Available = e.SpeedSixAvailable;
+	FanSpeeds_7_Available = e.SpeedSevenAvailable;	
+
+	FanSpeeds_Auto_Active = e.SpeedAutoActive;
+	FanSpeeds_1_Active = e.SpeedOneActive;
+	FanSpeeds_2_Active = e.SpeedTwoActive;
+	FanSpeeds_3_Active = e.SpeedThreeActive;
+	FanSpeeds_4_Active = e.SpeedFourActive;
+	FanSpeeds_5_Active = e.SpeedFiveActive;
+	FanSpeeds_6_Active = e.SpeedSixActive;
+	FanSpeeds_7_Active = e.SpeedSevenActive;
+
+	FanSpeeds_Active_Analog = e.ActiveSpeedAnalog;
+	FanSpeeds_Active_Serial = e.ActiveSpeedSerial;
+}
+
+EventHandler OnModesChanged(AirzoneSystemSimpl sender, SimplModesEventArgs e)
+{
+    Modes_Available = e.ModesAvailable;
+	Modes_Controllable = e.ModeControllable;
+	
+	Modes_Stop_Available = e.ModeStopAvailable;
+	Modes_Cooling_Available = e.ModeCoolingAvailable;
+	Modes_Heating_Available = e.ModeHeatingAvailable;
+	Modes_Fan_Available = e.ModeFanAvailable;
+	Modes_Dry_Available = e.ModeDryAvailable;
+	Modes_Auto_Available = e.ModeAutoAvailable;
+	
+	Modes_Stop_Active = e.ModeStopActive;
+	Modes_Cooling_Active = e.ModeCoolingActive;
+	Modes_Heating_Active = e.ModeHeatingActive;
+	Modes_Fan_Active = e.ModeFanActive;
+	Modes_Dry_Active = e.ModeDryActive;
+	Modes_Auto_Active = e.ModeAutoActive;
+	
+	Modes_Active_Analog = e.ActiveModeAnalog;
+	Modes_Active_Serial = e.ActiveModeSerial;
+}
+
+EventHandler OnModeActiveChanged(AirzoneSystemSimpl sender, SimplModeActiveEventArgs e)
+{
+	Modes_Stop_Active = e.ModeStopActive;
+	Modes_Cooling_Active = e.ModeCoolingActive;
+	Modes_Heating_Active = e.ModeHeatingActive;
+	Modes_Fan_Active = e.ModeFanActive;
+	Modes_Dry_Active = e.ModeDryActive;
+	Modes_Auto_Active = e.ModeAutoActive;
+	
+	Modes_Active_Analog = e.ActiveModeAnalog;
+	Modes_Active_Serial = e.ActiveModeSerial;
+}
+
+EventHandler OnSpeedsChanged(AirzoneSystemSimpl sender, SimplSpeedsEventArgs e)
+{
+	FanSpeeds_Available = e.SpeedsAvailable;
+	FanSpeeds_Controllable = e.SpeedControllable;
+
+	FanSpeeds_Auto_Available = e.SpeedAutoAvailable;
+	FanSpeeds_1_Available = e.SpeedOneAvailable;
+	FanSpeeds_2_Available = e.SpeedTwoAvailable;
+	FanSpeeds_3_Available = e.SpeedThreeAvailable;
+	FanSpeeds_4_Available = e.SpeedFourAvailable;
+	FanSpeeds_5_Available = e.SpeedFiveAvailable;
+	FanSpeeds_6_Available = e.SpeedSixAvailable;
+	FanSpeeds_7_Available = e.SpeedSevenAvailable;	
+
+	FanSpeeds_Auto_Active = e.SpeedAutoActive;
+	FanSpeeds_1_Active = e.SpeedOneActive;
+	FanSpeeds_2_Active = e.SpeedTwoActive;
+	FanSpeeds_3_Active = e.SpeedThreeActive;
+	FanSpeeds_4_Active = e.SpeedFourActive;
+	FanSpeeds_5_Active = e.SpeedFiveActive;
+	FanSpeeds_6_Active = e.SpeedSixActive;
+	FanSpeeds_7_Active = e.SpeedSevenActive;
+
+	FanSpeeds_Active_Analog = e.ActiveSpeedAnalog;
+	FanSpeeds_Active_Serial = e.ActiveSpeedSerial;
+}
+
+EventHandler OnSpeedActiveChanged(AirzoneSystemSimpl sender, SimplSpeedActiveEventArgs e)
+{
+	FanSpeeds_Auto_Active = e.SpeedAutoActive;
+	FanSpeeds_1_Active = e.SpeedOneActive;
+	FanSpeeds_2_Active = e.SpeedTwoActive;
+	FanSpeeds_3_Active = e.SpeedThreeActive;
+	FanSpeeds_4_Active = e.SpeedFourActive;
+	FanSpeeds_5_Active = e.SpeedFiveActive;
+	FanSpeeds_6_Active = e.SpeedSixActive;
+	FanSpeeds_7_Active = e.SpeedSevenActive;
+
+	FanSpeeds_Active_Analog = e.ActiveSpeedAnalog;
+	FanSpeeds_Active_Serial = e.ActiveSpeedSerial;
+}
+/*******************************************************************************************
+  Main()
+*******************************************************************************************/
+
+Function Main()
+{
+	WaitforInitializationComplete();
+    
+	RegisterEvent(myAirzoneSystemSimpl, OnInitializedChanged, OnInitializedChanged);
+	RegisterEvent(myAirzoneSystemSimpl, OnPolling, OnPolling);
+	RegisterEvent(myAirzoneSystemSimpl, OnLoaded, OnLoaded);
+	RegisterEvent(myAirzoneSystemSimpl, OnModesChanged, OnModesChanged);
+	RegisterEvent(myAirzoneSystemSimpl, OnModeActiveChanged, OnModeActiveChanged);
+	RegisterEvent(myAirzoneSystemSimpl, OnSpeedsChanged, OnSpeedsChanged);
+	RegisterEvent(myAirzoneSystemSimpl, OnSpeedActiveChanged, OnSpeedActiveChanged);	
+
+	
+	myAirzoneSystemSimpl.Initialize(SystemNumberParam, SetpointModeParam);
+}

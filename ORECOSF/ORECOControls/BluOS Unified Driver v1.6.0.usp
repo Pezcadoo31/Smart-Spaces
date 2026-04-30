@@ -1,0 +1,399 @@
+/*******************************************************************************
+ * BluOS Device Wrapper SIMPL+ Module
+ * Copyright 2023 (c) Ultamation Limited
+ *
+ * Ultamation Limited
+ * E: info@ultamation.com
+ * W: www.ultamation.com
+ *
+ * Module Summary:
+ * 
+ * Author:	Ultamation Limited
+ * Date:	28 May 2025
+ * Info:	For interface details, please read the embedded help file
+ *			See #HELP_BEGIN <-> #HELP_END
+ * Rev:     1.0.0 - Initial Release
+ *          1.0.1 - CLZ changes to improve 4-Series compatibility
+ *			1.1.0 - Grouping Support Release
+ *			1.5.0 - Update for SIMPL functionality - change name to Unified Driver
+ *          1.5.1 - Minor bug fixes
+ *
+ ******************************************************************************/
+
+/*******************************************************************************
+ * COMPILER DIRECTIVES
+ ******************************************************************************/
+// ENABLE DYNAMIC
+#SYMBOL_NAME "BluOS Unified Driver v1.6.0"
+#HINT "A BluOS Device Controller with Media Player Support"
+#DEFINE_CONSTANT		MAX_CHANNEL_LEN	128
+#DEFINE_CONSTANT		MAX_MSG_LEN	255
+#DEFINE_CONSTANT		MAX_BROWSE_PAGE	20
+#DEFINE_CONSTANT		FIRST_PAGE	1
+#DEFINE_CONSTANT		LAST_PAGE	100
+#DEFINE_CONSTANT		VOLUME_FB_WAIT 50
+#CATEGORY "46" "BluOS"
+#DEFAULT_VOLATILE
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT
+#HELP_PDF_FILE "BluOS Crestron Unified Driver Manual.pdf" 
+// #DEFAULT_NONVOLATILE
+#ENABLE_STACK_CHECKING
+//#ENABLE_TRACE
+
+#HELP_BEGIN
+BluOS Media Player Integration
+Copyright: Ultamation Ltd
+#HELP_END
+
+/*******************************************************************************
+ * INCLUDE LIBRARIES
+ ******************************************************************************/
+#USER_SIMPLSHARP_LIBRARY "Ultamation.SimplSharp.BluOSClient"
+
+/*******************************************************************************
+ * INPUTS & OUTPUTS
+ ******************************************************************************/
+DIGITAL_INPUT	_SKIP_, _SKIP_, _SKIP_, _SKIP_, _SKIP_;
+DIGITAL_INPUT	Initialise, Debug, _SKIP_;
+DIGITAL_INPUT	Play, Pause, PlayPause, Skip_Back, Skip_Fwd, _SKIP_;
+DIGITAL_INPUT	_SKIP_, Mute_On, Mute_Off, _SKIP_;
+DIGITAL_INPUT	Repeat_All, Repeat_Track, Repeat_Off, _SKIP_;
+DIGITAL_INPUT	Shuffle_On, Shuffle_Off, _SKIP_;
+DIGITAL_INPUT	Browse_Top, Browse_Back, Browse_First_Page, Browse_Prev_Page, Browse_Next_Page, Browse_Last_Page, Presets_Select, _SKIP_;
+DIGITAL_INPUT	Browse_Select[MAX_BROWSE_PAGE,MAX_BROWSE_PAGE], _SKIP_;
+ANALOG_INPUT	Browse_Page_Size#, Item_Number_Current#, Browse_Page_Current#, Menu_Slider#, _SKIP_;
+ANALOG_INPUT	Volume#, _SKIP_, Recall_Preset#, _SKIP_;
+ANALOG_INPUT	IndexedInputSelect#;
+STRING_INPUT	NamedInputSelect$[32], _SKIP_;
+STRING_INPUT	Language_Code$[4], _SKIP_;
+STRING_INPUT 	CRPC_To_Device$[255];
+STRING_INPUT 	_SKIP_, Browse_Query$[255];
+
+DIGITAL_OUTPUT	_SKIP_, _SKIP_, _SKIP_, _SKIP_, _SKIP_;
+DIGITAL_OUTPUT	_SKIP_, Is_Offline_Fb, Is_Busy_Fb;
+DIGITAL_OUTPUT	_SKIP_, Is_Playing_Fb, Is_Paused_Fb, Is_Stopped_Fb, Is_Streaming_Fb, Is_Connecting_Fb;
+DIGITAL_OUTPUT	_SKIP_, Volume_Is_Fixed_Fb, Mute_On_Fb, Mute_Off_Fb;
+DIGITAL_OUTPUT	_SKIP_, Repeat_All_Fb, Repeat_Track_Fb, Repeat_Off_Fb;
+DIGITAL_OUTPUT	_SKIP_, Shuffle_On_Fb, Shuffle_Off_Fb;
+DIGITAL_OUTPUT	_SKIP_, Browse_Item_Visibility[MAX_BROWSE_PAGE];
+DIGITAL_OUTPUT	_SKIP_, Browse_Icon_Visibility[MAX_BROWSE_PAGE];
+DIGITAL_OUTPUT	_SKIP_, Input_Icon_Visibility[MAX_BROWSE_PAGE, MAX_BROWSE_PAGE];
+ANALOG_OUTPUT	_SKIP_, Browse_List_Size#, Page_Number_Max#, Page_Number_Current#, Page_Item_Index#, Menu_Item_Count#, Menu_Slider_Fb#;
+STRING_OUTPUT	_SKIP_, Browse_List_Title$, Browse_List_Subtitle$;
+ANALOG_OUTPUT	_SKIP_, Volume_Fb#, Volume_dB_Fb#;
+ANALOG_OUTPUT	_SKIP_, Current_Secs_Fb#, Total_Secs_Fb#;
+STRING_OUTPUT	_SKIP_, Player_Name$, Player_Icon_URL$;
+STRING_OUTPUT	_SKIP_, Now_Playing_Line1$, Now_Playing_Line2$, Now_Playing_Line3$, Now_Playing_URL$;
+STRING_OUTPUT	_SKIP_, CRPC_From_Device$;
+STRING_OUTPUT	_SKIP_, Browse_Item$[MAX_BROWSE_PAGE];
+STRING_OUTPUT	_SKIP_, Browse_Icon$[MAX_BROWSE_PAGE];
+STRING_OUTPUT	_SKIP_, Browse_Info_Line$[MAX_BROWSE_PAGE];
+STRING_OUTPUT	_SKIP_, Input$[MAX_BROWSE_PAGE];
+STRING_OUTPUT	_SKIP_, Input_Icon$[MAX_BROWSE_PAGE, MAX_BROWSE_PAGE];
+
+/*******************************************************************************
+ * PARAMETERS
+ ******************************************************************************/
+STRING_PARAMETER	NameOrIp[64];
+INTEGER_PARAMETER	Zone;
+INTEGER_PARAMETER	CrpcPort;
+INTEGER_PARAMETER	Adapter;
+STRING_PARAMETER	Language[2];
+
+/*******************************************************************************
+ * PARAMETER PROPERTIES
+ ******************************************************************************/
+#BEGIN_PARAMETER_PROPERTIES NameOrIp
+	propValidUnits = unitString;
+	propDefaultUnit = unitString; 
+	propDefaultValue = "192.168... or Living Room"; 
+	propShortDescription = "Enter EITHER the static IP of the device, or its discoverable name";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES Zone
+	propValidUnits = unitDecimal;
+	propDefaultUnit = unitDecimal;
+	propDefaultValue = 0d;
+//	propList = { 0d, "Output 1" }, { 10d, "Output 2"}, { 20d, "Output 3"}, { 30d, "Output 4"};
+	propShortDescription = "Only applies to multi-output devices.  Otherwise leave as 'Output 1'.";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES CrpcPort
+	propValidUnits = unitDecimal;
+	propDefaultUnit = unitDecimal;
+	propDefaultValue = 48000d;
+	propShortDescription = "The direct CRPC port - this should be unique per PROGRAM SLOT.";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES Adapter
+	propValidUnits = unitDecimal;
+	propDefaultUnit = unitDecimal;
+	propDefaultValue = 0d;
+//	propList = { 0d, "LAN Adapter" }, { 1d, "Control Subnet"};
+	propShortDescription = "The CRPC network adapter to use.";
+#END_PARAMETER_PROPERTIES
+                     
+#BEGIN_PARAMETER_PROPERTIES Language
+	propValidUnits = unitString;
+	propDefaultUnit = unitString; 
+	propDefaultValue = "en"; 
+	propShortDescription = "Enter language for menu items";
+//	propList = { "enGB", "English (UK)" }, { "enUS", "English (US)" }, { "zh", "Chinese" }, { "cs", "Czech" }, { "da", "Danish" },
+//			   { "nl", "Dutch" }, { "fi", "Finnish" }, { "frFR", "French (FR)" }, { "frCA", "French (CA)" }, { "de", "German" },
+//			   { "hu", "Hungarian" }, { "it", "Italian" }, { "ja", "Japanese" }, { "ko", "Korean" }, { "pl", "Polish" },
+//			   { "pt", "Portuguese" }, { "ru", "Russian" }, { "sk", "Slovak" }, { "es", "Spanish" }, { "sv", "Swedish" };
+#END_PARAMETER_PROPERTIES                     
+
+/*******************************************************************************
+ * GLOBAL VARIABLES
+ * Note:	Be sure to initialize all declared global variables as needed
+ *			For example, in Function Main: g_temp = 0;
+ * Conventions:
+ *			Use a "g_" prefix for all global variables
+ ******************************************************************************/
+BluOSClient g_bluOs;
+
+INTEGER g_volumeFbBlock;
+INTEGER g_lastVolumeFb;
+
+/*******************************************************************************
+ * EVENT HANDLERS
+ ******************************************************************************/ 
+PUSH Initialise { g_bluOs.Initialise( CrpcPort, Adapter, NameOrIp, Zone, Language ); }
+
+PUSH Debug 		{ g_bluOs.Debug( 1 ); g_bluOs.ListDiscoveredDevices(); }
+RELEASE Debug 	{ g_bluOs.Debug( 0 ); }
+
+PUSH Play		{ g_bluOs.DirectPlay(); }
+PUSH Pause		{ g_bluOs.DirectPause(); }
+
+PUSH PlayPause	{ if( Is_Playing_Fb || Is_Streaming_Fb ) g_bluOs.DirectPause(); else g_bluOs.DirectPlay(); }
+PUSH Skip_Back	{ g_bluOs.DirectSkipBack(); }
+PUSH Skip_Fwd	{ g_bluOs.DirectSkipFwd(); }
+
+PUSH Mute_On	{ g_bluOs.DirectMute( 1 ); }
+PUSH Mute_Off	{ g_bluOs.DirectMute( 0 ); }
+                                 
+PUSH Repeat_All	{ g_bluOs.DirectRepeat( 0 ); }
+PUSH Repeat_Track{ g_bluOs.DirectRepeat( 1 ); }
+PUSH Repeat_Off	{ g_bluOs.DirectRepeat( 2 ); }
+
+PUSH Shuffle_On	{ g_bluOs.DirectShuffle( 1 ); }
+PUSH Shuffle_Off{ g_bluOs.DirectShuffle( 0 ); }
+          
+FUNCTION BlockVolumeFb()
+{
+	WAIT (Volume_FB_WAIT, volumeFbWait)
+	{
+		g_volumeFbBlock = OFF;
+		IF(Volume_Fb# != g_lastVolumeFb)
+		{
+			Volume_Fb# = g_lastVolumeFb;
+		}
+	}
+}
+
+CHANGE Volume#
+{
+	g_bluOs.DirectVolume( Volume# );
+	g_volumeFbBlock = ON;
+	CANCELWAIT(volumeFbWait);
+	BlockVolumeFb();
+}
+
+CHANGE Recall_Preset# { g_bluOs.RecallPreset( Recall_Preset# ); }
+
+CHANGE CRPC_To_Device$ { g_bluOs.CrpcMessageIn( CRPC_To_Device$ ); }
+        
+CHANGE Language_Code$ { g_bluOs.SetLanguage( Language_Code$ ); }
+
+CALLBACK FUNCTION CrpcMessageOutCallback( STRING crpcOut )
+{
+	STRING tmp[255];
+	tmp = crpcOut;
+	CRPC_From_Device$ = tmp;
+}
+   
+CALLBACK FUNCTION OnUpdateConnectionStatus( INTEGER status ) { Is_Offline_Fb = 1-status; }
+
+CALLBACK FUNCTION OnUpdateDeviceInfo( INTEGER state )
+{
+	STRING tmp[255];
+	tmp = g_bluOS.SpPlayerName;
+	Player_Name$ = tmp;
+	tmp = g_bluOS.SpPlayerIconUrl;
+	Player_Icon_URL$ = tmp;
+}
+
+CALLBACK FUNCTION OnUpdateDeviceState( INTEGER state )
+{
+	Is_Playing_Fb	= (state = 1);
+	Is_Paused_Fb	= (state = 2);
+	Is_Stopped_Fb	= (state = 3);
+	Is_Streaming_Fb	= (state = 4);
+	Is_Connecting_Fb = (state = 5);
+}
+
+CALLBACK FUNCTION OnUpdateDeviceVolume( INTEGER val )
+{
+	g_lastVolumeFb = val;
+	IF (g_volumeFbBlock = OFF)
+	{		
+		Volume_Fb# = val;
+	}   	
+}
+CALLBACK FUNCTION OnUpdateDeviceVolumeDb( INTEGER val ) { Volume_dB_Fb# = val; }
+CALLBACK FUNCTION OnUpdateDeviceVolumeFixed( INTEGER state ) { Volume_Is_Fixed_Fb = state; }
+CALLBACK FUNCTION OnUpdateDeviceMute( INTEGER state ) { Mute_On_Fb = state; Mute_Off_Fb = 1-state; }
+CALLBACK FUNCTION OnUpdateDeviceRepeat( INTEGER state )
+{
+	Repeat_All_Fb	= (state = 0);
+	Repeat_Track_Fb	= (state = 1);
+	Repeat_Off_Fb	= (state = 2);
+}
+
+CALLBACK FUNCTION OnUpdateDeviceShuffle( INTEGER state ) { Shuffle_On_Fb = state; Shuffle_Off_Fb = 1-state; }
+CALLBACK FUNCTION OnUpdateDevicePosition( INTEGER val ) { Current_Secs_Fb# = val; }
+CALLBACK FUNCTION OnUpdateDeviceLength( INTEGER val ) { Total_Secs_Fb# = val; }
+
+CALLBACK FUNCTION OnUpdateDeviceLine1( STRING str ) { STRING tmp[255]; tmp=str; Now_Playing_Line1$ = tmp; }
+CALLBACK FUNCTION OnUpdateDeviceLine2( STRING str ) { STRING tmp[255]; tmp=str; Now_Playing_Line2$ = tmp; }
+CALLBACK FUNCTION OnUpdateDeviceLine3( STRING str ) { STRING tmp[255]; tmp=str; Now_Playing_Line3$ = tmp; } 
+CALLBACK FUNCTION OnUpdateDeviceUrl( STRING str ) { STRING tmp[255]; tmp=str; Now_Playing_URL$ = tmp; }
+
+CALLBACK FUNCTION OnUpdateListLine( INTEGER  idx, STRING str ) { STRING tmp[255]; tmp=str; Browse_Item$[idx +1] = tmp; }
+
+// Direct Control
+// Browse support
+CHANGE Browse_Page_Size# { g_bluOS.BrowsePageSize( Browse_Page_Size# ); }
+CHANGE Browse_Page_Current# { g_bluOs.BrowseToPage( Browse_Page_Current# ); }
+CHANGE Menu_Slider# { g_bluOs.BrowseScroll( Menu_Slider# ); }
+CHANGE IndexedInputSelect#{ g_bluOs.InputSelect( IndexedInputSelect# ); }
+CHANGE NamedInputSelect$ { g_bluOs.InputSelectByName( NamedInputSelect$ ); }
+              
+PUSH Browse_Top { g_bluOs.BrowseTop(); }
+PUSH Browse_Back { g_bluOs.BrowseBack(); }
+
+PUSH Browse_Prev_Page { g_bluOs.BrowsePrevPage(); }
+PUSH Browse_Next_Page { g_bluOs.BrowseNextPage(); }
+                                                             
+PUSH Browse_First_Page { g_bluOs.BrowseToPage(FIRST_PAGE); }
+PUSH Browse_Last_Page { g_bluOs.BrowseToPage(LAST_PAGE); }
+                                                              
+PUSH Presets_Select { g_bluOs.SelectPresetMenu(); }
+
+PUSH Browse_Select
+{
+	INTEGER idx;
+	idx = GetLastModifiedArrayIndex();
+	g_bluOs.BrowseSelect( idx-1 , on );
+}
+
+RELEASE Browse_Select
+{
+	INTEGER idx;
+	idx = GetLastModifiedArrayIndex();
+	g_bluOs.BrowseSelect( idx-1 , off );
+}
+     
+CHANGE Browse_Query$ { g_bluOs.BrowseQuery( Browse_Query$ ); }
+
+CALLBACK FUNCTION OnBrowseItemUpdate(INTEGER idx, STRING label, STRING url, string info)
+{
+	STRING tmp[255];
+	STRING tmpUrl[255];
+	STRING tmpInfo[255];
+
+	tmp = label;
+	tmpUrl = url;
+	tmpInfo = info;
+
+	Browse_Item$[idx+1] = tmp;
+	Browse_Icon$[idx+1] = tmpUrl;
+	Browse_Info_Line$[idx+1] = tmpInfo;
+}
+
+CALLBACK FUNCTION OnInputItemUpdate(INTEGER idx, STRING label, STRING url, string info)
+{
+	STRING tmp[255];
+	STRING tmpUrl[255];
+
+	tmp = label;
+	tmpUrl = url;
+
+	Input$[idx+1] = tmp;
+	Input_Icon$[idx+1] = tmpUrl;
+}
+                                  
+CALLBACK FUNCTION OnMenuItemVisibilityUpdate( INTEGER idx, INTEGER state ) { Browse_Item_Visibility[idx+1] = state; }                                  
+CALLBACK FUNCTION OnMenuIconVisibilityUpdate( INTEGER idx, INTEGER state ) { Browse_Icon_Visibility[idx+1] = state; }   
+CALLBACK FUNCTION OnInputIconVisibilityUpdate( INTEGER idx, INTEGER state ) { Input_Icon_Visibility[idx+1] = state; }
+ 
+CALLBACK FUNCTION OnCurrentPageIndexUpdated( INTEGER value ) { Page_Number_Current# = value; }
+CALLBACK FUNCTION OnPageCountUpdated( INTEGER value ) { Page_Number_Max# = value; }
+CALLBACK FUNCTION OnCurrentPageItemIndexUpdated( INTEGER value ) { Page_Item_Index# = value; }
+CALLBACK FUNCTION OnMenuItemCountUpdated( INTEGER value ) { Menu_Item_Count# = value; } 
+CALLBACK FUNCTION OnMenuSliderUpdated( INTEGER value ) { Menu_Slider_Fb# = value; }
+
+CALLBACK FUNCTION OnTitleUpdated( STRING value ) { Browse_List_Title$ = value; }
+CALLBACK FUNCTION OnSubtitleUpdated( STRING value ) { Browse_List_Subtitle$ = value; }
+
+CALLBACK FUNCTION OnMenuStateUpdated( INTEGER state ) { Is_Busy_Fb = state; }
+
+/*******************************************************************************
+ * main()
+ * This code will get called when the system starts up
+ ******************************************************************************/
+FUNCTION main()
+{
+	Is_Offline_Fb = on;
+	g_bluOs.InitialiseBrowser();
+
+	// Online
+	RegisterDelegate( g_bluOs, UpdateConnectionState, OnUpdateConnectionStatus );
+
+	// CRPC	
+	RegisterDelegate( g_bluOs, CrpcMessageOut, CrpcMessageOutCallback );
+
+	// Feedback delegates
+	RegisterDelegate( g_bluOs, UpdateDeviceInfo, OnUpdateDeviceInfo );
+	RegisterDelegate( g_bluOs, UpdateDeviceState, OnUpdateDeviceState );
+
+	RegisterDelegate( g_bluOs, UpdateDeviceVolume, OnUpdateDeviceVolume );
+	RegisterDelegate( g_bluOs, UpdateDeviceVolumeDb, OnUpdateDeviceVolumeDb );
+	RegisterDelegate( g_bluOs, UpdateDeviceVolumeFixed, OnUpdateDeviceVolumeFixed );
+	RegisterDelegate( g_bluOs, UpdateDeviceMute, OnUpdateDeviceMute );
+
+	RegisterDelegate( g_bluOs, UpdateDeviceRepeat, OnUpdateDeviceRepeat );
+	RegisterDelegate( g_bluOs, UpdateDeviceShuffle, OnUpdateDeviceShuffle );
+	RegisterDelegate( g_bluOs, UpdateDevicePosition, OnUpdateDevicePosition );
+	RegisterDelegate( g_bluOs, UpdateDeviceLength, OnUpdateDeviceLength );
+
+	RegisterDelegate( g_bluOs, UpdateDeviceLine1, OnUpdateDeviceLine1 );
+	RegisterDelegate( g_bluOs, UpdateDeviceLine2, OnUpdateDeviceLine2 );
+	RegisterDelegate( g_bluOs, UpdateDeviceLine3, OnUpdateDeviceLine3 );
+	RegisterDelegate( g_bluOs, UpdateDeviceUrl, OnUpdateDeviceUrl );
+
+	// Populate List State
+	RegisterDelegate( g_bluOs, BrowseItemUpdate, OnBrowseItemUpdate);
+	RegisterDelegate( g_bluOs, InputItemUpdate, OnInputItemUpdate);
+
+	// Browse Feedback
+	RegisterDelegate(g_bluOs, CurrentPageIndexUpdated, OnCurrentPageIndexUpdated);
+    RegisterDelegate(g_bluOs, PageCountUpdated, OnPageCountUpdated);
+	RegisterDelegate(g_bluOs, CurrentPageItemIndexUpdated, OnCurrentPageItemIndexUpdated);
+	RegisterDelegate(g_bluOs, MenuItemCountUpdated, OnMenuItemCountUpdated);
+	RegisterDelegate(g_bluOs, MenuSliderUpdated, OnMenuSliderUpdated);
+
+	RegisterDelegate(g_bluOs, MenuItemVisibilityUpdate, OnMenuItemVisibilityUpdate);
+	RegisterDelegate(g_bluOs, MenuIconVisibilityUpdate, OnMenuIconVisibilityUpdate);
+	RegisterDelegate(g_bluOs, InputIconVisibilityUpdate, OnInputIconVisibilityUpdate);
+
+	RegisterDelegate(g_bluOs, TitleUpdated, OnTitleUpdated);
+	RegisterDelegate(g_bluOs, SubtitleUpdated, OnSubtitleUpdated);
+
+	RegisterDelegate(g_bluOs, MenuStateUpdated, OnMenuStateUpdated);
+}

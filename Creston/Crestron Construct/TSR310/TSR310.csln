@@ -1,0 +1,20 @@
+{
+  "_fileMetadata": {
+    "_schema": "1.0.0.0",
+    "_createdByAppHost": "2.901.21.0",
+    "_created": "2026-04-15T08:27:01.8984027-06:00",
+    "_lastModifiedByAppHost": "2.901.21.0",
+    "_minimumAppHost": "2.901.0",
+    "_modified": "2026-04-15T08:27:01.8983887-06:00"
+  },
+  "_solution": {
+    "_name": "TSR310",
+    "_projects": [
+      {
+        "_name": "TSR310",
+        "_filename": "TSR310.cuip",
+        "_datetime": "2026-04-15T14:27:01.8338195Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+DIGITAL_INPUT Toggle[32], _SKIP_;
+DIGITAL_INPUT Fb[32,32];
+DIGITAL_OUTPUT State[32,32];
+
+PUSH Toggle
+{
+	INTEGER idx;
+	idx = GetLastModifiedArrayIndex();
+	State[idx] = 1-State[idx];
+}
+
+CHANGE Fb
+{
+	INTEGER idx;
+	idx = GetLastModifiedArrayIndex();
+	State[idx] = Fb[idx];
+}

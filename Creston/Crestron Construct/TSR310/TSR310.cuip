@@ -1,0 +1,60 @@
+{FileMetadata}
+Schema = "1.0.0.0"
+CreatedByAppHost = "2.901.21.0"
+Created = 2026-04-15 08:27:01.867569-06:00
+LastModifiedByAppHost = "2.901.21.0"
+Modified = 2026-04-16 10:36:01.105938-06:00
+CreatedByProjectApp = "1.4501.42.0"
+LastModifiedByProjectApp = "1.4501.42.0"
+MinimumProjectApp = "1.2600.1"
+MinimumAppHost = "2.901.0"
+
+{DeviceResolutionSource}
+[
+  {
+    "ProjectId": "bf088c8c-d71a-4649-8fe9-6b5048abb147",
+    "IsCustom": true,
+    "IsSelected": true,
+    "VisitedName": "TSR-310",
+    "id": "Custom-P-47661752-59e5-4d4b-bb79-1b62161a4a27-320-480",
+    "idName": "TSR-310",
+    "resolutionId": "P-320-480",
+    "resolutionName": "TSR-310",
+    "resolutionType": "custom",
+    "deviceSpecId": "TSR-310",
+    "width": "320px",
+    "height": "480px",
+    "widthMedia": "320px",
+    "heightMedia": "480px",
+    "orientation": 2,
+    "supportedDevices": "",
+    "displayNameSuffix": "",
+    "componentKeys": [
+      "UiEditor"
+    ],
+    "modes": [],
+    "IsMode": false
+  }
+]
+
+{ProjectAttributes}
+
+[Attributes]
+ComponentKey = "UiEditor"
+Name = "TSR310"
+ThemeId = "light-theme.css"
+ProjectThemeIds = "light-theme.css"
+ThemePageColor = "#ffffff"
+IncludeUnusedAsset = "False"
+OverrideThemeColor = "False"
+SdkId = "CH5:2.17.0"
+Id = "bf088c8c-d71a-4649-8fe9-6b5048abb147"
+RuntimeThemeJoin = "0"
+RuntimeLanguageJoin = "0"
+DefaultComponentMode = "custom"
+DefaultFontFamily = "Roboto"
+DeviceResolutionIds = "Custom-P-47661752-59e5-4d4b-bb79-1b62161a4a27-320-480"
+ipId = "03"
+ProjectSchemaVersion = "9"
+ContractIsStale = "true"
+

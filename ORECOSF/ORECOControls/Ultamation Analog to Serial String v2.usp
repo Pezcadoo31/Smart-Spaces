@@ -1,0 +1,181 @@
+/*******************************************************************************
+ * Analog to Serial String SIMPL+ Module
+ * Copyright (c) Ultamation Limited
+ *
+ * Ultamation Limited
+ * E: info@ultamation.com
+ * W: www.ultamation.com
+ *
+ * Module Summary:
+ * Take a value and output the ASCII string representation of the value.
+ * The module takes a few additional inputs allowing the output to be formatted
+ * as either a decimal or hex value with/without zero padding.
+ *
+ * History:
+ * v2	Apr 08 - Rewritten to use 4.0 firmware features
+ * v1	Feb 08 - Written during the Crestron Intermediate course
+ * 
+ * Author:	Oliver Hall
+ * Date:	April 2008 
+ * Info:	For interface details, please read the embedded help file
+ *			See #HELP_BEGIN <-> #HELP_END
+ *
+ ******************************************************************************/
+
+/*******************************************************************************
+ * COMPILER DIRECTIVES
+ ******************************************************************************/
+// ENABLE DYNAMIC
+#SYMBOL_NAME "Analog to Serial String v2 (Ultamation)"
+#HINT "Simplify Analog to Serial conversions"
+// #DEFINE_CONSTANT		_DEBUG					1
+// #DEFINE_CONSTANT
+#CATEGORY "10" // Serial
+#DEFAULT_VOLATILE
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT
+// #HELP_PDF_FILE "" 
+// #DEFAULT_NONVOLATILE
+#ENABLE_STACK_CHECKING
+//#ENABLE_TRACE
+
+#HELP_BEGIN
+Analog to Serial String
+
+Summary:
+Take a value and output the ASCII string representation of the value.
+The module takes a few additional inputs allowing the output to be formatted
+as either a decimal or hex value with/without zero padding.
+
+Inputs:
+Analog
+    value    -  The value to convert to string representation
+
+Outputs:
+String
+    out$	 -  The resulting output.
+
+Parameters:
+Integer
+	base	 -  Specify the number base for the value (Hex or Dec)
+	format	 -	Specify zero padding, fixed width or no special formatting. 
+	length   -  The length of the output string.  Only relevant for zero padded or fixed values.
+                If the output string exceeds "size" characters when zero padding is
+                requested, "#trunc#" will be output.
+	point	 -	Only valid for Decimal mode. The number of digits after the decimal point
+				Valid values are 0 (no decimal point) up to "size".
+
+String
+    prepend$ -  Text to prepend to the output.
+    append$  -  Text to append to the output.
+#HELP_END
+
+/*******************************************************************************
+ * INPUTS & OUTPUTS
+ ******************************************************************************/
+ANALOG_INPUT value;
+
+STRING_OUTPUT out$;
+
+/*******************************************************************************
+ * PARAMETERS
+ ******************************************************************************/
+INTEGER_PARAMETER	base;
+INTEGER_PARAMETER	format;
+INTEGER_PARAMETER	length;
+INTEGER_PARAMETER	point;
+STRING_PARAMETER	prepend$[100];
+STRING_PARAMETER	append$[100];
+
+/*******************************************************************************
+ * PARAMETER PROPERTIES
+ ******************************************************************************/
+#BEGIN_PARAMETER_PROPERTIES base
+	propValidUnits		= unitDecimal;
+	propDefaultUnit		= unitDecimal;
+	propDefaultValue	= 0d;
+	propList			= { 0d, "Decimal" }, { 1d, "Hex" };
+	propShortDescription	= "The base for conversion of value";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES format
+	propValidUnits		= unitDecimal;
+	propDefaultUnit		= unitDecimal;
+	propDefaultValue	= 0d;
+	propList			= { 0d, "None" }, { 1d, "Fixed" }, { 2d, "Zero Pad" };
+	propShortDescription	= "How to format the output";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES length
+	propValidUnits		= unitDecimal;
+	propDefaultUnit		= unitDecimal;
+	propBounds			= 1d, 5d;
+	propDefaultValue	= 5d;
+	propShortDescription	= "The length of the *value* part of the string";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES point
+	propValidUnits		= unitDecimal;
+	propDefaultUnit		= unitDecimal;
+	propBounds			= 0d, 5d;
+	propDefaultValue	= 0d;
+	propShortDescription	= "The number of decimal places (valid for Decimal ONLY)";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES prepend$, append$
+	propValidUnits		= unitString;
+	propDefaultUnit		= unitString;
+	propDefaultValue	= "";
+	propShortDescription	= "A string to add to the beginning or end of the value string";
+#END_PARAMETER_PROPERTIES
+
+CHANGE value
+{
+    STRING temp$[10];
+    INTEGER i;
+    
+    // Create the numeric value
+    if( base = 1 ) // Hex
+        temp$ = itohex( value );
+    else // Decimal
+	{
+        temp$ = itoa( value );
+
+		// Add the decimal point if > 0
+		if( point > 0 )
+		{
+			if( point < len( temp$ ))
+			{
+				MakeString( temp$, "%s.%s",
+						left( temp$, len( temp$ )-point ),
+						right( temp$, point ));
+			}
+			else
+			{
+				for( i=1 to ( point - len( temp$ )))
+					temp$ = "0" + temp$;
+				temp$ = "0." + temp$;
+			}
+		} 
+	}
+    
+    // Add zero/space padding if desired
+    if( format > 0 )
+    {
+        if( len( temp$ ) > length )
+            temp$ = "#trunc#";
+        else
+        {
+            for( i=( len( temp$ )) to ( length-1 ))
+            	if( format = 1 )
+            		temp$ = " " + temp$;
+            	else
+                	temp$ = "0" + temp$;
+        }         
+    }
+
+    // Add the head and tail text
+    out$ = prepend$ + temp$ + append$;
+}

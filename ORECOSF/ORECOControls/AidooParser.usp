@@ -1,0 +1,266 @@
+/*******************************************************************************************
+  SIMPL+ Module: AidooParser
+  Project:       ORECO 
+  Author:        
+  Date:          27/04/2026
+  Version:       2.0
+
+  Description:
+  Parsea la respuesta JSON del Airzone Aidoo Pro (puerto 3000, /api/v1/hvac)
+  y extrae los campos "on" y "roomTemp" para mostrar el estado actual.
+
+  v2.0 - IMPORTANTE:
+  El TCP/IP Client de Crestron entrega las respuestas HTTP en multiples chunks:
+    Chunk 1: "HTTP/1.1 200 OK\r\n...headers...\r\n\r\n{...inicio del JSON..."
+    Chunk 2: "...resto del JSON...\r\n"
+
+  Por eso este modulo MANTIENE UN BUFFER ACUMULATIVO. Solo cuando detecta
+  que el JSON esta completo (cierre "}]") procesa y actualiza outputs.
+
+  Inputs:
+    - rx$    : string JSON crudo recibido del TCP/IP Client del Aidoo (en chunks)
+    - enable : digital. Si esta en 0, el modulo no procesa.
+
+  Outputs:
+    - temperature$ : string formateado para el TSR. Ejemplos: "24.3 \xB0C", "-- \xB0C"
+    - temp_value   : analog. Valor numerico de la temperatura x10.
+    - is_on_fb     : digital. 1 si el AC esta encendido, 0 si apagado.
+
+  Changelog:
+    v1.0 - Initial version
+    v1.1 - Fix: removed multiple <> operators incompatible with SIMPL+
+    v2.0 - Fix: buffer acumulativo para chunks TCP fragmentados
+*******************************************************************************************/
+
+#SYMBOL_NAME "Aidoo Parser v2.0"
+#HINT "Parses fragmented Aidoo Pro JSON response (with chunk buffering)"
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+
+// ---------- INPUTS ----------
+STRING_INPUT  rx$[2000];
+DIGITAL_INPUT enable;
+
+// ---------- OUTPUTS ----------
+STRING_OUTPUT  temperature$;
+ANALOG_OUTPUT  temp_value;
+DIGITAL_OUTPUT is_on_fb;
+
+// ---------- INTERNAL STATE ----------
+STRING buffer$[4000];   // buffer acumulativo para chunks JSON
+
+// ---------- HELPER FUNCTIONS ----------
+
+// Verifica si un caracter es whitespace (espacio, tab, CR, LF).
+INTEGER_FUNCTION IsWhitespace(STRING ch)
+{
+    IF (ch = " ")
+        RETURN(1);
+    IF (ch = "\x09")
+        RETURN(1);
+    IF (ch = "\x0A")
+        RETURN(1);
+    IF (ch = "\x0D")
+        RETURN(1);
+    RETURN(0);
+}
+
+// Verifica si un caracter es delimitador de fin de valor JSON.
+INTEGER_FUNCTION IsDelimiter(STRING ch)
+{
+    IF (ch = ",")
+        RETURN(1);
+    IF (ch = "}")
+        RETURN(1);
+    IF (ch = "]")
+        RETURN(1);
+    RETURN(0);
+}
+
+// Busca un campo en el JSON y devuelve la posicion donde inicia su valor.
+INTEGER_FUNCTION FindFieldStart(STRING json, STRING fieldName)
+{
+    INTEGER pos;
+    STRING searchKey[50];
+
+    searchKey = "\"" + fieldName + "\":";
+
+    pos = FIND(searchKey, json);
+    IF (pos = 0)
+        RETURN(0);
+
+    pos = pos + LEN(searchKey);
+    RETURN(pos);
+}
+
+// Extrae el valor desde una posicion dada hasta la siguiente coma o llave.
+STRING_FUNCTION ExtractValue(STRING json, INTEGER startPos)
+{
+    STRING result[20];
+    STRING ch[1];
+    INTEGER i;
+    INTEGER jsonLen;
+
+    result = "";
+    jsonLen = LEN(json);
+
+    FOR (i = startPos TO jsonLen)
+    {
+        ch = MID(json, i, 1);
+
+        IF (IsDelimiter(ch) = 1)
+            BREAK;
+
+        IF (IsWhitespace(ch) = 0)
+            result = result + ch;
+    }
+
+    RETURN(result);
+}
+
+// Procesa el JSON completo en buffer$ y actualiza outputs.
+FUNCTION ProcessCompleteJson()
+{
+    INTEGER posOn;
+    INTEGER posTemp;
+    STRING valueOn[5];
+    STRING valueTemp[20];
+    INTEGER tempInt;
+    INTEGER tempFrac;
+    INTEGER dotPos;
+    STRING intPart[10];
+    STRING fracPart[10];
+
+    // 1) Buscar campo "on"
+    posOn = FindFieldStart(buffer$, "on");
+    IF (posOn = 0)
+        RETURN;
+
+    valueOn = ExtractValue(buffer$, posOn);
+
+    // 2) Determinar estado encendido/apagado
+    IF (valueOn = "1")
+    {
+        is_on_fb = 1;
+    }
+    ELSE
+    {
+        is_on_fb     = 0;
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    // 3) Si esta encendido, extraer roomTemp
+    posTemp = FindFieldStart(buffer$, "roomTemp");
+    IF (posTemp = 0)
+    {
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    valueTemp = ExtractValue(buffer$, posTemp);
+
+    IF (LEN(valueTemp) = 0)
+    {
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    // 4) Si roomTemp = 0 (sensor sin reportar), tratar como sin dato
+    IF (valueTemp = "0")
+    {
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    // 5) Calcular el valor analogico (temp x10)
+    dotPos = FIND(".", valueTemp);
+    IF (dotPos > 0)
+    {
+        intPart  = LEFT(valueTemp, dotPos - 1);
+        fracPart = MID(valueTemp, dotPos + 1, 1);
+        tempInt  = ATOI(intPart);
+        tempFrac = ATOI(fracPart);
+        temp_value = (tempInt * 10) + tempFrac;
+    }
+    ELSE
+    {
+        tempInt    = ATOI(valueTemp);
+        temp_value = tempInt * 10;
+        valueTemp  = valueTemp + ".0";
+    }
+
+    // 6) Formato final con simbolo de grados
+    temperature$ = valueTemp + " \xB0C";
+}
+
+// ---------- MAIN EVENT: CHANGE rx$ ----------
+// Cada chunk que llega del TCP se acumula en buffer$.
+// Cuando detectamos el cierre del JSON ("}]"), procesamos.
+CHANGE rx$
+{
+    INTEGER closePos;
+
+    // Modulo deshabilitado: no hacer nada
+    IF (enable = 0)
+    {
+        buffer$      = "";
+        temperature$ = "";
+        temp_value   = 0;
+        is_on_fb     = 0;
+        RETURN;
+    }
+
+    // Si rx$ esta vacio, ignorar
+    IF (LEN(rx$) = 0)
+        RETURN;
+
+    // Si llega un nuevo header HTTP, significa que empieza una respuesta nueva.
+    // En ese caso, descartamos cualquier buffer parcial previo y empezamos limpio.
+    IF (FIND("HTTP/1.1", rx$) > 0)
+    {
+        buffer$ = rx$;
+    }
+    ELSE
+    {
+        // Es una continuacion: agregar al buffer existente
+        // Pero proteger contra overflow
+        IF ((LEN(buffer$) + LEN(rx$)) > 3900)
+        {
+            // Buffer creciendo demasiado, descartar y empezar
+            buffer$ = rx$;
+        }
+        ELSE
+        {
+            buffer$ = buffer$ + rx$;
+        }
+    }
+
+    // Detectar fin del JSON: buscar "}]" que cierra el array "data": [{...}]
+    closePos = FIND("}]", buffer$);
+
+    IF (closePos > 0)
+    {
+        // JSON completo, procesar
+        ProcessCompleteJson();
+
+        // Limpiar buffer para el siguiente ciclo
+        buffer$ = "";
+    }
+}
+
+// ---------- INITIALIZATION ----------
+FUNCTION Main()
+{
+    WaitForInitializationComplete();
+
+    buffer$      = "";
+    temperature$ = "-- \xB0C";
+    temp_value   = 0;
+    is_on_fb     = 0;
+}
