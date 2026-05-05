@@ -51,10 +51,10 @@ Los tres TSR-310 corren la **misma interfaz visual** (un solo `.vtp` compilado a
        └──────┬─────┘         └──────┬─────┘         └──────┬─────┘
               │                      │                      │
               ├── Z1_Audio_*  ───┐   ├── Z2_Audio_*  ───┐   ├── Z3_Audio_*  ───┐
-              ├── Z1_TV_*    ───┤   ├── Z2_TV_*    ───┤   ├── Z3_TV_*    ───┤
-              ├── Z1_Lut_*   ───┤   ├── Z2_Lut_*   ───┤   ├── Z3_Lut_*   ───┤
-              │                 │   │                 │   │                 │
-              └─────────────────┴───┴─── HVAC, Persianas ──── (compartidos) ─┘
+              ├── Z1_TV_*     ───┤   ├── Z2_TV_*     ───┤   ├── Z3_TV_*     ───┤
+              ├── Z1_Lut_*    ───┤   ├── Z2_Lut_*    ───┤   ├── Z3_Lut_*    ───┤
+              │                  │   │                  │   │                  │
+              └──────────────────┴───┴──── HVAC, Persianas ──── (compartidos) ─┘
 ```
 
 ### Subsistemas aislados por zona (uno por oficina)
@@ -85,7 +85,7 @@ Los tres TSR-310 corren la **misma interfaz visual** (un solo `.vtp` compilado a
 
 | Componente | Modelo | Cantidad | Notas |
 |---|---|---|---|
-| Streamer de audio | Bluesound BCS300 (BluOS) | 3 | Uno por oficina, con sus bocinas asociadas |
+| Streamer de audio | Bluesound BCS300 (BluOS) | 6 | Dos por oficina, con sus bocinas asociadas |
 | Pantalla profesional 98" | Samsung LH98BEDH | 1 | Para Z1 (oficina principal) |
 | Pantalla profesional 65" | Samsung LH65BEFH | 2 | Para Z2 y Z3 |
 
