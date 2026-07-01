@@ -1,0 +1,1089 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crestron.DeviceDrivers.NonSandboxed</name>
+    </assembly>
+    <members>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.IActiveCNXEventArgs">
+            <summary>
+            Interface IActiveCNXEventArgs - added for COM interop
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs">
+            <summary>
+            ActiveCNXEventArgs - used for ActiveCNX Data Events, such as onDigital, onSerial, and onAnalog
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs.#ctor(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Constructor for Digital event
+            </summary>
+            <param name="iSlot">Slot that is being used. 0 for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+            <param name="boolDigitalValue">true or false</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs.#ctor(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Constructor for Digital event
+            </summary>
+            <param name="strSlot">Slot that is being used. "0" for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+            <param name="boolDigitalValue">true or false</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Constructor used for Analog event
+            </summary>
+            <param name="iSlot">Slot that is being used. 0 for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+            <param name="iAnalogValue">Analog value</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Constructor used for Analog event
+            </summary>
+            <param name="strSlot">Slot that is being used. "0" for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+            <param name="iAnalogValue">Analog value</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs.#ctor(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Constructor used for Serial Events
+            </summary>
+            <param name="iSlot">Slot that is being used. 0 for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+            <param name="strSerialValue">Serial value</param>
+            <param name="strEncodingType">Encoding type</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs.#ctor(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Constructor used for Serial Events
+            </summary>
+            <param name="strSlot">Slot that is being used. "0" for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+            <param name="strSerialValue">Serial value</param>
+            <param name="strEncodingType">Encoding type</param>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.IActiveCNXErrorEventArgs">
+            <summary>
+            Interface IActiveCNXErrorEventArgs - added for COM Interop
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXErrorEventArgs">
+            <summary>
+            ActiveCNXErrorEventArgs - used for ActiveCNX Error Events, contains error message
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXErrorEventArgs.#ctor(System.Int32,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="iNumber">Error number (not currently used)</param>
+            <param name="strMessage">Error message</param>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.IActiveCNXConnectionEventArgs">
+            <summary>
+            IActiveCNXConnectionEventArgs - added for COM Interop
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXConnectionEventArgs">
+            <summary>
+            ActiveCNXConnectionEventArgs - used for ActiveCNX Connection events, such as onConnect, and onDisconnect
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.IActiveCNXCertificateEventArgs">
+            <summary>
+            IActiveCNXCertificateEventArgs - added for COM Interop
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXCertificateEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXCertificateEventArgs.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="strCertificate">Certificate information</param>
+            <param name="strCertVerification">Verification Result</param>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.IActiveCNXIdentificationEventArgs">
+            <summary>
+            Interface IActiveCNXIdentificationArgs - added for CIPIdentification packet
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXIdentificationEventArgs">
+            <summary>
+            ActiveCNXIdentificationArgs - used for ActiveCNX New CIP IDentification Packet 0*1F
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.IActiveCNX">
+            <summary>
+            Interface IActiveCNX - added for COM interop
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.RepeatJoin.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructor which requires two parameters.
+            </summary>
+            <param name="iSlot">Which slot on the symbol is this join on? 0 for main slot</param>
+            <param name="iJoin">Join number. 1 based</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.RepeatJoin.#ctor(System.Int32)">
+            <summary>
+            Constructor which requires one parameter
+            </summary>
+            <param name="iJoin">Join number. 1 based</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.RepeatJoin.Equals(System.Object)">
+            <summary>
+            Equals. Had to be overridden in order to allow for comparison in the timed loop
+            </summary>
+            <param name="obj">object to compare to</param>
+            <returns>True if object is the same, false if not</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.RepeatJoin.GetHashCode">
+            <summary>
+            GetHasCode - overridden for future use in Hash table
+            </summary>
+            <returns>unique hashcode, based on join number, and slot number</returns>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket">
+            <summary>
+                Used by ActiveCNX to establish a connection to the Processor. SSL is supported within the class itself.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.m_sslSocketStream">
+            <summary>
+            SslStream for SSL (duh)
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.m_bUseSSL">
+            <summary>
+            Connect and use SSL?
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.#ctor">
+            <summary>
+            ctors
+            </summary>
+            
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.BeginConnect(System.Net.EndPoint,System.AsyncCallback,System.Object)">
+            <summary>
+                Implementation of BeginConnect for the Socket
+            </summary>
+            <param name="endPoint"></param>
+            <param name="asyncCallback"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.EndConnect(System.IAsyncResult)">
+            <summary>
+                Implementation of EndConnect. If implementing SSL then do ValidateSSL.
+            </summary>
+            <param name="ar"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.BeginSend(System.Byte[],System.Int32,System.Int32,System.Net.Sockets.SocketFlags,System.AsyncCallback,System.Object)">
+            <summary>
+                Implementation of BeginSend, which will use SslStream BeginWrite or Socket BeginSend.
+            </summary>
+            <param name="byteArray"></param>
+            <param name="iOffset"></param>
+            <param name="iSize"></param>
+            <param name="socketFlags"></param>
+            <param name="asyncCallback"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.BeginReceive(System.Byte[],System.Int32,System.Int32,System.Net.Sockets.SocketFlags,System.AsyncCallback,System.Object)">
+            <summary>
+                Implementation of BeginReceive, which will use SslStream BeginRead or Socket BeginReceive
+            </summary>
+            <param name="byteArray"></param>
+            <param name="iOffset"></param>
+            <param name="iSize"></param>
+            <param name="socketFlags"></param>
+            <param name="asyncCallback"></param>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.EndReceive(System.IAsyncResult)">
+            <summary>
+                Implementation of EndReceive, which will use SslStream EndRead or Socket EndReceive
+            </summary>
+            <param name="ar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.EndSend(System.IAsyncResult)">
+            <summary>
+                Implementation of EndSend, which will use SslStream EndWrite or Socket EndSend
+            </summary>
+            <param name="ar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.ValidateClientSSL">
+            <summary>
+                Implementation of Ssl Validation
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.OnCertificateValidation(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+                Static asynchronous callback to verify Ssl certificate
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="sslPolicyErrors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ActiveCNXSocket.Close">
+            <summary>
+                Implementation of Close which will close and dispose of the SslStream if it was used.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.#ctor">
+            <summary>
+            ActiveCNX() creates an instant of the ActiveCNX object. You still need to call the Connect method with all the parameters
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.#ctor(System.String,System.Int64,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Creates instant of the ActiveCNX object, and connects to the specified control system
+            </summary>
+            <param name="strIPAddress">IP Address in format 123.123.123.123 or hostname in format hostname.domain.com</param>
+            <param name="lIPID">IP ID</param>
+            <param name="strUserName">UserName, if necessary. Leave blank ("") if not used</param>
+            <param name="strPassword">Password, if necessary. Leave blank ("") if not used</param>
+            <param name="intPort">Port at which to connect. Use 41794 for default</param>
+            <param name="boolSSL">Bollean value to indicate if SSL should be used. false = standard connection true = SSL connection</param>
+        </member>
+        <member name="E:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.onCertVerification">
+            <summary>
+            Event that gets triggered when certificates get verified.
+            </summary>
+        </member>
+        <member name="E:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.onDigital">
+            <summary>
+            ActiveCNXEventHandler is used to trigger the onDigital, onAnalog, and onSerial events
+            </summary>
+        </member>
+        <member name="E:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.onError">
+            <summary>
+            ActiveCNXErrorEventHandler is used to trigger the onError event.
+            </summary>
+        </member>
+        <member name="E:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.onConnect">
+            <summary>
+            ActiveCNXConnectionEventHandler is used to trigger the onConnect, and onDisconnect events.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Timer_Tick(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            Timer_Tick is executed whenever the timer expires. It will send another heartbeat if necessary, and trigger
+            an event if the heartbeat is not received in 3 seconds.
+            This method will also re-send repeat digitals when necessary.
+            For future use: this will be used to deal with RCBs
+            </summary>
+            <param name="sender">Object that called this method - not used</param>
+            <param name="e">ElapsedEventArgs - not used</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.OnSocketConnect(System.IAsyncResult)">
+            <summary>
+            OnSocketConnect will be triggered when the connection is completed.
+            It sends out the first part of the handshake.
+            </summary>
+            <param name="ar">Asynchronous Result</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.OnDataSent(System.IAsyncResult)">
+            <summary>
+            OnDataSent will be triggered when sending data is complete.
+            After sending the data, it'll start listening for incoming data.
+            </summary>
+            <param name="ar">Asynchronous Result</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.OnDataReceive(System.IAsyncResult)">
+            <summary>
+            OnDataReceive is triggered when data is received from the Control System.
+            After processing the data, it'll start listening for more incoming data.
+            </summary>
+            <param name="ar">Asynchronouse Result</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessDummyPacket">
+            <summary>
+            This packet is used for diagnostics only.  It is designed to test the TCP connection is still active.
+            No response is necessary.  It should simply be discarded.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessConnectionResponsePacket">
+            <summary>
+            After a connection request is made, a response is returned.  The data will be a handler to represent the logical
+            connection to the Crestron device.  If the handler is negative number, an error occurred.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessDisconnectPacket">
+            <summary>
+            When the communication is complete, the connection must be cleanly terminated by the “Disconnect” command.
+             If the TCP client connected with a Add Master List request the entry in the Master List is removed.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessDisconnectResponsePacket">
+            <summary>
+            “Disconnect Response” will tell the client all appropriate entries are removed from the internal tables
+                for a connection.  The only possible error code is invalid handler.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessDataPacket">
+            <summary>
+            The data wrapper simply passes raw Crestron data packet across.  This packet will not contain the Crestron ID field.
+            It will start with the packet length information.  Both the server and the client use it.  When the data
+            packet is received by the server from the application, it should be passed out to the network with CIP
+            flow control.  When the client received a data packet from the server, it should pass it up to the application.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessDigitalSignal(System.String,System.Int32,System.Int32)">
+            <summary>
+            Encapsulated in the Data packet, Digital Signals are packet type 00
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iOffset"></param>
+            <param name="iDigitalPacketLength"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessAnalogSignal(System.String,System.Int32)">
+            <summary>
+            Encapsulated in the Data packet, Analog Signals are packet type 01 or 14
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iOffset"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessMultiChannelSerialSignal(System.String,System.Int32)">
+            <summary>
+            Encapsulated in the Data packet, Multichannel Serial Signals are packet type 15
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iOffset"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessSerialSignal(System.String,System.Int32)">
+            <summary>
+            Encapsulated in the Data packet, Digital Signals are packet type 12
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iOffset"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessIndirectText(System.String,System.Int32)">
+            <summary>
+            Encapsulated in the Data packet, Digital Signals are packet type 02
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iOffset"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessBufferThresholdPacket">
+            <summary>
+            When the client sends data to the Gateway faster than it can send to the destination device,
+                the Gateway’s buffer will start to fill up.  Once a danger threshold is reached, this
+                message from the server will warn the client.  The application should stop sending any
+                more data until the buffer has a chance to empty out.  At that point, a clear to send message
+                will be sent to the application.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessBufferSizeRequestPacket">
+            <summary>
+            If the client application wants to know exactly how full the buffer is, this request packet is sent
+            to query the Gateway.  The Gateway will return the same packet with the percentage
+            data attached.  If the percent is zero, the buffer is empty.  All values are rounded up.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessAuthenticationResponsePacket">
+            <summary>
+            This message is the gateway’s response to “Authenticate” message.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessHeartbeatRequestPacket">
+            <summary>
+            This packet is used to detect dead connections between client applications and the server.  Client application sends
+                the above heart beat message to server every 10 seconds for internal ethernet communication and
+                every 5 minutes for external communication. If no response from the server after the client has sent
+                out 3 consective messages, the connection is considered dead.  Similar mechanism can be used by the
+                server to detect dead connections with clients.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessHeartbeatResponsePacket">
+            <summary>
+            process heart beat request packet
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessProgramReadyPacket">
+            <summary>
+            This packet tells the client the current status of the Simpl Windows program in the control
+                system.  It will only be sent by the internal gateway in the control system itself.  This
+                client can use this packet to know when it is okay to send the “Connect” message.   It will be
+                used to aid in the automatic reconnect after the control system sends a “Disconnect” message.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessExtendedLengthCresnetPacket">
+            <summary>
+            This is a wrapper for the extended length cresnet packets. These packets differ from the
+                regular packets  in the fact that we use 2 bytes for the length instead of the existing 1 byte.
+                This packet will not contain the Crestron ID field.  It will start with the packet length information.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.OnVerify(System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain)">
+            <summary>
+            OnVerify - Function gets executed at end of certification.
+            We trigger onCertVerification, and let the host program decide what to do when the certificate is expired, or invalid.
+            </summary>
+            <param name="remote">Remote certificate</param>
+            <param name="chain">Certificate Chain</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Connect">
+            <summary>
+            Use this if you have already provided all the connection parameters. This could be used as a reconnect
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Connect(System.String,System.Int64)">
+            <summary>
+            Connect using just the connection info, and IP ID.
+            Will not use SSL, and will use default (41794) port
+            </summary>
+            <param name="strConnectTo">Connection info as string. Either IP address xxx.xxx.xxxx.xxx or hostname: hostname.domain.com</param>
+            <param name="lIPID">long IP ID to be used</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Connect(System.String,System.Int64,System.Boolean)">
+            <summary>
+            Connect using the option to use SSL. Will use default port for SSL and non SSL.
+            </summary>
+            <param name="strConnectTo">Connection info as string. Either IP address xxx.xxx.xxxx.xxx or hostname: hostname.domain.com</param>
+            <param name="lIPID">long IP ID to be used</param>
+            <param name="boolSSL">bool. True for using SSL, false for not using SSL</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Connect(System.String,System.Int64,System.String,System.String,System.Int32,System.Boolean,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Connect overload that accepts a configurable Maximum Number of Heartbeat Timeouts. ActiveCNX will close the underlying
+                socket once this number of timeouts is exceeded.
+            </summary>
+            <param name="strConnectTo"></param>
+            <param name="lIPID"></param>
+            <param name="strUserName"></param>
+            <param name="strPassword"></param>
+            <param name="iPort"></param>
+            <param name="boolSSL"></param>
+            <param name="iHeartBeatInterval"></param>
+            <param name="iHeartBeatTimeOut"></param>
+            <param name="iMaxNumberHeartbeatTimeoutsPermitted"></param>
+            <param name="bRequireTLS1_2"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Connect(System.String,System.Int64,System.String,System.String,System.Int32,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Connect using all available options
+            </summary>
+            <param name="strConnectTo">Connection info as string. Either IP address xxx.xxx.xxxx.xxx or hostname: hostname.domain.com</param>
+            <param name="lIPID">long. IP ID to be used</param>
+            <param name="strUserName">String. can use "" as blank</param>
+            <param name="strPassword">String. can use "" as blank</param>
+            <param name="iPort">int. Port to connect on</param>
+            <param name="boolSSL">bool. True for using SSL, false for not using SSL</param>
+            <param name="iHeartBeatInterval">int. Number of milliseconds between heartbeats. Set to 0 to disable heartbeats</param>
+            <param name="iHeartBeatTimeOut">int. Number of milliseconds before heartbeat timeout error gets generated</param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Connect(System.String,System.String)">
+            <summary>
+            Use this overload to establish a CIP connection for inbound connected devices. In this overload the socket has already been established.
+            </summary>
+            <param name="UserName"></param>
+            <param name="Password"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Disconnect(System.Byte)">
+            <summary>
+            Disconnects the CIP connection, and the socket, with a reason code.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.Disconnect">
+            <summary>
+            Disconnects the CIP connection, and the socket.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.UpdateRequest">
+            <summary>
+            Issues an UpdateRequest to the control processor
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendDigital(System.Int32,System.Boolean)">
+            <summary>
+            SendDigital sends a digital value to the control processor.
+            </summary>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="boolValue">value: true or false</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendDigital(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            SendDigital sends a digital value to the control processor.
+            </summary>
+            <param name="iSlot">Slot number, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="boolValue">value: true or false</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendDigital(System.String,System.Int32,System.Boolean)">
+            <summary>
+            SendDigital override - sends a a digital value to the control processor using string (sub) slots.
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iJoin"></param>
+            <param name="boolValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.StartRepeatingDigital(System.Int32)">
+            <summary>
+            StartRepeatingDigital sends a high to a digital join, as a repeating digital type.
+            StopRepeatingDigital is needed to stop sending it.
+            Repeating digitals act in such a way that the control processor will bring the join low
+            if it has not received another high.
+            </summary>
+            <param name="iJoin">Join number, 1 based</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.StartRepeatingDigital(System.Int32,System.Int32)">
+            <summary>
+            StartRepeatingDigital sends a high to a digital join, as a repeating digital type.
+            StopRepeatingDigital is needed to stop sending it.
+            Repeating digitals act in such a way that the control processor will bring the join low
+            if it has not received another high.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.StopRepeatingDigital(System.Int32)">
+            <summary>
+            StopRepeatingDigital sends a low toa  digital join, as a repeating digital type.
+            Repeating digitals act in such a way that the control processor will bring the join low
+            if it has not received another high.
+            </summary>
+            <param name="iJoin">Join number, 1 based</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.StopRepeatingDigital(System.Int32,System.Int32)">
+            <summary>
+            StopRepeatingDigital sends a low toa  digital join, as a repeating digital type.
+            Repeating digitals act in such a way that the control processor will bring the join low
+            if it has not received another high.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendAnalog(System.Int32,System.Int32)">
+            <summary>
+            SendAnalog sends an analog value to the control processor.
+            </summary>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="iValue">Analog value</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendAnalog(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            SendAnalog sends an analog value to the control processor.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="iValue">Analog value</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendAnalog(System.String,System.Int32,System.Int32)">
+            <summary>
+            SendAnalog override - sends an analog value to the control processor using string (sub) slots.
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iJoin"></param>
+            <param name="iValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendSerial(System.Int32,System.String)">
+            <summary>
+            SendSerial sends a serial value (string) to the control processor.
+            </summary>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="strValue">Serial value</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendSerial(System.Int32,System.Int32,System.String)">
+            <summary>
+            SendSerial sends a serial value (string) to the control processor.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="strValue">Serial value</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendSerial(System.String,System.Int32,System.String)">
+            <summary>
+            SendSerial override - sends a serialvalue to the control processor using string (sub) slots.
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iJoin"></param>
+            <param name="strValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendProgramReady">
+            <summary>
+            Send program ready packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._StartRepeatingDigital(System.Int32,System.Int32)">
+            <summary>
+            _StartRepeatingDigital sends a high to a digital join, as a repeating digital type.
+            _StopRepeatingDigital is needed to stop sending it.
+            Repeating digitals act in such a way that the control processor will bring the join low
+            if it has not received another high.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._StopRepeatingDigital(System.Int32,System.Int32)">
+            <summary>
+            _StopRepeatingDigital sends a low toa  digital join, as a repeating digital type.
+            Repeating digitals act in such a way that the control processor will bring the join low
+            if it has not received another high.
+            </summary>
+            <param name="iSlot">Slot number, 0 for main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._SendDigital(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            _SendDigital sends a digital value to the control processor.
+            </summary>
+            <param name="iSlot">Slot number, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="boolValue">value: true or false</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._SendDigital(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Temporary _SendDigital override - used for subslotted Signals
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iJoin"></param>
+            <param name="boolValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._SendAnalog(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            _SendAnalog sends an analog value to the control processor.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="iValue">Analog value</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._SendAnalog(System.String,System.Int32,System.Int32)">
+            <summary>
+            Temporary _SendAnalog override - used for subslotted Signals
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iJoin"></param>
+            <param name="iValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._SendSerial(System.Int32,System.Int32,System.String)">
+            <summary>
+            _SendSerial sends a serial value (string) to the control processor.
+            </summary>
+            <param name="iSlot">Slot, 0 is the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="strValue">Serial value</param>
+            <returns>True for success, false for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX._SendSerial(System.String,System.Int32,System.String)">
+            <summary>
+            Temporary _SendSerial override - used for subslotted Signals
+            </summary>
+            <param name="strSlot"></param>
+            <param name="iJoin"></param>
+            <param name="strValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendAuthentication">
+            <summary>
+            Creates, and sends authentication packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.IsCompletePacket(System.Int32)">
+            <summary>
+            Determines if the buffer holds a complete Cresnet packet
+            </summary>
+            <param name="iCount">Number of byes received</param>
+            <returns>True for complete packet, False for incomplete packet</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.ProcessBuffer(System.Int32)">
+            <summary>
+            Takes a processed packet off the buffer, and sees if a complete packet is left
+            </summary>
+            <param name="iCount">Number of bytes to remove</param>
+            <returns>True for complete packet, False for incomplete packet</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.CreateConnectionResponsePacket(System.Byte)">
+            <summary>
+            Build and send the Connection Response Packet as a response to an incoming connection.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.CreateConnectPacket(System.Object)">
+            <summary>
+            Creates, and sends CIP Connect packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.CreateFITCRedirectPacket(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Creates, and sends Fusion in the Cloud Redirect” packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.CIPConnectTimerExpired(System.Object)">
+            <summary>
+            Method used to kill off the socket in case we don't receive a CIP Connect Response.
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.CreateUpdateRequestPacket">
+            <summary>
+            Creates, and sends CIP Update Request Packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.CreateEndOfUpdateRequestPacket">
+            <summary>
+            Creates, End of update REquest Packet()
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendHeartBeat">
+            <summary>
+            Sends Heartbeat packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendHeartBeatResponse">
+            <summary>
+            Sends Heartbeat Response packet
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendRD(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Sends actual Repeat Digital Packet
+            </summary>
+            <param name="iSlot">Slot, 0 for the main slot</param>
+            <param name="iJoin">Join number, 1 based</param>
+            <param name="boolValue">Value, true or false</param>
+            <returns>True for success, False for failure</returns>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.killConnection">
+            <summary>
+            Terminates the connection, kills the timer, and sets connected variables properly
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendConnectEvent(Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXConnectionEventArgs)">
+            <summary>
+            Queue or send the Connect event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendDisconnectEvent(Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXConnectionEventArgs)">
+            <summary>
+            Queue or send the Disconnect event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendTraceEvent(System.String)">
+            <summary>
+            Queue or send the Trace event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendAnalogEvent(Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs)">
+            <summary>
+            Queue or send the Analog event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendDigitalEvent(Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs)">
+            <summary>
+            Queue or send the Digital event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendSerialEvent(Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXEventArgs)">
+            <summary>
+            Queue or send the Serial event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNX.SendErrorEvent(Crestron.DeviceDrivers.SDK.Transports.Cip.ActiveCNX.ActiveCNXErrorEventArgs)">
+            <summary>
+            Queue or send the Error event
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.MessageStyle.PAM_RADIO_TYPE">
+            <summary>
+             Yes/No/Maybe conditionals
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.MessageStyle.PAM_BINARY_PROMPT">
+            <summary>
+             This is for server client non-human interaction.. these are NOT
+             part of the X/Open PAM specification.
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamConv">
+            <summary>
+             The actual conversation structure itself.
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamMessage">
+            <summary>
+             Used to pass prompting text, error messages, or other informatory
+             text to the user.  This structure is allocated and freed by the PAM
+             library (or loaded module).
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamResponse">
+            <summary>
+             Used to return the user's response to the PAM library.  This
+             structure is allocated by the application program, and free()'d by
+             the Linux-PAM library (or calling module).
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus">
+            <summary>
+             The PAM return values.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_SUCCESS">
+            <summary>
+            Successful function return.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_OPEN_ERR">
+            <summary>
+            dlopen() failure when dynamically
+            loading a service module.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_SYMBOL_ERR">
+            <summary>
+            Symbol not found.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_SERVICE_ERR">
+            <summary>
+            Error in service module.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_SYSTEM_ERR">
+            <summary>
+            System error.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_BUF_ERR">
+            <summary>
+            Memory buffer error.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_PERM_DENIED">
+            <summary>
+            Permission denied.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTH_ERR">
+            <summary>
+            Authentication failure.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_CRED_INSUFFICIENT">
+            <summary>
+            Can not access authentication data
+            due to insufficient credentials.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTHINFO_UNAVAIL">
+            <summary>
+            Underlying authentication service
+            can not retrieve authentication
+            information.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_USER_UNKNOWN">
+            <summary>
+            User not known to the underlying authenticaiton module.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_MAXTRIES">
+            <summary>
+            An authentication service has
+            maintained a retry count which has
+            been reached.  No further retries
+            should be attempted.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_NEW_AUTHTOK_REQD">
+            <summary>
+            New authentication token required.
+            This is normally returned if the
+            machine security policies require
+            that the password should be changed
+            beccause the password is NULL or it
+            has aged.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_ACCT_EXPIRED">
+            <summary>
+            User account has expired.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_SESSION_ERR">
+            <summary>
+            Can not make/remove an entry for
+            the specified session.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_CRED_UNAVAIL">
+            <summary>
+            Underlying authentication service
+            can not retrieve user credentials
+            unavailable.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_CRED_EXPIRED">
+            <summary>
+            User credentials expired
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_CRED_ERR">
+            <summary>
+            Failure setting user credentials.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_NO_MODULE_DATA">
+            <summary>
+            No module specific data is present.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_CONV_ERR">
+            <summary>
+            Conversation error.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTHTOK_ERR">
+            <summary>
+            Authentication token manipulation error.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTHTOK_RECOVERY_ERR">
+            <summary>
+            Authentication information cannot be recovered.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTHTOK_LOCK_BUSY">
+            <summary>
+            Authentication token lock busy.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTHTOK_DISABLE_AGING">
+            <summary>
+            Authentication token aging disabled.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_TRY_AGAIN">
+            <summary>
+            Preliminary check by password service.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_IGNORE">
+            <summary>
+            Ignore underlying account module
+            regardless of whether the control
+            flag is required, optional, or sufficient.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_ABORT">
+            <summary>
+            Critical error (?module fail now request).
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_AUTHTOK_EXPIRED">
+            <summary>
+            User's authentication token has expired.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_MODULE_UNKNOWN">
+            <summary>
+            Module is not known.
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_BAD_ITEM">
+            <summary>
+            Bad item passed to pam_*_item().
+            </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_CONV_AGAIN">
+             <summary>
+            Conversation function is event driven
+            and data is not available yet.
+             </summary>
+        </member>
+        <member name="F:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStatus.PAM_INCOMPLETE">
+            <summary>
+            Please call this function again to
+            complete authentication stack. Before
+            calling again, verify that conversation
+            is completed.
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.NonSandboxed.Authentication.SystemAccountInfo">
+            <summary>
+             Renamed as "SystemAccountInfo", this structure is actually the linux passwd struct as defined in pwd.h.
+             http://linux.die.net/man/3/getpwnam
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStdC.MarshalUtils.MarshalPtrPtrStructIn``1(System.Int32,System.IntPtr)">
+            <summary>
+             Marshal an incomming pointer to array of pointers to structs into an enumerable of struct.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStdC.MarshalUtils.MarshalPtrPtrStructOut``1(System.Collections.Generic.List{``0})">
+            <summary>
+             Marshal an outgoing list of structs to a pointer to array of pointers to structs.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamStdC.MarshalUtils.MarshalPtrStructOut``1(``0)">
+            <summary>
+             Marshal an outgoing struct to a pointer to that struct.
+            </summary>
+        </member>
+        <member name="M:Crestron.DeviceDrivers.NonSandboxed.Authentication.PamWrappers.PamUser.GetAccountInfo(System.String)">
+            <summary>
+             Gets information on the specified user such as real name, shell and home directory.
+             http://linux.die.net/man/3/getpwnam
+            </summary>
+        </member>
+        <member name="T:Crestron.DeviceDrivers.NonSandboxed.VC4AuthenticationPlugin">
+            <summary>
+            <para>
+            An additional authentication plugin to allow for PAM authentication on the VC-4 platform.
+            </para>
+            Note: For use with VC-4 systems only, this plugin will not run on 3 series and throw errors on 4 series
+            </summary>
+        </member>
+    </members>
+</doc>

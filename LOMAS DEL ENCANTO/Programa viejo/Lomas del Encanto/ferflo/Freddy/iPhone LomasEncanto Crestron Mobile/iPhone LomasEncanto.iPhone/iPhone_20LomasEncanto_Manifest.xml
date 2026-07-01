@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Manifest' Version='2.1.0' ObjectDisplayList='2'>
+<Project FileName='iPhone_20LomasEncanto.zip' Size='1987376' Build='20151215155832'>
+<Sources>
+<Source FileName='iPhone_20LomasEncanto.xml' Size='560' Type='Application' Build='20151215155831' />
+<Source FileName='iPhone_20LomasEncanto_Resource.xml' Size='54289' Type='Resource' Build='20151215155831' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room12 AnteComedor.xml' Size='6504' Type='Subpage' Build='20151215155856' />
+<Source FileName='[Climate] NoControl.xml' Size='1325' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Climate] Control.xml' Size='9142' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Climate] Single Setpoint.xml' Size='3327' Type='Subpage' Build='20151215155854' />
+<Source FileName='[Climate] Dual Setpoint.xml' Size='6012' Type='Subpage' Build='20151215155853' />
+<Source FileName='[Shared] Volume Control NObar.xml' Size='3190' Type='Subpage' Build='20151215155853' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room19 Escaleras.xml' Size='13550' Type='Subpage' Build='20151215155852' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room18 EntradaPpal.xml' Size='6504' Type='Subpage' Build='20151215155851' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room17 Vestibulo PPal.xml' Size='6507' Type='Subpage' Build='20151215155851' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room16 Garage.xml' Size='10797' Type='Subpage' Build='20151215155850' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room11 Comedor.xml' Size='6500' Type='Subpage' Build='20151215155849' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room10 Sala.xml' Size='6497' Type='Subpage' Build='20151215155849' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room13 cava.xml' Size='6497' Type='Subpage' Build='20151215155849' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room08 SalonJuegos.xml' Size='6504' Type='Subpage' Build='20151215155848' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room07 RecNinos.xml' Size='6501' Type='Subpage' Build='20151215155848' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room06 RecNinas.xml' Size='6501' Type='Subpage' Build='20151215155847' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room05 BanoPpal.xml' Size='6501' Type='Subpage' Build='20151215155847' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room04 RecamaraPpal.xml' Size='6505' Type='Subpage' Build='20151215155846' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room03 FamilyPA.xml' Size='6501' Type='Subpage' Build='20151215155846' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room02 FamilyPB.xml' Size='6501' Type='Subpage' Build='20151215155845' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room01 Despacho.xml' Size='6501' Type='Subpage' Build='20151215155845' />
+<Source FileName='[Common] Cortinas- RecPpal.xml' Size='3672' Type='Subpage' Build='20151215155844' />
+<Source FileName='[Common] Cortinas- Sala.xml' Size='13000' Type='Subpage' Build='20151215155844' />
+<Source FileName='[Source] Internet Radio Custom-1.xml' Size='10814' Type='Page' Build='20151215155843' />
+<Source FileName='[Sources] [Sat-Audio] Keypad.xml' Size='15481' Type='Subpage' Build='20151215155841' />
+<Source FileName='[Media] Advanced Receiver CONTROL.xml' Size='7539' Type='Subpage' Build='20151215155840' />
+<Source FileName='[Media] Advanced Display CONTROL.xml' Size='8120' Type='Subpage' Build='20151215155839' />
+<Source FileName='[Media] Advanced Audio CONTROL.xml' Size='14367' Type='Subpage' Build='20151215155838' />
+<Source FileName='[Media] Advanced Display BTN.xml' Size='1426' Type='Subpage' Build='20151215155837' />
+<Source FileName='[Media] Advanced Receiver BTN.xml' Size='1422' Type='Subpage' Build='20151215155836' />
+<Source FileName='[Media] Advanced Audio BTN.xml' Size='1417' Type='Subpage' Build='20151215155836' />
+<Source FileName='[Shared] Navigation Bar Systems-MLCS.xml' Size='4796' Type='Subpage' Build='20151215155836' />
+<Source FileName='[Shared] Navigation Bar Systems-MLC.xml' Size='3756' Type='Subpage' Build='20151215155835' />
+<Source FileName='[Shared] Navigation Bar Systems-ML.xml' Size='2717' Type='Subpage' Build='20151215155835' />
+<Source FileName='[Shared] Navigation Bar Systems-L.xml' Size='1677' Type='Subpage' Build='20151215155835' />
+<Source FileName='[Shared] Navigation Bar Systems-ALCS.xml' Size='4794' Type='Subpage' Build='20151215155834' />
+<Source FileName='[Shared] Navigation Bar Systems-ALC.xml' Size='3754' Type='Subpage' Build='20151215155834' />
+<Source FileName='[Shared] Navigation Bar Systems-AL.xml' Size='2715' Type='Subpage' Build='20151215155833' />
+<Source FileName='[Shared] Navigation Bar Systems-A.xml' Size='1679' Type='Subpage' Build='20151215155833' />
+<Source FileName='[Lighting] [Lights Custom] Lights Room09 Cocina.xml' Size='6499' Type='Subpage' Build='20151215155833' />
+<Source FileName='[Source] Back Button.xml' Size='1294' Type='Subpage' Build='20151215155832' />
+<Source FileName='[Common] Menu Systems-L.xml' Size='1689' Type='Subpage' Build='20151215155832' />
+<Source FileName='[Common] Menu Systems-A.xml' Size='1689' Type='Subpage' Build='20151215155832' />
+<Source FileName='[Common] Menu Systems-AL.xml' Size='2992' Type='Subpage' Build='20151215155831' />
+<Source FileName='[Common] Menu Systems-ALC.xml' Size='4297' Type='Subpage' Build='20151215155831' />
+<Source FileName='[Common] Menu Systems-ALCS.xml' Size='5603' Type='Subpage' Build='20151215155830' />
+<Source FileName='[Common] Menu Systems-MLC.xml' Size='4297' Type='Subpage' Build='20151215155829' />
+<Source FileName='[Common] Menu Systems-MLCS.xml' Size='6003' Type='Subpage' Build='20151215155829' />
+<Source FileName='[Common] Menu Systems-ML.xml' Size='3393' Type='Subpage' Build='20151215155828' />
+<Source FileName='[Common] Enviroments1-1.xml' Size='7398' Type='Subpage' Build='20151215155827' />
+<Source FileName='[Common] Sleep.xml' Size='6991' Type='Page' Build='20151215155826' />
+<Source FileName='[Common] Scheduler.xml' Size='6209' Type='Page' Build='20151215155825' />
+<Source FileName='[Common] Other.xml' Size='5919' Type='Page' Build='20151215155824' />
+<Source FileName='[Common] Alarm.xml' Size='6207' Type='Page' Build='20151215155823' />
+<Source FileName='[Source] CD Changer.xml' Size='18328' Type='Page' Build='20151215155821' />
+<Source FileName='[Sources] [BD-DVD-LaserDisc] Keypad.xml' Size='14190' Type='Subpage' Build='20151215155820' />
+<Source FileName='[Sources] [BD-DVD-LaserDisc] Control.xml' Size='22009' Type='Subpage' Build='20151215155819' />
+<Source FileName='[Source] BD-DVD-LaserDisc.xml' Size='7945' Type='Page' Build='20151215155816' />
+<Source FileName='[Sources] [ADMS-Media] Browse List.xml' Size='12200' Type='Subpage' Build='20151215155815' />
+<Source FileName='[Source] iPod Custom.xml' Size='10746' Type='Page' Build='20151215155812' />
+<Source FileName='[Source] DVR Edit Preset-Sky.xml' Size='8500' Type='Page' Build='20151215155810' />
+<Source FileName='[Source] ADMS-Zone2.xml' Size='5387' Type='Page' Build='20151215155809' />
+<Source FileName='[Source] Cable-Sat.xml' Size='7124' Type='Page' Build='20151215155808' />
+<Source FileName='[Source] Controlled CCTV.xml' Size='6928' Type='Page' Build='20151215155807' />
+<Source FileName='[Source] SatTV Audio.xml' Size='7057' Type='Page' Build='20151215155806' />
+<Source FileName='[Source] AM FM Tuner.xml' Size='16737' Type='Page' Build='20151215155806' />
+<Source FileName='[Source] HDTV-SDTV.xml' Size='7280' Type='Page' Build='20151215155804' />
+<Source FileName='[Source] Sky.xml' Size='7920' Type='Page' Build='20151215155803' />
+<Source FileName='[Source] Cablevision.xml' Size='7677' Type='Page' Build='20151215155802' />
+<Source FileName='[Sources] [CCTV] Main.xml' Size='3895' Type='Subpage' Build='20151215155801' />
+<Source FileName='[Sources] [Sat-Audio] Main.xml' Size='12331' Type='Subpage' Build='20151215155800' />
+<Source FileName='[Sources] [AM FM Tuner] Main.xml' Size='8688' Type='Subpage' Build='20151215155899' />
+<Source FileName='[Sources] [HDTV] Main.xml' Size='19437' Type='Subpage' Build='20151215155897' />
+<Source FileName='[Sources] [HDTV] Keypad.xml' Size='14758' Type='Subpage' Build='20151215155895' />
+<Source FileName='[Sources] [HDTV] Favs.xml' Size='197831' Type='Subpage' Build='20151215155893' />
+<Source FileName='[Sources] [Sky-MEX] Main.xml' Size='27051' Type='Subpage' Build='20151215155880' />
+<Source FileName='[Sources] [Sky-MEX] Keypad.xml' Size='14177' Type='Subpage' Build='20151215155877' />
+<Source FileName='[Sources] [Sky-MEX] Favs.xml' Size='197832' Type='Subpage' Build='20151215155876' />
+<Source FileName='[Sources] [Cable-MEX] Main.xml' Size='25374' Type='Subpage' Build='20151215155862' />
+<Source FileName='[Sources] [Cable-MEX] Keypad.xml' Size='14765' Type='Subpage' Build='20151215155860' />
+<Source FileName='[Sources] [Cable-MEX] Favs.xml' Size='198340' Type='Subpage' Build='20151215155859' />
+<Source FileName='[Source] StarChoice.xml' Size='7427' Type='Page' Build='20151215155847' />
+<Source FileName='[Sources] [StarChoice] Main.xml' Size='19294' Type='Subpage' Build='20151215155846' />
+<Source FileName='[Sources] [StarChoice] Keypad.xml' Size='15017' Type='Subpage' Build='20151215155844' />
+<Source FileName='[Sources] [StarChoice] Favs.xml' Size='197835' Type='Subpage' Build='20151215155843' />
+<Source FileName='[Source] FiosTV.xml' Size='7283' Type='Page' Build='20151215155830' />
+<Source FileName='[Sources] [FiosTV] Main.xml' Size='28271' Type='Subpage' Build='20151215155828' />
+<Source FileName='[Sources] [FiosTV] Keypad.xml' Size='14760' Type='Subpage' Build='20151215155826' />
+<Source FileName='[Sources] [FiosTV] Favs.xml' Size='197831' Type='Subpage' Build='20151215155825' />
+<Source FileName='[Source] DirecTV.xml' Size='7287' Type='Page' Build='20151215155812' />
+<Source FileName='[Sources] [DirecTV] Main.xml' Size='27382' Type='Subpage' Build='20151215155811' />
+<Source FileName='[Sources] [DirecTV] Keypad.xml' Size='14763' Type='Subpage' Build='20151215155809' />
+<Source FileName='[Sources] [DirecTV] Favs.xml' Size='197834' Type='Subpage' Build='20151215155807' />
+<Source FileName='[Sources] [Dish] Main.xml' Size='25121' Type='Subpage' Build='20151215155896' />
+<Source FileName='[Sources] [Dish] Keypad.xml' Size='15013' Type='Subpage' Build='20151215155894' />
+<Source FileName='[Sources] [Dish] Favs.xml' Size='197831' Type='Subpage' Build='20151215155893' />
+<Source FileName='[Source] Dish.xml' Size='7275' Type='Page' Build='20151215155862' />
+<Source FileName='[Sources] [DVD] Main.xml' Size='12667' Type='Subpage' Build='20151215155861' />
+<Source FileName='[Source] DVD.xml' Size='15627' Type='Page' Build='20151215155860' />
+<Source FileName='[Lighting] Lights Switch 4.xml' Size='3142' Type='Subpage' Build='20151215155858' />
+<Source FileName='[Lighting] Lights Switch 3.xml' Size='3142' Type='Subpage' Build='20151215155858' />
+<Source FileName='[Lighting] Lights Switch 2.xml' Size='3142' Type='Subpage' Build='20151215155857' />
+<Source FileName='[Lighting] Lights Switch 1.xml' Size='3142' Type='Subpage' Build='20151215155857' />
+<Source FileName='[Lighting] Lights Dimmer 4.xml' Size='4994' Type='Subpage' Build='20151215155857' />
+<Source FileName='[Lighting] Lights Dimmer 3.xml' Size='4994' Type='Subpage' Build='20151215155856' />
+<Source FileName='[Lighting] Lights Dimmer 2.xml' Size='4994' Type='Subpage' Build='20151215155856' />
+<Source FileName='[Lighting] Lights Dimmer 1.xml' Size='4994' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Lighting] Lights Btn PrevNext.xml' Size='3527' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Lighting] Lights Btn Scenes.xml' Size='1436' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Lighting] Lights Room Select.xml' Size='13764' Type='Subpage' Build='20151215155854' />
+<Source FileName='[Lighting] Lights Scenes.xml' Size='12155' Type='Subpage' Build='20151215155853' />
+<Source FileName='[Lighting] Lights No Control.xml' Size='2376' Type='Subpage' Build='20151215155851' />
+<Source FileName='[Media] Room Advanced Button.xml' Size='1421' Type='Subpage' Build='20151215155851' />
+<Source FileName='[Common] Enviroments MoreLess.xml' Size='2026' Type='Subpage' Build='20151215155850' />
+<Source FileName='[Common] Enviroments2.xml' Size='5717' Type='Subpage' Build='20151215155850' />
+<Source FileName='[Common] Advance.xml' Size='7585' Type='Page' Build='20151215155826' />
+<Source FileName='[Source] Not Controlled.xml' Size='6415' Type='Page' Build='20151215155805' />
+<Source FileName='[Sources] [DVR] Presets Edit Name.xml' Size='2258' Type='Subpage' Build='20151215155804' />
+<Source FileName='[Sources] [DVR] Presets Edit Channel.xml' Size='2261' Type='Subpage' Build='20151215155803' />
+<Source FileName='[Sources] [DVR] Presets Edit Preset.xml' Size='2260' Type='Subpage' Build='20151215155803' />
+<Source FileName='[Source] DVR Edit Preset.xml' Size='9074' Type='Page' Build='20151215155802' />
+<Source FileName='[Sources] [DVR] Presets Buttons.xml' Size='2256' Type='Subpage' Build='20151215155801' />
+<Source FileName='[Sources] [DVR] Keypad.xml' Size='10553' Type='Subpage' Build='20151215155801' />
+<Source FileName='[Sources] [DVR] Control.xml' Size='18480' Type='Subpage' Build='20151215155800' />
+<Source FileName='[Sources] [Blu-ray] Keypad.xml' Size='13716' Type='Subpage' Build='20151215155897' />
+<Source FileName='[Sources] [Blu-ray] Control.xml' Size='22258' Type='Subpage' Build='20151215155896' />
+<Source FileName='[Sources] [ADMS-Media] Music Control.xml' Size='19889' Type='Subpage' Build='20151215155892' />
+<Source FileName='[Sources] [ADMS-Media] Keyboard.xml' Size='69633' Type='Subpage' Build='20151215155890' />
+<Source FileName='[Source] ADMS-Theather.xml' Size='6617' Type='Page' Build='20151215155885' />
+<Source FileName='[Shared] Alert All Room Off.xml' Size='3363' Type='Subpage' Build='20151215155884' />
+<Source FileName='[Shared] Alert Room Off.xml' Size='3359' Type='Subpage' Build='20151215155884' />
+<Source FileName='[Source] ADMS-Zone1.xml' Size='5387' Type='Page' Build='20151215155883' />
+<Source FileName='[Source] DVR Edit Preset-Cable.xml' Size='8502' Type='Page' Build='20151215155882' />
+<Source FileName='[Source] AM-FM Radio Custom.xml' Size='21523' Type='Page' Build='20151215155881' />
+<Source FileName='[Source] AM-FM-XM Tuner.xml' Size='6096' Type='Page' Build='20151215155877' />
+<Source FileName='[Sources] [iPod] Not Connected.xml' Size='1233' Type='Subpage' Build='20151215155875' />
+<Source FileName='[Sources] [iPod] Dock Offline.xml' Size='1232' Type='Subpage' Build='20151215155875' />
+<Source FileName='[Sources] [iPod] Search Button.xml' Size='1436' Type='Subpage' Build='20151215155875' />
+<Source FileName='[Sources] [iPod] Search.xml' Size='45056' Type='Subpage' Build='20151215155874' />
+<Source FileName='[Sources] [iPod] Reading Media Library.xml' Size='1240' Type='Subpage' Build='20151215155870' />
+<Source FileName='[Sources] [iPod] Player.xml' Size='13354' Type='Subpage' Build='20151215155870' />
+<Source FileName='[Sources] [iPod] Message Page.xml' Size='1298' Type='Subpage' Build='20151215155868' />
+<Source FileName='[Sources] [iPod] Busy.xml' Size='710' Type='Subpage' Build='20151215155868' />
+<Source FileName='[Sources] [iPod] Browse.xml' Size='12189' Type='Subpage' Build='20151215155868' />
+<Source FileName='[Sources] [iPod] Back Button.xml' Size='1315' Type='Subpage' Build='20151215155866' />
+<Source FileName='[Source] iPod.xml' Size='7648' Type='Page' Build='20151215155866' />
+<Source FileName='[Source] Blu-ray.xml' Size='7503' Type='Page' Build='20151215155865' />
+<Source FileName='[Source] AppleTV.xml' Size='11842' Type='Page' Build='20151215155864' />
+<Source FileName='[Sources] [ADMS-Media] Web Browser.xml' Size='18533' Type='Subpage' Build='20151215155861' />
+<Source FileName='[Sources] [ADMS-Media] Video Control.xml' Size='16785' Type='Subpage' Build='20151215155857' />
+<Source FileName='[Sources] [ADMS-Media] Offline.xml' Size='1232' Type='Subpage' Build='20151215155856' />
+<Source FileName='[Sources] [ADMS-Media] Not Ready.xml' Size='1234' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Sources] [ADMS-Audio] Now Playing.xml' Size='20157' Type='Subpage' Build='20151215155855' />
+<Source FileName='[Sources] [ADMS-Media] Mouse.xml' Size='14018' Type='Subpage' Build='20151215155853' />
+<Source FileName='[Sources] [ADMS-Audio] Search.xml' Size='69629' Type='Subpage' Build='20151215155848' />
+<Source FileName='[Sources] [ADMS-Media] Internet TV.xml' Size='10750' Type='Subpage' Build='20151215155842' />
+<Source FileName='[Sources] [ADMS-Media] Disc Control.xml' Size='16117' Type='Subpage' Build='20151215155838' />
+<Source FileName='[Shared] Room Select.xml' Size='22171' Type='Subpage' Build='20151215155830' />
+<Source FileName='[Shared] Room Select Button.xml' Size='1418' Type='Subpage' Build='20151215155829' />
+<Source FileName='[Common] Media.xml' Size='7195' Type='Page' Build='20151215155828' />
+<Source FileName='[Media] Media Sources.xml' Size='16184' Type='Subpage' Build='20151215155827' />
+<Source FileName='[Shared] Back Button.xml' Size='1294' Type='Subpage' Build='20151215155822' />
+<Source FileName='[Shared] Navigation Bar Systems.xml' Size='4046' Type='Subpage' Build='20151215155822' />
+<Source FileName='[Shared] Home Button.xml' Size='1069' Type='Subpage' Build='20151215155822' />
+<Source FileName='[Common] Climate.xml' Size='5973' Type='Page' Build='20151215155821' />
+<Source FileName='[Common] Lighting.xml' Size='14371' Type='Page' Build='20151215155820' />
+<Source FileName='[Common] Home.xml' Size='6737' Type='Page' Build='20151215155818' />
+<Source FileName='[Shared] Crestron Logo.xml' Size='1092' Type='Subpage' Build='20151215155816' />
+<Source FileName='[Shared] Volume Control Bar.xml' Size='4158' Type='Subpage' Build='20151215155815' />
+<Source FileName='[Shared] Power Button.xml' Size='1310' Type='Subpage' Build='20151215155814' />
+<Source FileName='Bienvenida.xml' Size='5252' Type='Page' Build='20151215155814' />
+</Sources>
+</Project>
+</File>

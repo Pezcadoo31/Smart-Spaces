@@ -1,0 +1,512 @@
+#DEFAULT_VOLATILE
+#CATEGORY "1"
+
+// #define_constant DEBUG                1
+#define_constant MAX_NUMBER_ITEMS       50
+#define_constant MAX_ITEMS_IN_WINDOW    15
+
+#define_constant MAX_ITEM_STRING_SIZE   50
+#define_constant MAX_IMAGE_STRING_SIZE  160
+
+#define_constant SEND_TEXT              0
+#define_constant SEND_IMAGE             1
+
+#define_constant TRUE                   1
+#define_constant FALSE                  0
+
+digital_input diScrollUp, diScrollDown;
+digital_input diPageUp, diPageDown;
+digital_input diTopOfList, diBottomOfList;
+digital_input diResetSelected;
+digital_input diSelectHighlightedItem;
+digital_input diSelectItemInWindow[MAX_ITEMS_IN_WINDOW];
+
+analog_input aiPageSize;
+analog_input aiScrollBar;
+// analog_input aiItemData[MAX_NUMBER_ITEMS];
+analog_input aiItemImage[MAX_NUMBER_ITEMS];
+string_input siItemText$[MAX_NUMBER_ITEMS][MAX_ITEM_STRING_SIZE];
+string_input siItemStatus1$[MAX_NUMBER_ITEMS][MAX_ITEM_STRING_SIZE];
+string_input siItemStatus2$[MAX_NUMBER_ITEMS][MAX_ITEM_STRING_SIZE];
+// string_input siItemImage$[MAX_NUMBER_ITEMS][MAX_IMAGE_STRING_SIZE];
+
+digital_output doActualItemSelected[MAX_NUMBER_ITEMS];
+digital_output doHighlightBar[MAX_ITEMS_IN_WINDOW];
+digital_output doLineSelected[MAX_ITEMS_IN_WINDOW];
+
+analog_output aoScrollBarF;
+analog_output aoButtonSelect;
+// analog_output aoSelectedItemData;
+analog_output aoItemImageWindow[MAX_ITEMS_IN_WINDOW];  
+string_output soItemTextWindow$[MAX_ITEMS_IN_WINDOW];
+string_output soItemStatus1Window$[MAX_ITEMS_IN_WINDOW];
+string_output soItemStatus2Window$[MAX_ITEMS_IN_WINDOW];
+// string_output soItemImageWindow$[MAX_ITEMS_IN_WINDOW];  
+              
+integer g_iNumberItems;
+integer g_iActualItemHighlightedNum;
+integer g_iBarPositionInWindow;
+integer g_iItemNumberAtTopOfWindow;
+integer g_iPageSize;
+
+// Moves the highlight bar to the position desired.  
+// Error checking performed in the caller.
+// If the bar can't be positioned (i.e. not enough items to fill that location)
+// then FALSE is returned, otherwise TRUE returned.
+integer_function MoveHighlightBarTo(integer Position)
+{
+    // Make sure not to allow bar to go beyond the end of the actual list.
+    if ( (g_iItemNumberAtTopOfWindow + Position -1) > g_iNumberItems )
+        return(FALSE);
+    
+    doHighlightBar[g_iBarPositionInWindow]=0;     
+    g_iBarPositionInWindow = Position;
+    doHighlightBar[g_iBarPositionInWindow]=1;
+    
+    return(TRUE);
+}
+
+// Button Select.
+function ShowButtonSelect()
+{
+    if(g_iNumberItems<=1)
+        aoButtonSelect = 0;
+    else
+        aoButtonSelect = 1;
+}
+
+// Updates the scroll bar feedback based on where the actual highlighted item is at.
+function UpdateScrollBarFb()
+{
+    if(g_iNumberItems<=1)
+        aoScrollBarF=65535;
+    else
+        aoScrollBarF = 65535 - MULDIV(g_iActualItemHighlightedNum-1, 65535, g_iNumberItems-1);
+}
+
+// Put the highlight the top of the list.
+function GoToTop()
+{   
+    // Actual item number is back to the top of the list.
+    g_iActualItemHighlightedNum=1;
+    UpdateScrollBarFb();
+    
+    // Highlight bar is back to the top of the list.
+    MoveHighlightBarTo(1); 
+       
+    // Back to the first item in the list.
+    g_iItemNumberAtTopOfWindow = 1;
+}
+
+// Sends the text desired (item or image) to the particular field.
+function ResendText(integer LastModified, integer TextOrImage)
+{
+    integer UpperBound;
+    UpperBound = g_iItemNumberAtTopOfWindow + g_iPageSize - 1;
+    if(UpperBound > MAX_NUMBER_ITEMS)
+    {
+        UpperBound = MAX_NUMBER_ITEMS;
+    }
+    
+    if(LastModified >= g_iItemNumberAtTopOfWindow && LastModified <= UpperBound)
+    {
+        if(TextOrImage = SEND_TEXT)
+		{
+            soItemTextWindow$[LastModified - g_iItemNumberAtTopOfWindow + 1] = siItemText$[LastModified];
+            soItemStatus1Window$[LastModified - g_iItemNumberAtTopOfWindow + 1] = siItemStatus1$[LastModified];
+            soItemStatus2Window$[LastModified - g_iItemNumberAtTopOfWindow + 1] = siItemStatus2$[LastModified];
+		}
+        else if(TextOrImage = SEND_IMAGE)
+			 {
+             	// soItemImageWindow$[LastModified - g_iItemNumberAtTopOfWindow + 1] = siItemImage$[LastModified];
+				aoItemImageWindow[LastModified - g_iItemNumberAtTopOfWindow + 1] = aiItemImage[LastModified]; // Analog Data
+			 }
+    }
+}
+
+// Redraws the lines for the current window - both item & image text.
+function RedrawWindow()
+{
+    integer i, UpperBound;
+    
+    
+    UpperBound = g_iItemNumberAtTopOfWindow + g_iPageSize - 1;
+    
+#if_defined DEBUG
+    print ("RedrawWindow: ItemNumberAtTopOfWindow=%u, UpperBound=%u, PageSize=%u\n", g_iItemNumberAtTopOfWindow, UpperBound, g_iPageSize);
+#endif    
+    if(UpperBound > MAX_NUMBER_ITEMS)
+    {
+        UpperBound = MAX_NUMBER_ITEMS;
+    }
+    
+    for(i = g_iItemNumberAtTopOfWindow to UpperBound)
+    {
+		aoItemImageWindow[i - g_iItemNumberAtTopOfWindow + 1] = aiItemImage[i];
+        soItemTextWindow$[i - g_iItemNumberAtTopOfWindow + 1] = siItemText$[i];
+        soItemStatus1Window$[i - g_iItemNumberAtTopOfWindow + 1] = siItemStatus1$[i];
+        soItemStatus2Window$[i - g_iItemNumberAtTopOfWindow + 1] = siItemStatus2$[i];
+        // soItemImageWindow$[i - g_iItemNumberAtTopOfWindow + 1] = siItemImage$[i];
+    }
+}
+
+push diSelectItemInWindow
+{
+    // Move the highlight bar.
+    if(MoveHighlightBarTo(GetLastModifiedArrayIndex())=FALSE)
+        return;
+       
+    // Output the acutal item under the highlight bar.
+    g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+    UpdateScrollBarFb();
+    
+    // Output the Actual Item Selected.
+    SetArray(doActualItemSelected, 0);
+    doActualItemSelected[g_iActualItemHighlightedNum] = 1;
+    
+    // Output Selected Item Data.
+    // aoSelectedItemData = aiItemData[g_iActualItemHighlightedNum];
+    
+    // Output the line selected.
+    SetArray(doLineSelected, 0);
+    doLineSelected[g_iBarPositionInWindow]=1;
+}
+
+push diSelectHighlightedItem
+{
+    // Output the Actual Item Selected.
+    SetArray(doActualItemSelected, 0);
+    doActualItemSelected[g_iActualItemHighlightedNum] = 1;
+    
+    // Output Selected Item Data.
+    // aoSelectedItemData = aiItemData[g_iActualItemHighlightedNum];
+
+    // Output the line selected.
+    SetArray(doLineSelected, 0);
+    doLineSelected[g_iBarPositionInWindow]=1;
+}
+
+/*
+change siItemImage$
+{
+    ResendText(GetLastModifiedArrayIndex(), SEND_IMAGE);
+}
+*/
+
+change siItemText$
+{
+    integer Item;
+    integer Found;
+    integer i;
+    
+    Item = GetLastModifiedArrayIndex();
+    
+    if(len(siItemText$[Item])>0)
+    {
+        if(Item > g_iNumberItems)
+        {
+            g_iNumberItems = Item;
+        }
+    }
+    else
+    {
+        if(Item = g_iNumberItems)
+        {
+            Found=0;
+            for(i = g_iNumberItems to 1 step -1)
+            {
+                if(len(siItemText$[i])>0)
+                {
+                    g_iNumberItems = i;
+                    Found=1;
+                    break;
+                }
+            }
+            
+            if(Found=0)
+            {
+                g_iNumberItems=0;
+            }
+        }
+    }
+    
+    ResendText(Item, SEND_TEXT);
+    UpdateScrollBarFb();
+    ShowButtonSelect();
+    
+    if(g_iNumberItems > MAX_NUMBER_ITEMS)
+        GenerateUserError("Number of items to scroll list (%u) exceeds maximum of %u!", g_iNumberItems, MAX_NUMBER_ITEMS);
+    
+#if_defined DEBUG
+    print("There are %d items in total in the list\n", g_iNumberItems);
+#endif
+}
+
+push diResetSelected
+{
+    SetArray(doActualItemSelected, 0);
+    SetArray(doLineSelected, 0);
+    // aoSelectedItemData = 0;
+    GoToTop();
+    RedrawWindow();
+}
+
+push diScrollUp
+{
+    integer iPreviousActualItemHighlighted;
+    
+    if(g_iBarPositionInWindow > 1)
+    {
+        // Update the Highlight bar in the window
+        if(MoveHighlightBarTo(g_iBarPositionInWindow - 1)=FALSE)
+            return; 
+               
+        // Output the acutal item under the highlight bar.
+        g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+        UpdateScrollBarFb();
+    }
+    else if (g_iItemNumberAtTopOfWindow > 1)
+    {
+        // Highlight Bar is at the bottom of the window already, so don't move the Highlight bar.
+        // Output the acutal item under the highlight bar.        
+        g_iItemNumberAtTopOfWindow = g_iItemNumberAtTopOfWindow - 1;    
+        g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+        UpdateScrollBarFb();
+        RedrawWindow();
+    }
+
+#if_defined DEBUG
+    print("diScrollUp:Top of List is %d, Bar is at position %d, Actual Item Highlighted is %d\n", g_iItemNumberAtTopOfWindow, g_iBarPositionInWindow, g_iActualItemHighlightedNum);
+#endif    
+}
+
+push diScrollDown
+{
+    if(g_iBarPositionInWindow < g_iPageSize)
+    {
+        // Update the Highlight bar in the window
+        if(MoveHighlightBarTo(g_iBarPositionInWindow + 1)=FALSE)
+            return; 
+               
+        // Output the acutal item under the highlight bar.
+        g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+        UpdateScrollBarFb();
+    }
+    else if (g_iItemNumberAtTopOfWindow + g_iPageSize <= g_iNumberItems)
+    {
+        // Highlight Bar is at the bottom of the window already, so don't move the Highlight bar.
+        // Output the acutal item under the highlight bar.        
+        g_iItemNumberAtTopOfWindow = g_iItemNumberAtTopOfWindow + 1;    
+        g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+        UpdateScrollBarFb();
+        RedrawWindow();
+    }
+
+#if_defined DEBUG
+    print("diScrollDown:Top of List is %d, Bar is at position %d, Actual Item Highlighted is %d\n", g_iItemNumberAtTopOfWindow, g_iBarPositionInWindow, g_iActualItemHighlightedNum);
+#endif    
+}
+
+
+push diPageUp
+{
+    Integer CurrentItemHighlighted;
+    CurrentItemHighlighted = g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow - 1;
+    
+//    print("g_iItemNumberAtTopOfWindow: %d, g_iBarPositionInWindow: %d, CurrentItemHighlighted: %d\n", g_iItemNumberAtTopOfWindow, g_iBarPositionInWindow, CurrentItemHighlighted); 
+    
+    if(g_iItemNumberAtTopOfWindow > 1)
+    {
+        // Enough items left for a full page jump.  However, are there enough items left to fill the rest of the page?
+        if( (CurrentItemHighlighted - g_iPageSize) > (g_iBarPositionInWindow - 1) )
+        {
+            g_iItemNumberAtTopOfWindow = g_iItemNumberAtTopOfWindow - g_iPageSize;    
+            g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+            UpdateScrollBarFb();
+            RedrawWindow();
+        }
+        else
+        {
+//            if(MoveHighlightBarTo(CurrentItemHighlighted - g_iPageSize)=FALSE)
+//              return;
+            
+            g_iItemNumberAtTopOfWindow = 1;   
+            g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+            UpdateScrollBarFb();
+            RedrawWindow();
+        }
+    }
+    else if(CurrentItemHighlighted > 1)
+    {
+        // Not enough items left to shift window, just go to last item (be careful of a list that is less than
+        // the a window's size!)
+        MoveHighlightBarTo(1); 
+               
+        // Output the acutal item under the highlight bar.
+        g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+        UpdateScrollBarFb();
+    }
+    
+#if_defined DEBUG
+    print("diPageUp:Top of List is %d, Bar is at position %d, Actual Item Highlighted is %d\n", g_iItemNumberAtTopOfWindow, g_iBarPositionInWindow, g_iActualItemHighlightedNum);
+#endif    
+}
+
+push diPageDown
+{
+    integer CurrentItemHighlighted;
+    CurrentItemHighlighted = g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow - 1;
+    
+//    print("g_iItemNumberAtTopOfWindow: %d, g_iBarPositionInWindow: %d, CurrentItemHighlighted: %d\n", g_iItemNumberAtTopOfWindow, g_iBarPositionInWindow, CurrentItemHighlighted); 
+    
+	if((g_iItemNumberAtTopOfWindow + g_iPageSize) <= g_iNumberItems)
+    {
+        // Enough items left for a full page jump.  However, are there enough items left to fill the rest of the page?
+        if( (g_iNumberItems - (CurrentItemHighlighted + g_iPageSize)) >=  (g_iPageSize - g_iBarPositionInWindow) )
+        {
+            g_iItemNumberAtTopOfWindow = g_iItemNumberAtTopOfWindow + g_iPageSize;    
+            g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+            UpdateScrollBarFb();
+            RedrawWindow();
+        }
+        else
+        {   
+//            if(MoveHighlightBarTo(g_iPageSize - (g_iNumberItems - (CurrentItemHighlighted + g_iPageSize)))=FALSE)
+//                return;
+            
+            g_iItemNumberAtTopOfWindow = g_iNumberItems - g_iPageSize + 1;   
+            g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+            UpdateScrollBarFb();
+            RedrawWindow();
+        }
+    }
+    else if(CurrentItemHighlighted < g_iNumberItems)
+    {
+        // Not enough items left to shift window, just go to last item (be careful of a list that is less than
+        // the a window's size!)
+        if(MoveHighlightBarTo(min(g_iNumberItems, g_iPageSize))=FALSE)
+            return;
+        
+        // Output the acutal item under the highlight bar.
+        g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+        UpdateScrollBarFb();
+    }
+    
+#if_defined DEBUG
+    print("diPageDown:Top of List is %d, Bar is at position %d, Actual Item Highlighted is %d\n", g_iItemNumberAtTopOfWindow, g_iBarPositionInWindow, g_iActualItemHighlightedNum);
+#endif    
+}
+ 
+push diTopOfList
+{     
+    GoToTop();
+    RedrawWindow();
+}
+
+push diBottomOfList
+{
+    if(MoveHighlightBarTo(min(g_iNumberItems, g_iPageSize))=FALSE)
+        return;
+    
+    if(g_iNumberItems < g_iPageSize)
+        g_iItemNumberAtTopOfWindow=1;
+    else
+        g_iItemNumberAtTopOfWindow = g_iNumberItems - g_iPageSize + 1;   
+
+    g_iActualItemHighlightedNum = (g_iItemNumberAtTopOfWindow + g_iBarPositionInWindow) - 1;
+    UpdateScrollBarFb();
+    RedrawWindow();
+}
+
+change aiScrollBar
+{
+    // Compute what value that this probably is going to land on...
+    integer outval;
+    signed_integer NumItemsNeededAbove, NumItemsNeededBelow;
+    signed_integer NumItemsAvailAbove, NumItemsAvailBelow;
+    
+    outval = 1 + MULDIV(65535- aiScrollBar, g_iNumberItems - 1, 65535);
+    NumItemsAvailAbove = outval - 1;
+    NumItemsNeededAbove = g_iBarPositionInWindow - 1;
+    NumItemsAvailBelow = g_iNumberItems - outval;
+    NumItemsNeededBelow = g_iPageSize - g_iBarPositionInWindow;
+    
+#if_defined DEBUG
+    print("New Outval:  %u, g_iBarPositionInWindow: %u, g_iNumberItems: %u\n", outval, g_iBarPositionInWindow, g_iNumberItems);
+    print("NumItemsAvailAbove:%d, NumItemsNeededAbove:%d, NumItemsAvailBelow:%d, NumItemsNeededBelow:%d\n", NumItemsAvailAbove, NumItemsNeededAbove, NumItemsAvailBelow, NumItemsNeededBelow);
+#endif
+    
+    if((NumItemsAvailAbove >= NumItemsNeededAbove) && (NumItemsAvailBelow >= NumItemsNeededBelow))    
+    {
+        // If we display this item as the highlighted item (leaving the highlight alone) are there enough items to put above and below it?
+        g_iItemNumberAtTopOfWindow = outval - g_iBarPositionInWindow + 1;
+        g_iActualItemHighlightedNum = outval;
+        UpdateScrollBarFb();
+        RedrawWindow();
+#if_defined DEBUG
+        print("   (1)iActualItemHighlighted=%d\n", g_iActualItemHighlightedNum);
+#endif
+    }
+    else if ( NumItemsAvailAbove < NumItemsNeededAbove )
+    {
+        if(MoveHighlightBarTo(outval)=FALSE)
+            return;
+            
+        g_iItemNumberAtTopOfWindow = 1;
+        g_iActualItemHighlightedNum = outval;
+        UpdateScrollBarFb();
+        RedrawWindow();
+#if_defined DEBUG
+        print("   (2)g_iBarPositionInWindow=%d, iActualItemHighlighted=%d\n", g_iBarPositionInWindow, g_iActualItemHighlightedNum);
+#endif
+    }
+    else if ( NumItemsAvailBelow < NumItemsNeededBelow )
+    {
+        if(MoveHighlightBarTo(outval - g_iNumberItems + g_iPageSize)=FALSE)
+            return;
+        
+        g_iItemNumberAtTopOfWindow = g_iNumberItems - g_iPageSize + 1;
+        g_iActualItemHighlightedNum = outval;
+        UpdateScrollBarFb();
+        RedrawWindow();
+#if_defined DEBUG
+        print("   (3)g_iBarPositionInWindow=%d, iActualItemHighlighted=%d\n", g_iBarPositionInWindow, g_iActualItemHighlightedNum);
+#endif
+    }
+}
+
+change aiPageSize
+{
+    
+    if(aiPageSize > MAX_ITEMS_IN_WINDOW)
+    {
+        GenerateUserError("Page size of %u exceeds maximum page size of %u, Clipping to 1.", aiPageSize, MAX_ITEMS_IN_WINDOW);
+    	g_iPageSize = 1;
+    }
+    else
+    {
+    	g_iPageSize = aiPageSize;
+    	RedrawWindow(); // This may cause problems if someone hooks a slider up to this input.  Should be fine under normal operating conditions
+    }
+}
+
+function main()
+{
+    g_iItemNumberAtTopOfWindow=1;
+    g_iNumberItems=0;
+    g_iPageSize = 1;
+    SetArray(doActualItemSelected, 0);    
+    g_iActualItemHighlightedNum=1;
+    SetArray(doHighlightBar, 0); 
+    g_iBarPositionInWindow=1;
+    doHighlightBar[g_iBarPositionInWindow]=1;
+    SetArray(doLineSelected, 0);
+
+    WaitForInitializationComplete();
+
+	RedrawWindow();
+}
+
+
+
+

@@ -1,0 +1,129 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:	Chowmain
+System Name:	
+System Number:
+Programmer:		Richard Mullins
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+#SYMBOL_NAME "Dooya One Way"
+// #HINT ""
+// #DEFINE_CONSTANT
+#CATEGORY "44" // Shades/Drapes
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+/*
+#HELP_BEGIN
+   (add additional lines of help lines)
+#HELP_END
+*/
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+#USER_SIMPLSHARP_LIBRARY "Dooya"
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+
+DIGITAL_INPUT _SKIP_,_SKIP_,Up,Down,Stop,_SKIP_;
+// ANALOG_INPUT
+STRING_INPUT ID$[16];
+// BUFFER_INPUT 
+                 
+DIGITAL_OUTPUT _SKIP_,_SKIP_,_SKIP_,_SKIP_,_SKIP_,Enabled_FB;
+// ANALOG_OUTPUT
+// STRING_OUTPUT 
+
+DooyaDevice Shades;
+string id[16];
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+// INTEGER_PARAMETER
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+STRING_PARAMETER DeviceId[64];
+
+/*******************************************************************************************
+  Parameter Properties
+  (Uncomment and declare parameter properties as needed)
+*******************************************************************************************/
+
+#BEGIN_PARAMETER_PROPERTIES DeviceId
+  propValidUnits = unitString;
+  propDefaultUnit = unitString;
+  propDefaultValue = "";
+  propShortDescription = "Please enter the device id from the App";
+#END_PARAMETER_PROPERTIES
+
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+PUSH Up 
+{
+  if(Enabled_FB) Shades.OpenStd(id);
+}
+
+PUSH Down 
+{
+  if(Enabled_FB) Shades.CloseStd(id);
+}
+
+PUSH Stop 
+{
+  if(Enabled_FB) Shades.StopStd(id);
+}
+
+CHANGE ID$
+{
+  trace("Using %s as the device id", ID$);
+  id = ID$;  
+}
+
+EVENTHANDLER OnEnabledEvent(EnabledEventArgs e) 
+{
+  Enabled_FB = e.State;
+}
+
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+function Main()
+{
+  WaitForInitializationComplete();
+  id = DeviceId;
+  RegisterEvent(DooyaDevice, EnabledEvent, OnEnabledEvent);
+}
+
+

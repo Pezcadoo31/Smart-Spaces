@@ -1,0 +1,42 @@
+<Device Model="CP3">
+   <Network Type="Cresnet" Id="01">
+      <Device Model="TPS-6" DeviceId="06" Name="TPS-6 (Cresnet)"/>
+      <Device Model="C2N-SDC" DeviceId="0E"/>
+      <Device Model="C2N-SDC" DeviceId="0F" Name="1-SalaIzquierda 2-Sala Derecha"/>
+      <Device Model="CHV-TSTATA,CHV-THSTATA," DeviceId="2A" Name="CHV-TSTAT/CHV-THSTAT (v2.0)"/>
+      <Device Model="CHV-TSTAT" DeviceId="2B" Name="CHV-TSTAT Room_06 - RecNinas"/>
+      <Device Model="CHV-TSTAT" DeviceId="2C" Name="CHV-TSTAT Room_07 - RecNinos"/>
+      <Device Model="CHV-TSTAT" DeviceId="2D" Name="CHV-TSTAT Room_02 - FamilyPB"/>
+      <Device Model="CHV-TSTAT" DeviceId="2E" Name="CHV-TSTAT Room_10 - Sala"/>
+      <Device Model="CHV-TSTAT" DeviceId="2F" Name="CHV-TSTAT Room_08 - Salon de Juegos"/>
+      <Device Model="CNX-RMC" DeviceId="43"/>
+      <Device Model="CNX-PAD8A" DeviceId="44"/>
+      <Device Model="C2N-AMP-4x100" DeviceId="45"/>
+      <Device Model="C2N-AMP-4x100" DeviceId="46"/>
+      <Device Model="C2N-DB12" DeviceId="71" Name="C2N-DB12 ENTRADA PRINCIPAL"/>
+      <Device Model="C2N-DB12" DeviceId="72" Name="C2N-DB12 GARAGE ACCESO"/>
+      <Device Model="C2N-DB12" DeviceId="73" Name="C2N-DB12 GARAGE HACIA LOBBY"/>
+      <Device Model="C2N-DB12" DeviceId="74" Name="C2N-DB12 REC NINOS"/>
+      <Device Model="C2N-DB12" DeviceId="75" Name="C2N-DB12 DESPACHO"/>
+      <Device Model="C2N-DB12" DeviceId="76" Name="C2N-DB12 FAMILY PB-desayunador - Antecomedor"/>
+      <Device Model="C2N-DB12" DeviceId="77" Name="C2N-DB12 VESTIDOR REC PAL"/>
+      <Device Model="C2N-DB12" DeviceId="78" Name="C2N-DB12 CAVA"/>
+      <Device Model="C2N-DB12" DeviceId="79" Name="C2N-DB12 REC PAL ENTRADA"/>
+      <Device Model="C2N-DB12" DeviceId="7A" Name="C2N-DB12 COMEDOR"/>
+      <Device Model="C2N-DB12" DeviceId="7B" Name="C2N-DB12 REC PAL IZQ CABECERA "/>
+      <Device Model="C2N-DB12" DeviceId="7C" Name="C2N-DB12 SALA"/>
+      <Device Model="C2N-DB12" DeviceId="7D" Name="C2N-DB12 VESTIBULO PB"/>
+      <Device Model="C2N-DB12" DeviceId="7E" Name="C2N-DB12 REC PAL DER CABECERA "/>
+      <Device Model="C2N-DB12" DeviceId="7F" Name="C2N-DB12 COCINA"/>
+      <Device Model="C2N-DB12" DeviceId="80" Name="C2N-DB12 SALON JUEGOS"/>
+      <Device Model="C2N-DB12" DeviceId="81" Name="C2N-DB12 ESCALERAS PB HACIA SOTANO"/>
+      <Device Model="C2N-DB12" DeviceId="82" Name="C2N-DB12 ESCALERAS PA FAMILY"/>
+      <Device Model="C2N-DB12" DeviceId="83" Name="C2N-DB12 ESCALERAS PB HACIA PA"/>
+      <Device Model="C2N-DB12" DeviceId="84" Name="C2N-DB12 FAMILY PB MUEBLE"/>
+      <Device Model="C2N-DB12" DeviceId="85" Name="C2N-DB12 REC NINAS"/>
+   </Network>
+   <Network Type="Ethernet" Id="02">
+      <Device Model="TPS-6L," DeviceId="03" Name="TPS-6L (Ethernet)"/>
+      <Device Model="Crestron_Go" DeviceId="06" Name="iPadNueva"/>
+   </Network>
+</Device>

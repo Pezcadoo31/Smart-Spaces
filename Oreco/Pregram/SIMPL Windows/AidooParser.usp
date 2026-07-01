@@ -1,0 +1,354 @@
+#SYMBOL_NAME "Aidoo Parser v2.0"
+#HINT "Parses fragmented Aidoo Pro JSON response (with chunk buffering)"
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+
+STRING_INPUT  rx$[2000];
+DIGITAL_INPUT enable;
+DIGITAL_INPUT AC_Power_On;
+DIGITAL_INPUT AC_Power_Off;
+DIGITAL_INPUT AC_Mode_Cool;
+DIGITAL_INPUT AC_Mode_Heat;
+DIGITAL_INPUT AC_Mode_Fan;
+DIGITAL_INPUT AC_Temp_Up;
+DIGITAL_INPUT AC_Temp_Down;
+DIGITAL_INPUT Poll_Trigger;
+
+STRING_OUTPUT  temperature$;
+ANALOG_OUTPUT  temp_value;
+DIGITAL_OUTPUT is_on_fb;
+DIGITAL_OUTPUT is_cool_fb;
+DIGITAL_OUTPUT is_heat_fb;
+DIGITAL_OUTPUT is_fan_fb;
+STRING_OUTPUT  tx$;
+STRING_OUTPUT  setpoint$;
+STRING_OUTPUT  status$;
+ANALOG_OUTPUT  setpoint_value;
+
+STRING Aidoo_IP[50];
+INTEGER Aidoo_Port;
+INTEGER Zone_ID;
+INTEGER System_ID;
+
+STRING  buffer$[4000];
+INTEGER currentSetpoint;
+INTEGER currentMode;
+INTEGER pendingPoll;
+
+INTEGER_FUNCTION IsWhitespace(STRING ch)
+{
+    IF (ch = " ")    RETURN(1);
+    IF (ch = "\x09") RETURN(1);
+    IF (ch = "\x0A") RETURN(1);
+    IF (ch = "\x0D") RETURN(1);
+    RETURN(0);
+}
+
+INTEGER_FUNCTION IsDelimiter(STRING ch)
+{
+    IF (ch = ",") RETURN(1);
+    IF (ch = "}") RETURN(1);
+    IF (ch = "]") RETURN(1);
+    RETURN(0);
+}
+
+INTEGER_FUNCTION FindFieldStart(STRING json, STRING fieldName)
+{
+    INTEGER pos;
+    STRING searchKey[50];
+    searchKey = "\"" + fieldName + "\":";
+    pos = FIND(searchKey, json);
+    IF (pos = 0) RETURN(0);
+    pos = pos + LEN(searchKey);
+    RETURN(pos);
+}
+
+STRING_FUNCTION ExtractValue(STRING json, INTEGER startPos)
+{
+    STRING result[20];
+    STRING ch[1];
+    INTEGER i;
+    INTEGER jsonLen;
+    result = "";
+    jsonLen = LEN(json);
+    FOR (i = startPos TO jsonLen)
+    {
+        ch = MID(json, i, 1);
+        IF (IsDelimiter(ch) = 1) BREAK;
+        IF (IsWhitespace(ch) = 0) result = result + ch;
+    }
+    RETURN(result);
+}
+
+FUNCTION ProcessCompleteJson()
+{
+    INTEGER posOn;
+    INTEGER posTemp;
+    INTEGER posMode;
+    INTEGER posSetpoint;
+    STRING valueOn[5];
+    STRING valueTemp[20];
+    STRING valueMode[5];
+    STRING valueSP[10];
+    INTEGER tempInt;
+    INTEGER tempFrac;
+    INTEGER dotPos;
+    STRING intPart[10];
+    STRING fracPart[10];
+    INTEGER modeVal;
+    INTEGER spInt;
+
+    posOn = FindFieldStart(buffer$, "on");
+    IF (posOn = 0) RETURN;
+    valueOn = ExtractValue(buffer$, posOn);
+
+    IF (valueOn = "1")
+    {
+        is_on_fb = 1;
+    }
+    ELSE
+    {
+        is_on_fb     = 0;
+        is_cool_fb   = 0;
+        is_heat_fb   = 0;
+        is_fan_fb    = 0;
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        status$      = "AC apagado";
+        RETURN;
+    }
+
+    posMode = FindFieldStart(buffer$, "mode");
+    IF (posMode > 0)
+    {
+        valueMode   = ExtractValue(buffer$, posMode);
+        modeVal     = ATOI(valueMode);
+        currentMode = modeVal;
+        is_cool_fb  = 0;
+        is_heat_fb  = 0;
+        is_fan_fb   = 0;
+        IF (modeVal = 1) is_cool_fb = 1;
+        IF (modeVal = 3) is_heat_fb = 1;
+        IF (modeVal = 4) is_fan_fb  = 1;
+    }
+
+    posSetpoint = FindFieldStart(buffer$, "setpoint");
+    IF (posSetpoint > 0)
+    {
+        valueSP = ExtractValue(buffer$, posSetpoint);
+        dotPos  = FIND(".", valueSP);
+        IF (dotPos > 0)
+            spInt = ATOI(LEFT(valueSP, dotPos - 1));
+        ELSE
+            spInt = ATOI(valueSP);
+        IF (spInt >= 16)
+        {
+            IF (spInt <= 30)
+            {
+                currentSetpoint = spInt;
+                setpoint$       = ITOA(currentSetpoint) + " \xB0C";
+                setpoint_value  = currentSetpoint;
+            }
+        }
+    }
+
+    posTemp = FindFieldStart(buffer$, "roomTemp");
+    IF (posTemp = 0)
+    {
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    valueTemp = ExtractValue(buffer$, posTemp);
+
+    IF (LEN(valueTemp) = 0)
+    {
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    IF (valueTemp = "0")
+    {
+        temperature$ = "-- \xB0C";
+        temp_value   = 0;
+        RETURN;
+    }
+
+    dotPos = FIND(".", valueTemp);
+    IF (dotPos > 0)
+    {
+        intPart  = LEFT(valueTemp, dotPos - 1);
+        fracPart = MID(valueTemp, dotPos + 1, 1);
+        tempInt  = ATOI(intPart);
+        tempFrac = ATOI(fracPart);
+        temp_value = (tempInt * 10) + tempFrac;
+    }
+    ELSE
+    {
+        tempInt    = ATOI(valueTemp);
+        temp_value = tempInt * 10;
+        valueTemp  = valueTemp + ".0";
+    }
+
+    temperature$ = valueTemp;
+    status$      = "OK";
+}
+
+CHANGE rx$
+{
+    INTEGER closePos;
+    STRING body[30];
+    STRING req[300];
+
+    IF (enable = 0)
+    {
+        buffer$      = "";
+        temperature$ = "";
+        temp_value   = 0;
+        is_on_fb     = 0;
+        RETURN;
+    }
+
+    IF (LEN(rx$) = 0) RETURN;
+
+    IF (FIND("HTTP/1.1", rx$) > 0)
+        buffer$ = rx$;
+    ELSE
+    {
+        IF ((LEN(buffer$) + LEN(rx$)) > 3900)
+            buffer$ = rx$;
+        ELSE
+            buffer$ = buffer$ + rx$;
+    }
+
+    closePos = FIND("}]", buffer$);
+    IF (closePos > 0)
+    {
+        ProcessCompleteJson();
+        buffer$ = "";
+        IF (pendingPoll = 1)
+        {
+            pendingPoll = 0;
+            body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + "}";
+            req = "POST /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+            tx$ = req;
+        }
+    }
+}
+
+PUSH AC_Power_On
+{
+    STRING body[40];
+    STRING req[300];
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"on\":1}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+}
+
+PUSH AC_Power_Off
+{
+    STRING body[40];
+    STRING req[300];
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"on\":0}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+}
+
+PUSH AC_Mode_Cool
+{
+    STRING body[50];
+    STRING req[300];
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"on\":1,\"mode\":1}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+    currentMode = 1;
+}
+
+PUSH AC_Mode_Heat
+{
+    STRING body[50];
+    STRING req[300];
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"on\":1,\"mode\":3}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+    currentMode = 3;
+}
+
+PUSH AC_Mode_Fan
+{
+    STRING body[50];
+    STRING req[300];
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"on\":1,\"mode\":4}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+    currentMode = 4;
+}
+
+PUSH AC_Temp_Up
+{
+    STRING body[60];
+    STRING req[300];
+    IF (currentSetpoint < 30)
+        currentSetpoint = currentSetpoint + 1;
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"setpoint\":" + ITOA(currentSetpoint) + "}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+}
+
+PUSH AC_Temp_Down
+{
+    STRING body[60];
+    STRING req[300];
+    IF (currentSetpoint > 16)
+        currentSetpoint = currentSetpoint - 1;
+    body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + ",\"setpoint\":" + ITOA(currentSetpoint) + "}";
+    req = "PUT /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+    tx$         = req;
+    pendingPoll = 1;
+}
+
+PUSH Poll_Trigger
+{
+    STRING body[30];
+    STRING req[300];
+    IF (pendingPoll = 0)
+    {
+        body = "{\"systemID\":" + ITOA(System_ID) + ",\"zoneID\":" + ITOA(Zone_ID) + "}";
+        req = "POST /api/v1/hvac HTTP/1.1\r\nHost: " + Aidoo_IP + ":" + ITOA(Aidoo_Port) + "\r\nContent-Type: application/json\r\nContent-Length: " + ITOA(LEN(body)) + "\r\nConnection: close\r\n\r\n" + body;
+        tx$ = req;
+    }
+}
+
+FUNCTION Main()
+{
+    WaitForInitializationComplete();
+	Aidoo_IP    = "192.168.1.95";
+	Aidoo_Port  = 3000;
+	Zone_ID     = 1;
+	System_ID   = 1;
+    IF (Aidoo_Port = 0)  Aidoo_Port  = 3000;
+    IF (Zone_ID = 0)     Zone_ID     = 1;
+    IF (System_ID = 0)   System_ID   = 1;
+    buffer$         = "";
+    temperature$    = "-- \xB0C";
+    temp_value      = 0;
+    is_on_fb        = 0;
+    currentSetpoint = 22;
+    currentMode     = 1;
+    pendingPoll     = 0;
+    setpoint$       = "22 \xB0C";
+    setpoint_value  = 22;
+    is_cool_fb      = 0;
+    is_heat_fb      = 0;
+    is_fan_fb       = 0;
+    status$         = "Listo";
+}

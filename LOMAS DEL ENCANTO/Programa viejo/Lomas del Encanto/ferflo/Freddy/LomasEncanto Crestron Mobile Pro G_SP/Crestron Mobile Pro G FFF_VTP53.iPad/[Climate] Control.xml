@@ -1,0 +1,314 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Page' Version='5.1.0'>
+<Control Type='Subpage' Name='[Climate] Control'>
+<Position Units='Pixels' X='0' Y='0' />
+<Size Units='Pixels' Width='768' Height='550' />
+<VisualStyles>
+<VisualStyle>
+<Background>
+<Color  R='0' G='1' B='0.501961' A='0' />
+</Background>
+</VisualStyle>
+</VisualStyles>
+<Control Type='Button' Name='Image'>
+<Position Units='Pixels' X='29' Y='73' />
+<Size Units='Pixels' Width='450' Height='104' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Image Id='335' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Legend'>
+<Position Units='Pixels' X='358' Y='80' />
+<Size Units='Pixels' Width='72' Height='95' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0' A='0' />
+</Face>
+<Text FontId='36' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0' A='0' />
+</Face>
+<Text Id='135' FontId='36' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='485' Type='Digital' Property='State'/>
+</Bindings>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='517' Y='220' />
+<Size Units='Pixels' Width='184' Height='64' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.627451' A='0' />
+</Face>
+<Image Id='75' Alpha='1' />
+<Text Id='256' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='76' Alpha='1' />
+<Text Id='256' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='461' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='461' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='461' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='517' Y='73' />
+<Size Units='Pixels' Width='184' Height='64' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.627451' A='0' />
+</Face>
+<Image Id='75' Alpha='1' />
+<Text Id='259' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='76' Alpha='1' />
+<Text Id='259' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='466' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='466' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='466' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Legend'>
+<Position Units='Pixels' X='500' Y='25' />
+<Size Units='Pixels' Width='216' Height='41' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Text FontId='12' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Text Id='260' FontId='12' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='466' Type='Digital' Property='State'/>
+</Bindings>
+</Control>
+<Control Type='Button' Name='Legend'>
+<Position Units='Pixels' X='505' Y='174' />
+<Size Units='Pixels' Width='216' Height='41' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Text FontId='12' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Text Id='261' FontId='12' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Text'>
+<Position Units='Pixels' X='279' Y='76' />
+<Size Units='Pixels' Width='93' Height='84' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Text Id='262' FontId='37' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Text'>
+<Position Units='Pixels' X='29' Y='16' />
+<Size Units='Pixels' Width='424' Height='59' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Text Id='263' FontId='22' Alignment='CenterLeft' Wrap='True'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Border'>
+<Position Units='Pixels' X='69' Y='80' />
+<Size Units='Pixels' Width='241' Height='95' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0.92549' G='0.960784' B='0.0705882' A='0' />
+</Face>
+<Text FontId='38' Alignment='CenterRight' Wrap='False'>
+<Bindings>
+<Binding Id='97' Type='Serial' Property='Text'/>
+</Bindings>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='517' Y='298' />
+<Size Units='Pixels' Width='184' Height='64' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.627451' A='0' />
+</Face>
+<Image Id='75' Alpha='1' />
+<Text Id='257' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='76' Alpha='1' />
+<Text Id='257' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='462' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='462' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='462' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='517' Y='376' />
+<Size Units='Pixels' Width='184' Height='64' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.627451' A='0' />
+</Face>
+<Image Id='75' Alpha='1' />
+<Text Id='264' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='76' Alpha='1' />
+<Text Id='264' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='463' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='463' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='463' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='517' Y='472' />
+<Size Units='Pixels' Width='184' Height='64' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.627451' A='0' />
+</Face>
+<Image Id='75' Alpha='1' />
+<Text Id='265' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='76' Alpha='1' />
+<Text Id='265' FontId='26' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='465' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='465' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='465' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Legend'>
+<Position Units='Pixels' X='358' Y='80' />
+<Size Units='Pixels' Width='72' Height='95' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0' A='0' />
+</Face>
+<Text FontId='36' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0' A='0' />
+</Face>
+<Text Id='127' FontId='36' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='484' Type='Digital' Property='State'/>
+</Bindings>
+</Control>
+</Control>
+</File>

@@ -1,0 +1,77 @@
+[BEGIN]
+  ObjTp=FSgntr
+  Sgntr=ArchiveManifest
+  RelVrs=4.3000.01
+  IsProgram=1
+  TopLevelProgram=Lomas del encanto 2026.smw
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Lomas del encanto 2026.smw
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Lomas del encanto 2026.sig
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Lomas del encanto 2026.lpz
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Lomas del encanto 2026.smft
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Lomas del encanto 2026.lpz.hash
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Sky HD - Remote Control RC65L.ir
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Sky_Technicolors_RCVXM-0.ir
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Chief CM2L40UI.ir
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Sharp LC-52LE830U.ir
+  Scope=2
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Sharp LC-52LE820UN.ir
+  Scope=2
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Integra DRX-31.ir
+  Scope=2
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=Apple Apple TV (4ta generation).ir
+  Scope=2
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=CortinasUpDown.ush
+  Scope=1
+[END]
+[BEGIN]
+  ObjTp=ArchiveItem
+  File=LutronConnect.ush
+  Scope=1
+[END]

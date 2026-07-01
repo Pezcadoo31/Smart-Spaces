@@ -1,0 +1,70 @@
+#CATEGORY "46" "AirZone" // Custom
+
+#USER_SIMPLSHARP_LIBRARY "AirZone"
+#ENABLE_TRACE
+#HELP_PDF_FILE "Airzone HVAC V1.0 Help file.pdf"
+
+DIGITAL_INPUT _SKIP_, _SKIP_, _SKIP_, _SKIP_, _SKIP_;
+DIGITAL_INPUT _SKIP_, License, _SKIP_, ToggleDebugMode;
+
+DIGITAL_OUTPUT _SKIP_, _SKIP_, _SKIP_, _SKIP_, _SKIP_;
+DIGITAL_OUTPUT Initialized, Licensed, _SKIP_, DebugEnabled;
+STRING_OUTPUT _SKIP_, LicensedMessage;
+   
+STRING_PARAMETER LicenseKey[50];
+STRING_PARAMETER WebServerIpAddress[255];
+INTEGER_PARAMETER PollingIntervalInSeconds; 
+INTEGER_PARAMETER AutoPollingEnabled;
+                        
+AirzoneInstallationSimpl  myAirzoneInstallationSimpl;
+
+/*******************************************************************************************
+  Global Variables
+*******************************************************************************************/
+
+/*******************************************************************************************
+  Functions
+*******************************************************************************************/
+EventHandler OnInitializedChanged(AirzoneInstallationSimpl sender, SimplUShortEventargs e)
+{
+	Initialized = e.Value;
+}
+
+EventHandler OnLicensedChanged(AirzoneInstallationSimpl sender, SimplLicensedChangedEventArgs e)
+{
+	Licensed = e.Licensed;
+	LicensedMessage = e.Message;
+}
+
+EventHandler OnDebugStateChanged(AirzoneInstallationSimpl sender, SimplUShortEventargs e)
+{
+	DebugEnabled = e.Value;
+}
+
+/*******************************************************************************************
+  Event Handlers
+*******************************************************************************************/
+PUSH License
+{
+	myAirzoneInstallationSimpl.License();
+}
+
+PUSH ToggleDebugMode
+{
+	myAirzoneInstallationSimpl.ToggleDebugMode();
+}
+
+/*******************************************************************************************
+  Main()
+*******************************************************************************************/
+
+Function Main()
+{
+	WaitforInitializationComplete();
+    
+	RegisterEvent(myAirzoneInstallationSimpl, OnInitializedChanged, OnInitializedChanged);
+	RegisterEvent(myAirzoneInstallationSimpl, OnDebugStateChanged, OnDebugStateChanged);
+    RegisterEvent(myAirzoneInstallationSimpl, OnLicensedChanged, OnLicensedChanged);
+
+	myAirzoneInstallationSimpl.Initialize(LicenseKey, WebServerIpAddress, PollingIntervalInSeconds, AutoPollingenabled);
+}

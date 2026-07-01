@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Page' Version='5.1.0'>
+<Control Type='Subpage' Name='[Climate] Dual Setpoint'>
+<Position Units='Pixels' X='0' Y='0' />
+<Size Units='Pixels' Width='470' Height='356' />
+<VisualStyles>
+<VisualStyle>
+<Background>
+<Color  R='1' G='0.501961' B='0.501961' A='0' />
+</Background>
+</VisualStyle>
+</VisualStyles>
+<Control Type='Button' Name='Image'>
+<Position Units='Pixels' X='0' Y='0' />
+<Size Units='Pixels' Width='470' Height='356' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Image Id='74' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Image'>
+<Position Units='Pixels' X='238' Y='59' />
+<Size Units='Pixels' Width='220' Height='79' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Image Id='335' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Image'>
+<Position Units='Pixels' X='11' Y='59' />
+<Size Units='Pixels' Width='220' Height='79' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Image Id='335' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='65' Y='171' />
+<Size Units='Pixels' Width='110' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.501961' A='0' />
+</Face>
+<Image Id='44' Alpha='1' />
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='45' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='490' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='490' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='490' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='65' Y='262' />
+<Size Units='Pixels' Width='110' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.501961' A='0' />
+</Face>
+<Image Id='49' Alpha='1' />
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='50' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='491' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='491' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='491' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Border'>
+<Position Units='Pixels' X='11' Y='59' />
+<Size Units='Pixels' Width='220' Height='79' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0' A='0' />
+</Face>
+<Text FontId='18' Alignment='CenterCenter' Wrap='False'>
+<Bindings>
+<Binding Id='93' Type='Serial' Property='Text'/>
+</Bindings>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='292' Y='171' />
+<Size Units='Pixels' Width='110' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.501961' A='0' />
+</Face>
+<Image Id='44' Alpha='1' />
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='45' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='493' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='493' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='493' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='292' Y='262' />
+<Size Units='Pixels' Width='110' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.501961' A='0' />
+</Face>
+<Image Id='49' Alpha='1' />
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='50' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='494' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='494' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='494' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Border'>
+<Position Units='Pixels' X='238' Y='59' />
+<Size Units='Pixels' Width='220' Height='79' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0' A='0' />
+</Face>
+<Text FontId='18' Alignment='CenterCenter' Wrap='False'>
+<Bindings>
+<Binding Id='94' Type='Serial' Property='Text'/>
+</Bindings>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Text'>
+<Position Units='Pixels' X='11' Y='16' />
+<Size Units='Pixels' Width='220' Height='37' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Text Id='256' FontId='11' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Text'>
+<Position Units='Pixels' X='238' Y='16' />
+<Size Units='Pixels' Width='220' Height='37' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Text Id='257' FontId='11' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+</Control>
+</File>

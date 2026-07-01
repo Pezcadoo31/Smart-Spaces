@@ -1,0 +1,424 @@
+/*
+ ============================================================
+  Samsung Smart TV WebSocket SSL Controller v1.0
+  Crestron SIMPL+ Module — MC3 (3-Series)
+  
+  Target: Samsung BE98D-H (LH98BEDHVGFXZX) via WSS puerto 8002
+  Proyecto: ORECO — NTX S.A. de C.V.
+  Programador: Ricardo (Abdiel Vicencio)
+  
+  Descripcion:
+    Implementa el protocolo WebSocket sobre SSL para controlar
+    pantallas Samsung Smart TV/Business que NO tienen MDC pero
+    SI tienen la API de control remoto en el puerto 8002.
+    
+    Flujo:
+      1. Conexion SSL TCP al puerto 8002
+      2. Envio de HTTP Upgrade (WebSocket handshake)
+      3. Recepcion de respuesta 101 Switching Protocols
+      4. El TV envia automaticamente el token de sesion
+      5. Envio de comandos KEY como frames WebSocket mascarados
+      
+  PARAMETROS:
+    TV_IP_Addr  : IP del TV (ej. 192.168.1.93)
+    TV_WS_Port  : Puerto WebSocket (default: 8002)
+    
+  SENALES DE CONTROL:
+    Connect     : Pulso para conectar (conectar a _system_initialize)
+    Disconnect  : Pulso para desconectar
+    TV_Power    : Encender/Apagar
+    TV_HDMI1/2/3: Cambiar fuente HDMI
+    TV_Vol_Up/Down: Volumen
+    TV_Mute     : Silencio
+    
+  FEEDBACK:
+    Is_Connected  : TCP+WS conectado
+    Is_Ready      : Token recibido, listo para comandos
+    Debug_TX      : Ultimo comando enviado
+    Debug_RX      : Ultimo dato recibido (para Toolbox Console)
+    
+  NOTAS:
+    - El token cambia por sesion, se obtiene automaticamente al conectar
+    - Si el TV se reinicia, reconectar con un pulso en Connect
+    - Requiere "Control Remoto IP" activado en el TV:
+      Settings > General > Red > Configuracion experta > Control remoto IP = ON
+ ============================================================
+*/
+
+#SYMBOL_NAME "Samsung_TV_WS_Controller_v1_0"
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+
+// ===================================================
+// ENTRADAS DIGITALES
+// ===================================================
+DIGITAL_INPUT Connect;        // Pulso para iniciar conexion
+DIGITAL_INPUT Disconnect;     // Pulso para desconectar
+DIGITAL_INPUT TV_Power;       // KEY_POWER
+DIGITAL_INPUT TV_HDMI1;       // KEY_HDMI1
+DIGITAL_INPUT TV_HDMI2;       // KEY_HDMI2
+DIGITAL_INPUT TV_HDMI3;       // KEY_HDMI3
+DIGITAL_INPUT TV_Vol_Up;      // KEY_VOLUP
+DIGITAL_INPUT TV_Vol_Down;    // KEY_VOLDOWN
+DIGITAL_INPUT TV_Mute;        // KEY_MUTE
+DIGITAL_INPUT TV_Menu;        // KEY_MENU
+DIGITAL_INPUT TV_Exit;        // KEY_EXIT
+DIGITAL_INPUT TV_Up;          // KEY_UP
+DIGITAL_INPUT TV_Down;        // KEY_DOWN
+DIGITAL_INPUT TV_Left;        // KEY_LEFT
+DIGITAL_INPUT TV_Right;       // KEY_RIGHT
+DIGITAL_INPUT TV_Enter;       // KEY_ENTER
+
+// ===================================================
+// SALIDAS DIGITALES
+// ===================================================
+DIGITAL_OUTPUT Is_Connected;      // TCP conectado y WS handshake OK
+DIGITAL_OUTPUT Is_Ready;          // Token recibido, listo para comandos
+
+// ===================================================
+// SALIDAS DE STRING (debug)
+// ===================================================
+STRING_OUTPUT Debug_TX;           // Ultimo comando enviado
+STRING_OUTPUT Debug_RX;           // Ultimos datos recibidos
+
+// ===================================================
+// PARAMETROS
+// ===================================================
+STRING_PARAMETER TV_IP_Addr[50];  // IP del TV, ej: "192.168.1.93"
+INTEGER_PARAMETER TV_WS_Port;     // Puerto WebSocket SSL, default: 8002
+
+// ===================================================
+// VARIABLES INTERNAS
+// ===================================================
+SecureTCPClient tvSocket[4096];   // Cliente TCP SSL
+STRING rxBuf[4096];               // Buffer de recepcion acumulado
+STRING wsToken[32];               // Token de sesion del TV
+// Estados de conexion:
+//   0 = desconectado
+//   1 = TCP conectado, enviando handshake
+//   2 = WS handshake enviado, esperando 101
+//   3 = WS activo, esperando token
+//   4 = Listo (token recibido)
+INTEGER connState;
+INTEGER maskKey[4];               // Clave de mascara WebSocket (fija)
+
+
+// ===================================================
+// FUNCION: Construye el HTTP Upgrade Request para WS
+// "Q3Jlc3Ryb24=" es "Crestron" en Base64
+// ===================================================
+STRING_FUNCTION BuildWSHandshake()
+{
+    STRING req[512];
+    STRING portStr[8];
+    
+    portStr = ITOA(TV_WS_Port);
+    
+    req = "GET /api/v2/channels/samsung.remote.control?name=Q3Jlc3Ryb24= HTTP/1.1\r\n";
+    req = req + "Host: " + TV_IP_Addr + ":" + portStr + "\r\n";
+    req = req + "Upgrade: websocket\r\n";
+    req = req + "Connection: Upgrade\r\n";
+    req = req + "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\n";
+    req = req + "Sec-WebSocket-Version: 13\r\n";
+    req = req + "\r\n";
+    
+    RETURN(req);
+}
+
+
+// ===================================================
+// FUNCION: Codifica un payload de texto como frame WebSocket
+// con mascara (obligatorio para cliente->servidor)
+//
+// Estructura del frame:
+//   Byte 0: 0x81 (FIN=1, Opcode=1 texto)
+//   Byte 1: 0x80 | len  (MASK=1, longitud si < 126)
+//           0xFE + 2 bytes big-endian (si 126 <= len < 65536)
+//   Bytes siguientes: 4 bytes de mascara
+//   Resto: payload XOR con mascara ciclica
+// ===================================================
+STRING_FUNCTION MakeWSFrame(STRING payload)
+{
+    STRING frame[2048];
+    STRING maskedPayload[1024];
+    INTEGER pLen;
+    INTEGER i;
+    INTEGER rawByte;
+    INTEGER maskedByte;
+    
+    pLen = LEN(payload);
+    
+    // Byte 0: FIN + opcode texto
+    frame = CHR(0x81);
+    
+    // Byte 1+: mascara + longitud
+    IF (pLen < 126)
+    {
+        // Longitud en un solo byte
+        frame = frame + CHR(0x80 | pLen);
+    }
+    ELSE
+    {
+        // Longitud extendida de 2 bytes (126 = indicador)
+        frame = frame + CHR(0xFE);
+        frame = frame + CHR((pLen >> 8) & 0xFF);
+        frame = frame + CHR(pLen & 0xFF);
+    }
+    
+    // Clave de mascara fija (4 bytes)
+    // En produccion se puede usar un valor aleatorio
+    maskKey[1] = 0x37;
+    maskKey[2] = 0xFA;
+    maskKey[3] = 0x21;
+    maskKey[4] = 0x3D;
+    
+    frame = frame + CHR(maskKey[1]);
+    frame = frame + CHR(maskKey[2]);
+    frame = frame + CHR(maskKey[3]);
+    frame = frame + CHR(maskKey[4]);
+    
+    // Aplicar mascara al payload: byte[i] XOR mask[i mod 4]
+    maskedPayload = "";
+    FOR (i = 1 TO pLen)
+    {
+        rawByte   = BYTE(payload, i);
+        maskedByte = BXOR(rawByte, maskKey[((i - 1) MOD 4) + 1]);
+        maskedPayload = maskedPayload + CHR(maskedByte);
+    }
+    
+    frame = frame + maskedPayload;
+    RETURN(frame);
+}
+
+
+// ===================================================
+// FUNCION: Envia un comando KEY al TV
+// Solo funciona si connState = 4 (listo)
+// ===================================================
+FUNCTION SendKey(STRING keyCode)
+{
+    STRING json[256];
+    STRING frame[512];
+    
+    IF (connState = 4)
+    {
+        // Construir JSON del comando de control remoto
+        json = "{\"method\":\"ms.remote.control\",\"params\":{";
+        json = json + "\"Cmd\":\"Click\",";
+        json = json + "\"DataOfCmd\":\"" + keyCode + "\",";
+        json = json + "\"Option\":\"false\",";
+        json = json + "\"TypeOfRemote\":\"SendRemoteKey\"}}";
+        
+        // Encapsular en frame WebSocket y enviar
+        frame = MakeWSFrame(json);
+        tvSocket.Send(frame, LEN(frame));
+        
+        Debug_TX = keyCode;
+    }
+}
+
+
+// ===================================================
+// FUNCION: Extrae el valor del token del JSON recibido
+// Busca el patron "token":"XXXXXXXX"
+// ===================================================
+STRING_FUNCTION ParseToken(STRING data)
+{
+    INTEGER p1;
+    INTEGER p2;
+    STRING tok[32];
+    
+    p1 = FIND("\"token\":\"", data);
+    IF (p1 > 0)
+    {
+        p1 = p1 + 9;   // Saltar el texto "token":"
+        p2 = FIND("\"", data, p1);
+        IF (p2 > p1)
+        {
+            tok = MID(data, p1, p2 - p1);
+            RETURN(tok);
+        }
+    }
+    RETURN("");
+}
+
+
+// ===================================================
+// MANEJADORES DE ENTRADAS
+// ===================================================
+
+PUSH Connect
+{
+    IF (connState = 0)
+    {
+        rxBuf     = "";
+        wsToken   = "";
+        connState = 1;
+        Is_Connected = 0;
+        Is_Ready     = 0;
+        
+        Debug_TX = "Conectando a " + TV_IP_Addr + ":" + ITOA(TV_WS_Port);
+        tvSocket.Connect(TV_IP_Addr, TV_WS_Port);
+    }
+}
+
+PUSH Disconnect
+{
+    tvSocket.Disconnect();
+    connState    = 0;
+    Is_Connected = 0;
+    Is_Ready     = 0;
+    rxBuf        = "";
+    wsToken      = "";
+    Debug_TX     = "Desconectado manualmente";
+}
+
+// Comandos de control de TV
+PUSH TV_Power    { SendKey("KEY_POWER");   }
+PUSH TV_HDMI1    { SendKey("KEY_HDMI1");   }
+PUSH TV_HDMI2    { SendKey("KEY_HDMI2");   }
+PUSH TV_HDMI3    { SendKey("KEY_HDMI3");   }
+PUSH TV_Vol_Up   { SendKey("KEY_VOLUP");   }
+PUSH TV_Vol_Down { SendKey("KEY_VOLDOWN"); }
+PUSH TV_Mute     { SendKey("KEY_MUTE");    }
+PUSH TV_Menu     { SendKey("KEY_MENU");    }
+PUSH TV_Exit     { SendKey("KEY_EXIT");    }
+PUSH TV_Up       { SendKey("KEY_UP");      }
+PUSH TV_Down     { SendKey("KEY_DOWN");    }
+PUSH TV_Left     { SendKey("KEY_LEFT");    }
+PUSH TV_Right    { SendKey("KEY_RIGHT");   }
+PUSH TV_Enter    { SendKey("KEY_ENTER");   }
+
+
+// ===================================================
+// CALLBACK: Cambio de estado del socket SSL
+// ===================================================
+SOCKETSTATUS tvSocket.SocketStatusChange(SecureTCPClient inst, INTEGER socketStatus)
+{
+    STRING hs[512];
+    
+    IF (socketStatus = SOCKET_STATUS_CONNECTED)
+    {
+        // TCP+SSL conectado -> enviar WS handshake HTTP
+        connState = 2;
+        Is_Connected = 1;
+        hs = BuildWSHandshake();
+        tvSocket.Send(hs, LEN(hs));
+        Debug_TX = "WS Handshake enviado";
+    }
+    ELSE IF (socketStatus = SOCKET_STATUS_DISCONNECTED)
+    {
+        connState    = 0;
+        Is_Connected = 0;
+        Is_Ready     = 0;
+        wsToken      = "";
+        rxBuf        = "";
+        Debug_TX     = "Socket desconectado";
+    }
+}
+
+
+// ===================================================
+// CALLBACK: Datos recibidos del socket SSL
+// ===================================================
+CHANGE tvSocket
+{
+    STRING chunk[4096];
+    STRING tok[32];
+    INTEGER bytesAvail;
+    INTEGER headerEnd;
+    STRING afterHeader[4096];
+    
+    bytesAvail = tvSocket.GetNumBytesInBuffer();
+    
+    IF (bytesAvail > 0)
+    {
+        chunk = tvSocket.GetStringFromServer(bytesAvail, OCCUPIED);
+        rxBuf = rxBuf + chunk;
+        Debug_RX = chunk;
+        
+        // Estado 2: Esperando HTTP 101 Switching Protocols
+        IF (connState = 2)
+        {
+            IF (FIND("101", rxBuf) > 0)
+            {
+                // Handshake completo, pasar a estado 3
+                connState = 3;
+                
+                // Conservar datos WS que pudieron llegar junto al 101
+                headerEnd = FIND("\r\n\r\n", rxBuf);
+                IF (headerEnd > 0)
+                {
+                    // Guardar lo que viene despues de los headers HTTP
+                    afterHeader = MID(rxBuf, headerEnd + 4, LEN(rxBuf));
+                    rxBuf = afterHeader;
+                }
+                ELSE
+                {
+                    rxBuf = "";
+                }
+                
+                Debug_TX = "WS conectado (101 OK), esperando token...";
+            }
+        }
+        
+        // Estado 3: WS activo, esperando token de autenticacion
+        IF (connState = 3)
+        {
+            IF (FIND("ms.channel.connect", rxBuf) > 0)
+            {
+                tok = ParseToken(rxBuf);
+                IF (LEN(tok) > 0)
+                {
+                    wsToken   = tok;
+                    connState = 4;
+                    Is_Ready  = 1;
+                    rxBuf     = "";
+                    Debug_TX  = "LISTO. Token=" + wsToken;
+                }
+            }
+            
+            // Limpiar buffer si crece demasiado sin encontrar token
+            IF (LEN(rxBuf) > 3000)
+            {
+                rxBuf = "";
+            }
+        }
+        
+        // Estado 4: Listo. Limpiar buffer de respuestas del TV
+        IF (connState = 4)
+        {
+            // El TV envia ACKs a los comandos - limpiar buffer periodicamente
+            IF (LEN(rxBuf) > 2000)
+            {
+                rxBuf = "";
+            }
+        }
+    }
+}
+
+
+// ===================================================
+// MAIN: Inicializacion del modulo
+// ===================================================
+Function Main()
+{
+    WAITFORINITIALIZATIONCOMPLETE();
+    
+    // Valor default del puerto si no se configuro
+    IF (TV_WS_Port = 0)
+        TV_WS_Port = 8002;
+    
+    // Estado inicial
+    connState    = 0;
+    rxBuf        = "";
+    wsToken      = "";
+    Is_Connected = 0;
+    Is_Ready     = 0;
+    
+    // Mascara WebSocket fija
+    maskKey[1] = 0x37;
+    maskKey[2] = 0xFA;
+    maskKey[3] = 0x21;
+    maskKey[4] = 0x3D;
+}

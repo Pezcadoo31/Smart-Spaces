@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Application' Version='5.1.0'>
+<Application Debug='False'>
+<Platform Name='iPhone OS'>
+<OS>10.5</OS>
+<DeviceName>iPad</DeviceName>
+<DisplayUnit>pixel</DisplayUnit>
+<DisplayWidth>768</DisplayWidth>
+<DisplayHeight>1004</DisplayHeight>
+</Platform>
+<Information>
+<ToolName>Vtpro-e</ToolName>
+<ToolVersion>6104</ToolVersion>
+<Date>20161213121520</Date>
+</Information>
+<Setting>
+<Port>41794</Port>
+</Setting>
+<ZOrder Fixed='False'/>
+<RootPage>Bienvenida</RootPage>
+</Application>
+</File>

@@ -1,0 +1,35 @@
+<Device Model="CP3">
+   <Network Type="Cresnet" Id="01">
+      <Device Model="TPS-6" DeviceId="06" Name="TPS-6 (Cresnet)"/>
+      <Device Model="C2N-SDC" DeviceId="0E"/>
+      <Device Model="C2N-SDC" DeviceId="0F"/>
+      <Device Model="CNX-RMC" DeviceId="43"/>
+      <Device Model="CNX-PAD8A" DeviceId="44"/>
+      <Device Model="C2N-AMP-4x100" DeviceId="45"/>
+      <Device Model="C2N-AMP-4x100" DeviceId="46"/>
+      <Device Model="C2N-DB12" DeviceId="71" Name="Entrada principal"/>
+      <Device Model="C2N-DB12" DeviceId="72" Name="Garage acceso"/>
+      <Device Model="C2N-DB12" DeviceId="73" Name="Garage lobby"/>
+      <Device Model="C2N-DB12" DeviceId="74" Name="Rec Ninos"/>
+      <Device Model="C2N-DB12" DeviceId="75" Name="Despacho"/>
+      <Device Model="C2N-DB12" DeviceId="76" Name="Family PB"/>
+      <Device Model="C2N-DB12" DeviceId="77" Name="Vestidor Rec Ppal"/>
+      <Device Model="C2N-DB12" DeviceId="78" Name="Cava"/>
+      <Device Model="C2N-DB12" DeviceId="79" Name="Rec ppal entrada"/>
+      <Device Model="C2N-DB12" DeviceId="7A" Name="Comedor"/>
+      <Device Model="C2N-DB12" DeviceId="7B" Name="Rec ppal izq"/>
+      <Device Model="C2N-DB12" DeviceId="7C" Name="Sala"/>
+      <Device Model="C2N-DB12" DeviceId="7D" Name="Vestíbulo PB"/>
+      <Device Model="C2N-DB12" DeviceId="7E" Name="Rec Ppal der"/>
+      <Device Model="C2N-DB12" DeviceId="7F" Name="Cocina"/>
+      <Device Model="C2N-DB12" DeviceId="80" Name="Salon de juegos"/>
+      <Device Model="C2N-DB12" DeviceId="81" Name="Escalera PB a sot"/>
+      <Device Model="C2N-DB12" DeviceId="82" Name="Escalera PA a fam"/>
+      <Device Model="C2N-DB12" DeviceId="83" Name="Escalera PB a PA"/>
+      <Device Model="C2N-DB12" DeviceId="84" Name="Family PB mueble"/>
+      <Device Model="C2N-DB12" DeviceId="85" Name="Rec Ninas"/>
+   </Network>
+   <Network Type="Ethernet" Id="02">
+      <Device Model="Crestron_Go" DeviceId="06" Name="Crestron Go"/>
+   </Network>
+</Device>

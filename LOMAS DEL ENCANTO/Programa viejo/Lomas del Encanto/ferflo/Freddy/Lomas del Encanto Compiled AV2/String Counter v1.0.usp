@@ -1,0 +1,80 @@
+#DEFAULT_VOLATILE
+#CATEGORY "1"
+
+// #define_constant DEBUG                1
+#define_constant MAX_NUMBER_ITEMS       50
+
+#define_constant MAX_ITEM_STRING_SIZE   50
+
+string_input siItemText$[MAX_NUMBER_ITEMS][MAX_ITEM_STRING_SIZE];
+
+analog_output aoButtonSelect;
+              
+integer g_iNumberItems;
+
+// Feedback button select more options.
+function ShowButtonSelect()
+{
+    if(g_iNumberItems<=1)
+        aoButtonSelect = 0;
+    else
+        aoButtonSelect = 1;
+}
+
+change siItemText$
+{
+    integer Item;
+    integer Found;
+    integer i;
+    
+    Item = GetLastModifiedArrayIndex();
+    
+    if(len(siItemText$[Item])>0)
+    {
+        if(Item > g_iNumberItems)
+        {
+            g_iNumberItems = Item;
+        }
+    }
+    else
+    {
+        if(Item = g_iNumberItems)
+        {
+            Found=0;
+            for(i = g_iNumberItems to 1 step -1)
+            {
+                if(len(siItemText$[i])>0)
+                {
+                    g_iNumberItems = i;
+                    Found=1;
+                    break;
+                }
+            }
+            
+            if(Found=0)
+            {
+                g_iNumberItems=0;
+            }
+        }
+    }
+    
+    ShowButtonSelect();
+    
+    if(g_iNumberItems > MAX_NUMBER_ITEMS)
+        GenerateUserError("Number of items to scroll list (%u) exceeds maximum of %u!", g_iNumberItems, MAX_NUMBER_ITEMS);
+    
+#if_defined DEBUG
+    print("There are %d items in total in the list\n", g_iNumberItems);
+#endif
+}
+
+function main()
+{
+    g_iNumberItems=0;
+
+    WaitForInitializationComplete();
+}
+
+
+
+

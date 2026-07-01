@@ -1,0 +1,630 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+*******************************************************************************************/
+/*
+Dealer Name: CLA
+System Name: CLA ModulesDevelopment
+System Number:
+Programmer: RPA
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+*******************************************************************************************/
+#symbol_name "CLA_Scrolling_Favs_v1"
+#default_volatile
+#output_shift 1
+#CATEGORY	"25"
+#HELP_PDF_FILE ".\CLA_Scrolling_Favs_v1.0_Help.pdf"
+
+#HELP_BEGIN
+	CLA_Scrolling_Favs_v1.0.
+Descripción:	
+Modulo que muestra una o varias listas de favoritos organizados por categorías, por ejemplo los canales favoritos de un sistema de cable, y permite seleccionar algún canal de la lista, enviando el número del canal para, por ejemplo, enviarlo a un driver IR.
+Las listas se despliegan a través de líneas de texto, que pueden ser de 1 a 10. Las listas de favoritos se leen de un archivo. El archivo debe guardarse en la NVRAM del procesador, y la extensión del archivo puede ser .txt, .dat u otra, pero debe coincidir la cargada en el procesador con la declarada en el programa.
+La macro puede leer uno o varios archivos durante su ejecución en un programa. Actualmente el módulo contiene un límite de 50 categorías y 150 favoritos por archivo que lee.
+
+El formato del archivo  con las listas de categorías y favoritos debe ser el siguiente:
+____________________________________________
+//1	FAMILY	||	    Primero se escriben las categorías que se desean tener,
+//2	entertainment||  iniciando con doble diagonal"//", el número de la categoría, 
+//3	music||	   después un tabulador(Tecla TAB) y al final el nombre, los caracteres "||" y enter.
+//4	sports	||
+FAVS 	       -> Después NECESARIAMENTE debe ir la palabara FAVS, que sirve de separador entre categorías y favoritos.
+//FOX	245	1||
+//ROD	313	1||	Finalmente se escriben los favoritos, iniciando con "//" el nombre, 
+//WB	212	2||	 tecla Tabulador, el número del favorito, TABulador, y el 
+//MTV	876	3||	número de la categoría correspondiente a la lista de   
+//HBO	123	4||	categorías de la primera sección, terminando con "||".
+//ESPN	638	4||
+----> 	Es necesario tener una línea en blanco al final.
+___________________________________________
+	
+El nombre del archivo no puede rebasar los 30 caracteres, y simplemente debe ser el nombre del archivo y su extensión, p.e.:  favoritos.txt
+REVISIÓN HISTORICA:
+V 1.0:
+- Capacidad de leer archivos con cualquier extensión, y cambiar entre archivos durante la ejecución del mismo programa.
+- Número de líneas de salida ajustables de 1 a 10.
+- Información de actividad de lectura/escritura de archivos, para manejos de diversos módulos.
+
+V2.0 (Abril, 2009) 
+-	Tendrá capacidad de modificar las listas de favoritos, pudiendo regrabar el archivo modificando los nombres de categorías, y el nombre, número y canal de cada favorito, así como poder agregar o quitar favoritos.
+-	Tendrá la capacidad de ordenar los favoritos en distintos órdenes, por ejemplo por letra o por número de canal.
+-	Soporte para navegación entre líneas (compatibilidad con A-PAD).
+-	Salto de página (actualmente solo se tiene salto por línea).
+
+Requerimientos de Hardware & Firmware:
+-	Procesador Crestron Serie-2.
+-	Mínimo firmware requerido: 4.000
+
+------------
+   INPUTS
+------------
+READ FILE	D	Con cada flanco de subida actualiza el archivo indicado por "NVRAM_File"
+CATEGORIES	D	Con cada flanco de subida muestra la lista de categorías almacenada en el archivo en el mismo orden en el que se encuentran en el archivo.
+CHANNELS	D	Con cada flanco de subida muestra la lista total de los favoritos contenidos en el archivo, en el mismo orden en que se encuentran, sin filtrar por categorías.
+
+NEXTLINE	D	Con cada flanco de subida cambia a la siguiente línea de la lista desplegada en ese momento.
+PREVLINE	D	Con cada flanco de subida cambia a la línea previa de la lista desplegada en ese momento
+FIRSTLINE	D	Con cada flanco de subida cambia a la primera línea de la lista desplegada en ese momento
+LASTLINE	D	Con cada flanco de subida cambia a la última línea de la lista desplegada en ese momento
+LINESEL[1-10]	D	Con cada flanco de subida selecciona la línea correspondiente  y realiza una de dos acciones:
+				- Si se está en la lista de categorías, se cambia a la lista de favoritos de la categoría seleccionada y muestra los favoritos correspondientes a la categoría seleccionada.
+				- Si se está en una lista de favoritos, se envían los datos del favorito seleccionado, número, nombre, categoría y después del tiempo determinado por "TimeBeforeEnter" se envía un pulso de enter de una duración determinada por "EnterLenght".
+El número de líneas se debe establecer manualmente agregando o quitando líneas (Con Alt+ y Alt -) y DEBE coincidir con el número de líneas que se declaren en las salidas (Line[1-10]).
+
+MainMenuName: Es el título que se mostrará en la línea Header cuando se pulse "Categories". Tiene un límite de 20 caracteres.
+AllChannelsName: Es el título que se mostrará en la línea Header cuando se pulse "Channels". Tiene un límite de 30 caracteres.
+NVRAM_File	$	Señal serial que debe contener el nombre del archivo que se va a leer de la NVRAM teniendo como formato el nombre del archivo y la extensión:  favs.txt
+
+PARAMETROS:
+TimeBeforeEnter : El tiempo que esperara el modulo para enviar el enter, una vez que se seleccionó un favorito. 
+EnterLenhgt: El tiempo que durará el pulso de enter.
+FileLocation: Determina la ubicación física del (o los) archivo(s ) que contienen la lista de favoritos, ya sea en la memoria interna NVRAM o en una tarjeta CompactFlash.
+
+
+-----------
+  OUTPUTS 
+-----------
+Using_file	D	Se mantiene en alto todo el tiempo que el modulo mantenga abierto, lea o escriba en un archivo.
+Enter	D	El pulso de salida que se envía cuando se selecciona un favorito, determinado por los parámetros TimeBeforeEnter y EnterLenght.
+SelectedName$		$	El nombre del favorito seleccionado, determinado por el archivo.
+SelectionNumber	A	El número correspondiente al favorito seleccionado, determinado por el archivo.
+SelectedCategory	$	El nombre de la categoría del favorito seleccionado, de acuerdo al archivo.
+FavsFoundLines		A	El número de canales favoritos totales encontrados en el archivo.
+ListHeader	$	El encabezado que tendrá la lista. Es una línea aparte de las de navegación,  que indica en que lista se está navegando actualmente, ya sea en la lista de categorías, que tiene el nombre del parámetro MainMenuName, en la lista total de canales que toma el nombre del parámetro AllChannelsName o en alguna categoría, que toma el nombre de la categoría en la que se esta navegando.
+Line[1-10]	$	El texto de cada línea de la lista de navegación. 	 Para establecer el número de las líneas que se usarán simplemente hay que agregar o eliminar el número  deseado de líneas  (Con Alt+ y Alt-). Es necesario declarar el número exacto de líneas que se tendrá en la pantalla, ya que si se declaran líneas de más y se comentan ("//" ó  "//Line1") el módulo reconoce todas, y el funcionamiento no será el correcto.
+
+#HELP_END
+
+          
+/*******************************************************************************************
+								***IO's**
+*******************************************************************************************/
+
+//digital_input Erase,Reload;
+
+digital_input _SKIP_,_SKIP_,_SKIP_,_SKIP_; //Space for parameters
+digital_input readFile,_SKIP_,Categories,Channels,_SKIP_,NextLine,PrevLine,FirstLine,LastLine,_SKIP_,LineSel[10];
+string_input MainMenuName[20], AllChannelsName[30];
+string_input NVRAM_File[30];
+analog_input FileLocation;
+
+digital_output _SKIP_,_SKIP_,_SKIP_;
+digital_output using_file,_SKIP_,enter;
+string_output SelectedName$,SelectedCategory$;
+analog_output SelectionNumber,FavsFoundLines;
+//string_output DebugOut$;
+string_output _SKIP_,ListHeader[1],_SKIP_;
+string_output Line[10];
+/***SOCKETS***/
+
+
+/**************************************************************************************************
+									  Parameters
+***************************************************************************************************/
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER*/
+//(STRING_PARAMETER MainMenuName[20],AllChannelsName[30];
+//INTEGER_PARAMETER TimeBeforeEnter,EnterLenght,FileLocation;
+
+
+/****************************************************************************
+  Parameter Properties
+*****************************************************************************/
+
+/*#BEGIN_PARAMETER_PROPERTIES MainMenuName
+	propValidUnits = unitString;
+    propDefaultUnit = unitString;
+    propDefaultValue = "Categories";
+    propShortDescription = "The Name for the List Header when in Categories";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES AllChannelsName
+	propValidUnits = unitString;
+    propDefaultUnit = unitString;
+    propDefaultValue = "AllChannels";
+    propShortDescription = "The Name for the List Header when in Categories";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+*/
+/*
+#BEGIN_PARAMETER_PROPERTIES TimeBeforeEnter,EnterLenght
+	propValidUnits = unitTime|unitTicks;
+    propDefaultUnit = unitTime;
+    propDefaultValue = 0.5s;
+    propShortDescription = "The Name for the List Header when in Categories";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES FileLocation
+	propValidUnits = unitDecimal;
+    propDefaultUnit = unitDecimal;
+    propDefaultValue = 0d;
+	propList = { 0d , NVRAM } , { 1d , Compact_Flash } ;
+    propShortDescription = "Location of the file (NVRAM or CompactFlash)";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+            */
+/*******************************************************************************************
+										  Global Variables
+********************************************************************************************/
+
+#DEFINE_CONSTANT MAXFAVS  	     150
+#DEFINE_CONSTANT MAXCATS  	     50
+
+STRING filename[30],sBuf[10000],cbuf[1000], cline[30], sLine[50],tempString[50];
+STRING g_TempLine[100][30];//Temporaly Stores de Data for the Menu
+integer Line1Index,NumUsedLines,CatsLines,FavsLines,FileLines,t_bfore_enter,t_enter_lngt,CategoryLineSel,ListType,DisplayedFavs,g_temp_lines,SubIndex[150];
+
+
+
+/******STRUCTURES*******/
+STRUCTURE ChannelStruct 	//-----------------STRUCT READ (Structure for the favorites)
+{
+
+STRING Canal[30];
+
+INTEGER Number;
+
+INTEGER Category;
+
+};
+ChannelStruct StructRead[MaxFavs];
+                                
+
+
+STRUCTURE CategoriesStruct	//-----------------CATEGORIES READ (Structure for the categories)
+{
+
+INTEGER Number;
+
+STRING Nombre[30];	
+
+};
+CategoriesStruct CategoriesRead[MAXCATS];
+
+/**********************************************************************************************************************
+												  Functions
+**********************************************************************************************************************/
+
+Function MakeMenu()						// Sends the temporary list (g_TempLine) to the Lines.
+{
+	integer o;
+
+	for(o=1 to NumUsedLines)
+		{
+			Line[o]=g_TempLine[o];
+		}
+}
+
+Function EraseFile()
+{
+	integer x;
+	signed_integer siFile;	
+	string wrtLine[15];
+		startfileoperations();
+
+			siFile=fileopen(filename, _o_wronly);	//will overwrite 
+			
+			for(x=1 to FileLines)
+			{
+        		wrtLine= "Line : " + itoa(x)+ "\n";
+				writestring(siFile, wrtLine);	//write line by line in the file
+			}
+         	fileclose(siFile);	//close the file, lamplog.txt
+		endfileoperations();	
+
+		clearbuffer (wrtLine);
+
+}
+Function ReloadFile()			//Writes de file with the data in Structure
+{
+	integer w,x,y,z;
+	signed_integer siFile;	
+	string wrtLine[50][15];
+		startfileoperations();
+
+			siFile=fileopen(filename, _o_wronly);	//will overwrite 
+			
+			for(x=0 to CatsLines)
+			{
+        		wrtLine[x]= itoa(CategoriesRead[x].Number) + "\x09" + CategoriesRead[x].Nombre;
+			}
+			x=x+1;
+			wrtLine[x]="FAVS" + "\n";
+			x=x+1;
+			for(y=1 to FavsLines)
+			{
+        		wrtLine[x]= StructRead[y].Canal + "\x09" + itoa(StructRead[y].Number) + "\x09" + itoa(StructRead[x].Category) + "\n";
+				x=x+1;
+			}
+			for(z=1 to x)
+			{			
+				writestring(siFile, wrtLine[z]);	//write one file line at a time, loc 1 to the last line
+            }
+         	fileclose(siFile);	//close the file, lamplog.txt
+		endfileoperations();	
+
+		for(w=1 to x)
+		{
+			clearbuffer (wrtLine[w]);
+		}
+}
+
+
+/**********************************************************************************************************************
+													EVENTS
+***********************************************************************************************************************/
+
+push readFile
+{
+	integer g,h,j;
+	signed_integer nFileHandle,cBufferDone,bBufferDone,iChunkCount,lineCount,clineCount,Chnls_pos,i; //file handle
+	string categories$[1000],tLine[50];
+
+
+	//----------------------CLEARS THE PREVIOUS STRUCTURES-------------------
+	for(g=1 to MAXCATS)				//Clears line by line the previous Categories structure
+	{
+			CategoriesRead[i].Number=0;
+			CategoriesRead[i].Nombre="";    	
+	}
+	for(h=1 to MAXFAVS)
+	{
+			StructRead[i].Canal="";
+			StructRead[i].Number=0;
+			StructRead[i].Category=0;
+	}
+	for(j=1 to g_temp_lines)		//Clears the temporary list which is sent to screen.
+	{
+		g_TempLine[j]=" ";
+	}
+    
+	if(FileLocation=0)
+		filename="\\NVRAM\\"+NVRAM_File;	//makes the string for the file to be read.
+	else if(FileLocation=1)
+		filename="\\CF0\\"+NVRAM_File;
+
+	startfileoperations();
+	using_file=1;
+
+		nFileHandle = fileopen(filename,_O_RDONLY);
+		
+    IF (nFileHandle >= 0) 
+
+   {
+    WHILE (FileRead(nFileHandle, sBuf, 10000) > 0) 	//Reads the file and copies it to sBuf
+	{
+      	bBufferDone = 0;
+		cBufferDone=0;	      
+	    
+		categories$=remove("FAVS\n",sBuf);//Gets Categories Info from file
+		Chnls_pos=find("FAVS",categories$);	//Removes FAVS word
+		cbuf=left(categories$,Chnls_pos);
+		clineCount=0;
+
+//---------------------------------Makes Categories Structure-----------------------------
+		  DO
+		{
+			cline = remove("||",cBuf);
+			if (len(cLine) = 0)
+			{
+	  	    cBufferDone = 1;
+			}
+            else		//Do this after check if iteration has been done
+			{
+			clineCount=clineCount+1;
+				if(find("//",cLine))
+				{
+					tLine = remove("//", cLine);
+					CategoriesRead[clineCount].Number=atoi(Left(cLine,find("\x09", cLine)-1));
+					tLine = remove("\x09", cLine);
+					CategoriesRead[clineCount].Nombre=Left(cLine,find("||", cLine)-1);
+					cline="";
+				}
+    		}
+		}
+		until (cBufferDone);
+
+		clearbuffer(cline);
+		clearbuffer(tLine);
+
+		CatsLines=clineCount;        
+
+		for (i=clinecount+1 to MAXCATS)	//Clears all the other inputs in Structure
+		{
+			CategoriesRead[i].Number=0;
+			CategoriesRead[i].Nombre="";        	
+		}
+//---------------------------Ends Making Categories Structure------------------
+
+		lineCount=0;
+
+//---------------------------Makes Favs Structure------------------
+		  DO
+		{
+			sLine = remove("||",sBuf);
+			if (len(sLine) = 0)
+			{
+	  	    bBufferDone = 1;
+			}
+            //Do this after check if iteration has been done
+			else
+			{
+				lineCount=lineCount+1;
+
+				tLine = remove("//", sline);
+				StructRead[lineCount].Canal=Left(sline,find("\x09", sline)-1);
+                tLine = remove("\x09", sline);
+				StructRead[lineCount].Number=atoi(Left(sline,find("\x09)", sline)-1));
+				tLine = remove("\x09", sline);
+				StructRead[lineCount].Category=atoi(Left(sline,find("||)", sline)-1));
+				sline="";
+			}
+    	}
+		until (bBufferDone);
+				
+		clearbuffer(sline);
+		clearbuffer(tLine);
+
+        FavsLines=lineCount;//------------------------Determines the number of Lines In the Favs
+		FavsFoundLines=FavsLines;
+		for (i=linecount+1 to MAXFAVS)	//Clears all the other inputs in Structure
+		{
+			StructRead[i].Canal="";
+			StructRead[i].Number=0;
+			StructRead[i].Category=0;         	
+		}
+//--------------------------------------------Ends Making Favs Structure-----------------------------------
+
+		IF ( FileClose ( nFileHandle ) <> 0 ) 
+
+        PRINT ( "Error closing file\n" );
+		FileLines=CatsLines+1+FavsLines; 
+	}
+   } //end of if
+
+
+	endfileoperations();
+	using_file=0;
+
+	clearbuffer(sBuf);
+	clearbuffer(cbuf);
+
+}
+
+
+push Channels
+{
+    integer n;
+	ListHeader[1]=AllChannelsName;
+	for(n=1 to FavsLines)
+	{												
+		g_TempLine[n]=StructRead[n].Canal;
+		SubIndex[n]=n;
+    }
+	g_temp_lines=FavsLines;
+	DisplayedFavs= FavsLines;
+	MakeMenu();  		//Sends Values to Screen Lines
+	Line1Index=1;//Reinitialize the Index for the Line in Menu.
+	ListType=2;//--------------List Type (1=Categories, 2= Channels)
+}
+
+push Categories
+{
+ 	integer n,m;
+    ListHeader[1]=MainMenuName;
+	for(n=1 to CatsLines)
+	{
+		g_TempLine[n] = CategoriesRead[n].Nombre;
+		SubIndex[n]=n;
+	}
+	if(CatsLines<NumUsedLines) 
+	{
+    	for(m=CatsLines+1 to NumUsedLines)
+		{
+			g_TempLine[m]="";
+		}
+	}
+	g_temp_lines=CatsLines;
+	MakeMenu();		//Sends Values to Screen Lines
+	Line1Index=1;
+	ListType=1;//--------------List Type (1=Categories, 2= Channels)
+}
+
+//-------------------------------------------NAVIGATION IN THE LIST BUTTONS-------------
+Push NextLine
+{
+  	integer o,ind;
+	o=1;
+	ind=Line1Index;
+	
+    If(Line1Index<=g_temp_lines-NumUsedLines)
+	{
+		Line1Index=Line1Index+1;
+		for(o=1 to NumUsedLines)
+			{
+				ind=ind+1;
+				Line[o] = g_TempLine[ind];
+			}
+	}
+}
+
+Push PrevLine
+{
+  	integer o,ind;
+	o=1;
+	ind=Line1Index;
+	
+    If(Line1Index>1)
+	{
+		ind=ind-1;
+		for(o=1 to NumUsedLines)
+			{
+			Line[o] = g_TempLine[ind];
+			ind=ind+1;
+//			SubIndex[o]=ind;
+			}
+	Line1Index=Line1Index-1;
+	}
+}
+
+Push FirstLine
+{
+  	integer o,ind;
+	o=1;
+	
+    If(Line1Index>1)
+	{
+		for(o=1 to NumUsedLines)
+			{
+			Line[o] = g_TempLine[o];
+//			SubIndex[o]=o;			
+			}
+		Line1Index=1;
+	}
+}
+Push LastLine
+{
+  	integer o,ind;
+	o=1;
+	
+    If(Line1Index<=g_temp_lines-NumUsedLines)
+	{
+		Line1Index=g_temp_lines-NumUsedLines;
+		ind=Line1Index;
+		for(o=1 to NumUsedLines)
+			{
+				ind=ind+1;
+				Line[o] = g_TempLine[ind];
+			}
+		Line1Index=g_temp_lines-NumUsedLines+1;
+	}
+}
+
+//-------------------------------------Action for Selected Line---------------------------------------------
+Push LineSel
+{
+ 	integer n,l,i,cnt,CategorySel;
+	CategoryLineSel=GetLastModifiedArrayIndex();
+	n=1;
+	cnt=0;
+	l=1;
+    
+	CategorySel=Line1Index+CategoryLineSel-1;
+	
+	switch	(ListType)	//--------------List Type (1=Categories, 2= Channels)
+	{
+		case (1):	//---------------------------When shown list is categories.---------------------
+		{
+			//CategorySel=Line1Index+CategoryLineSel-1;
+			if (CategorySel<=CatsLines)
+			{
+				Do{
+					if (StructRead[n].Category=CategorySel)
+					{
+						g_TempLine[l] = StructRead[n].Canal;
+						SubIndex[l]=n;
+						cnt=cnt+1;
+						l=l+1;
+					}
+					n=n+1;	
+				   } 
+				Until (n=FavsLines+1);
+				Line1Index=1;	
+				DisplayedFavs=cnt;
+				g_temp_lines=DisplayedFavs;
+				ListHeader[1]=CategoriesRead[CategorySel].Nombre;
+				
+				if(cnt< NumUsedLines+1)		//Clears all other lines.
+				{
+					for(i=cnt+1 to NumUsedLines)
+						g_TempLine[i] = "";
+				}
+				MakeMenu();
+			  	ListType=2;//----------------Now the list is Channels Type
+			}
+		}
+		case (2):	//---------------------------When shown list is channels.---------------------
+		{
+			if (CategoryLineSel<=DisplayedFavs)
+			{
+				SelectedName$=StructRead[SubIndex[CategorySel]].Canal;
+			    SelectionNumber=StructRead[SubIndex[CategorySel]].Number;
+//				SelectedCategory=StructRead[SubIndex[CategorySel]].Category;
+				SelectedCategory$=CategoriesRead[StructRead[SubIndex[CategorySel]].Category].Nombre;
+				delay(t_bfore_enter);
+				enter=1;
+				delay(t_enter_lngt);
+				enter=0;
+			}
+		}
+	}
+}
+/*
+Push Erase
+{
+	EraseFile();
+}
+
+Push Reload
+{
+	ReloadFile();
+}
+*/
+//*******************************************************************************************/
+
+Function Main()
+{
+    // TODO:  Add code here
+    // Initialize declared global and local variables/arrays as needed.
+
+    WaitForInitializationComplete();
+    
+
+	
+	NumUsedLines=0;
+
+   	FOR(NumUsedLines = 11 to 1 Step -1)
+    {
+    	IF(IsSignalDefined(Line[NumUsedLines]))
+          Break;   	
+	}
+  
+
+	t_bfore_enter=1*1;
+	t_enter_lngt=1*1;
+
+/*
+	t_bfore_enter=TimeBeforeEnter*1;
+	t_enter_lngt=EnterLenght*1;
+*/
+}

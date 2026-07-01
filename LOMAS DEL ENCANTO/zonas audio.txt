@@ -1,0 +1,15 @@
+Pad8
+1 garage
+2
+3 terraza jardin
+4 comedor
+
+amp 45
+z1 baño
+z2 vestidor
+z3 sala
+z4 salon de juegos
+z5 despacho
+Z6 antecomedor
+Z7 jardin frontal
+z8 cocina

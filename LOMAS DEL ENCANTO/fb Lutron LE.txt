@@ -1,0 +1,118 @@
+156 ms    ~OUTPUT,71,1,90.00\x0D\x0A    Lutron_rLutron_rx
+
+
+Entrada principal
+b1
+b2
+b3
+b4
+Garage acceso
+b1
+b2
+b3
+b4
+Garage lobby
+b1
+b2
+b3
+b4
+Rec Ninos
+b1
+b2
+b3
+b4
+Despacho
+b1
+b2
+b3
+b4
+Family PB
+b1
+b2
+b3
+b4
+Vestidor Rec Ppal
+b1
+b2
+b3
+b4
+Cava
+Rec ppal entrada
+b1
+b2
+b3
+b4
+Comedor
+b1  ~OUTPUT,73,1,100.00\x0D\x0A    Lutron_rx
+    ~OUTPUT,73,1,0.00\x0D\x0A    Lutron_rx
+
+b2  ~OUTPUT,80,1,100.00\x0D\x0A    Lutron_rx
+    ~OUTPUT,80,1,0.00\x0D\x0A    Lutron_rx
+
+b3  ~OUTPUT,78,1,100.00\x0D\x0A    Lutron_rx
+    ~OUTPUT,78,1,0.00\x0D\x0A    Lutron_rx
+
+b4  ~OUTPUT,71,1,100.00\x0D\x0A    Lutron_rx
+    ~OUTPUT,71,1,0.00\x0D\x0A    Lutron_rx
+
+Rec ppal izq
+b1
+b2
+b3
+b4
+Sala
+Vestíbulo PB
+b1
+b2
+b3
+b4
+Rec Ppal der
+b1
+b2
+b3
+b4
+Cocina
+b1 16 ms    ~OUTPUT,71,1,90.00\x0D\x0A    Lutron_rx
+   47 ms    ~OUTPUT,71,1,0.00\x0D\x0A    Lutron_rx
+
+b2 110 ms    ~OUTPUT,76,1,100.00\x0D\x0A    Lutron_rx
+   110 ms    ~OUTPUT,93,1,100.00\x0D\x0A    Lutron_rx
+   15 ms    ~OUTPUT,76,1,0.00\x0D\x0A    Lutron_rx
+   15 ms    ~OUTPUT,93,1,0.00\x0D\x0A    Lutron_rx
+
+b3 110 ms    ~OUTPUT,77,1,100.00\x0D\x0A    Lutron_rx
+   16 ms    ~OUTPUT,77,1,0.00\x0D\x0A    Lutron_rx
+
+b4 78 ms    ~OUTPUT,68,1,100.00\x0D\x0A    Lutron_rx
+   31 ms    ~OUTPUT,68,1,0.00\x0D\x0A    Lutron_rx
+
+Salon de juegos
+b1
+b2
+b3
+b4
+Escalera PB a sot
+b1
+b2
+b3
+b4
+Escalera PA a fam
+b1
+b2
+b3
+b4
+Escalera PB a PA
+b1
+b2
+b3
+b4
+Family PB mueble
+b1
+b2
+b3
+b4
+Rec Ninas
+b1
+b2
+b3
+b4

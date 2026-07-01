@@ -1,0 +1,964 @@
+[BEGIN]
+  Version=1
+[END]
+[BEGIN]
+  ObjTp=FSgntr
+  Sgntr=UserSPlus
+  RelVrs=1
+  IntStrVrs=1
+  SPlusVrs=4.06.00
+  CrossCplrVrs=1.1
+[END]
+[BEGIN]
+  ObjTp=Hd
+[END]
+[BEGIN]
+  ObjTp=Symbol
+  Exclusions=1,19,20,21,88,89,167,168,179,213,214,215,216,217,225,226,248,249,266,267,310,362,378,380,405,407,408,409,478,522,537,554,586,590,611,624,718,756,767,830,841,842,854,883,955,1032,1062,1079,1128,1129,1134,1140,1157,1158,1195,1199,1220,1221,1222,1223,1299,1348,1349,1439,1472,1473,1499,1746,1803,1975,2229,2354,2514,2523,2532,2706,2707,3235,3236,3427,3454,3567,3568,3601,3602,3708,3902,3903,3912,3918,3925,3926,4206,4207,
+  Exclusions_CDS=5
+  Inclusions_CDS=6,7
+  Name=Lutron RadioRA 3 Button Control v1.1.1
+  SmplCName=Lutron RadioRA 3 Button Control.usp
+  Code=1
+  SysRev5=4.000
+  SMWRev=2.02.05
+  InputCue1=[~UNUSED~]
+  InputSigType1=Digital
+  InputCue2=[~UNUSED~]
+  InputSigType2=Digital
+  InputCue3=[~UNUSED~]
+  InputSigType3=Digital
+  InputCue4=[~UNUSED~]
+  InputSigType4=Digital
+  InputCue5=[~UNUSED~]
+  InputSigType5=Digital
+  InputCue6=Button[#]
+  InputSigType6=Digital
+  OutputCue1=[~UNUSED~]
+  OutputSigType1=Digital
+  OutputCue2=[~UNUSED~]
+  OutputSigType2=Digital
+  OutputCue3=[~UNUSED~]
+  OutputSigType3=Digital
+  OutputCue4=Is_Initialized
+  OutputSigType4=Digital
+  OutputCue5=[~UNUSED~]
+  OutputSigType5=Digital
+  OutputCue6=Press[#]
+  OutputSigType6=Digital
+  ParamCue1=[Reference Name]
+  ParamCue2=Command_Processor_ID
+  ParamSigType2=Constant
+  ParamCue3=Button_Press_Mode
+  ParamSigType3=Constant
+  ParamCue4=MultiTap_Interval
+  ParamSigType4=Time
+  ParamCue5=Button_Press_Fb_Mode
+  ParamSigType5=Constant
+  ParamCue6=[~UNUSED~]
+  ParamSigType6=Constant
+  ParamCue7=Button_Href_ID[1]
+  ParamSigType7=Constant
+  ParamCue8=Button_Href_ID[2]
+  ParamSigType8=Constant
+  ParamCue9=Button_Href_ID[3]
+  ParamSigType9=Constant
+  ParamCue10=Button_Href_ID[4]
+  ParamSigType10=Constant
+  ParamCue11=Button_Href_ID[5]
+  ParamSigType11=Constant
+  ParamCue12=Button_Href_ID[6]
+  ParamSigType12=Constant
+  ParamCue13=Button_Href_ID[7]
+  ParamSigType13=Constant
+  ParamCue14=Button_Href_ID[8]
+  ParamSigType14=Constant
+  ParamCue15=Button_Href_ID[9]
+  ParamSigType15=Constant
+  ParamCue16=Button_Href_ID[10]
+  ParamSigType16=Constant
+  ParamCue17=Button_Href_ID[11]
+  ParamSigType17=Constant
+  ParamCue18=Button_Href_ID[12]
+  ParamSigType18=Constant
+  ParamCue19=Button_Href_ID[13]
+  ParamSigType19=Constant
+  ParamCue20=Button_Href_ID[14]
+  ParamSigType20=Constant
+  ParamCue21=Button_Href_ID[15]
+  ParamSigType21=Constant
+  ParamCue22=Button_Href_ID[16]
+  ParamSigType22=Constant
+  ParamCue23=Button_Href_ID[17]
+  ParamSigType23=Constant
+  ParamCue24=Button_Href_ID[18]
+  ParamSigType24=Constant
+  ParamCue25=Button_Href_ID[19]
+  ParamSigType25=Constant
+  ParamCue26=Button_Href_ID[20]
+  ParamSigType26=Constant
+  ParamCue27=Button_Href_ID[21]
+  ParamSigType27=Constant
+  ParamCue28=Button_Href_ID[22]
+  ParamSigType28=Constant
+  ParamCue29=Button_Href_ID[23]
+  ParamSigType29=Constant
+  ParamCue30=Button_Href_ID[24]
+  ParamSigType30=Constant
+  ParamCue31=Button_Href_ID[25]
+  ParamSigType31=Constant
+  ParamCue32=Button_Href_ID[26]
+  ParamSigType32=Constant
+  ParamCue33=Button_Href_ID[27]
+  ParamSigType33=Constant
+  ParamCue34=Button_Href_ID[28]
+  ParamSigType34=Constant
+  ParamCue35=Button_Href_ID[29]
+  ParamSigType35=Constant
+  ParamCue36=Button_Href_ID[30]
+  ParamSigType36=Constant
+  ParamCue37=Button_Href_ID[31]
+  ParamSigType37=Constant
+  ParamCue38=Button_Href_ID[32]
+  ParamSigType38=Constant
+  ParamCue39=Button_Href_ID[33]
+  ParamSigType39=Constant
+  ParamCue40=Button_Href_ID[34]
+  ParamSigType40=Constant
+  ParamCue41=Button_Href_ID[35]
+  ParamSigType41=Constant
+  ParamCue42=Button_Href_ID[36]
+  ParamSigType42=Constant
+  ParamCue43=Button_Href_ID[37]
+  ParamSigType43=Constant
+  ParamCue44=Button_Href_ID[38]
+  ParamSigType44=Constant
+  ParamCue45=Button_Href_ID[39]
+  ParamSigType45=Constant
+  ParamCue46=Button_Href_ID[40]
+  ParamSigType46=Constant
+  ParamCue47=Button_Href_ID[41]
+  ParamSigType47=Constant
+  ParamCue48=Button_Href_ID[42]
+  ParamSigType48=Constant
+  ParamCue49=Button_Href_ID[43]
+  ParamSigType49=Constant
+  ParamCue50=Button_Href_ID[44]
+  ParamSigType50=Constant
+  ParamCue51=Button_Href_ID[45]
+  ParamSigType51=Constant
+  ParamCue52=Button_Href_ID[46]
+  ParamSigType52=Constant
+  ParamCue53=Button_Href_ID[47]
+  ParamSigType53=Constant
+  ParamCue54=Button_Href_ID[48]
+  ParamSigType54=Constant
+  ParamCue55=Button_Href_ID[49]
+  ParamSigType55=Constant
+  ParamCue56=Button_Href_ID[50]
+  ParamSigType56=Constant
+  MinVariableInputs=6
+  MaxVariableInputs=55
+  MinVariableInputsList2=0
+  MaxVariableInputsList2=0
+  MinVariableOutputs=6
+  MaxVariableOutputs=55
+  MinVariableOutputsList2=0
+  MaxVariableOutputsList2=0
+  MinVariableParams=6
+  MaxVariableParams=55
+  Expand=expand_inputs_with_params
+  Expand2=expand_separately
+  ProgramTree=Logic
+  SymbolTree=0
+  Hint=
+  PdfHelp=
+  HelpID= 
+  Render=4
+  Smpl-C=16
+  CompilerCode=-48
+  CompilerParamCode=27
+  CompilerParamCode5=14
+  NumFixedParams=1
+  Pp1=1
+  Pp2=2
+  Pp3=3
+  Pp4=4
+  Pp5=5
+  Pp7=7
+  Pp8=8
+  Pp9=9
+  Pp10=10
+  Pp11=11
+  Pp12=12
+  Pp13=13
+  Pp14=14
+  Pp15=15
+  Pp16=16
+  Pp17=17
+  Pp18=18
+  Pp19=19
+  Pp20=20
+  Pp21=21
+  Pp22=22
+  Pp23=23
+  Pp24=24
+  Pp25=25
+  Pp26=26
+  Pp27=27
+  Pp28=28
+  Pp29=29
+  Pp30=30
+  Pp31=31
+  Pp32=32
+  Pp33=33
+  Pp34=34
+  Pp35=35
+  Pp36=36
+  Pp37=37
+  Pp38=38
+  Pp39=39
+  Pp40=40
+  Pp41=41
+  Pp42=42
+  Pp43=43
+  Pp44=44
+  Pp45=45
+  Pp46=46
+  Pp47=47
+  Pp48=48
+  Pp49=49
+  Pp50=50
+  Pp51=51
+  Pp52=52
+  Pp53=53
+  Pp54=54
+  Pp55=55
+  Pp56=56
+  MPp=56
+  NVStorage=10
+  ParamSigType1=String
+  SmplCInputCue1=o#
+  SmplCOutputCue1=i#
+  SmplCInputList2Cue1=an#
+  SmplCOutputList2Cue1=ai#
+  SPlus2CompiledName=S2_Lutron_RadioRA_3_Button_Control
+  SymJam=NonExclusive
+  FileName=Lutron RadioRA 3 Button Control.ush
+  SIMPLPlusModuleEncoding=0
+  clz1=Lutron.Leap.CommLib
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=1
+  Tp=1
+  NoS=False
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=2
+  Tp=1
+  HD=True
+  DV=1d
+  Sgn=0
+  Lng=False
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=1
+  LR=1d
+  HR=10d
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=3
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=False
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=1
+  LR=0d
+  HR=2d
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=4
+  Tp=1
+  HD=True
+  DV=0.5s
+  Sgn=0
+  Lng=False
+  NF=16
+  NoS=True
+  DNF=16
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=5
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=False
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=1
+  LR=0d
+  HR=1d
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=7
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=8
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=9
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=10
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=11
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=12
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=13
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=14
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=15
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=16
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=17
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=18
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=19
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=20
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=21
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=22
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=23
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=24
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=25
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=26
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=27
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=28
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=29
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=30
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=31
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=32
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=33
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=34
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=35
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=36
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=37
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=38
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=39
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=40
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=41
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=42
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=43
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=44
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=45
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=46
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=47
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=48
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=49
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=50
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=51
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=52
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=53
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=54
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=55
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]
+[BEGIN]
+  ObjTp=Dp
+  H=56
+  Tp=1
+  HD=True
+  DV=0d
+  Sgn=0
+  Lng=True
+  NF=1
+  NoS=True
+  DNF=1
+  VVS=0
+[END]

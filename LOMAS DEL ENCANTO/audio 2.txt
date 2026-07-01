@@ -1,0 +1,8 @@
+1 room 16 garage
+2 room 1  despacho
+3 room 8  salon de juegos
+4 room 11 comedor
+5 room 12 antecomedor
+6 room 13 cava
+7 room 15 jardin
+8 room 2  family pb

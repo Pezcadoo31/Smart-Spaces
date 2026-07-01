@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Manifest' Version='1.1.0' ObjectDisplayList='1'>
+<Project FileName='Fam_20Pb_20LomasEncanto.zip' Size='321461' Build='20130729171932'>
+<Sources>
+<Source FileName='Fam_20Pb_20LomasEncanto.xml' Size='561' Type='Application' Build='20130729171932' />
+<Source FileName='Fam_20Pb_20LomasEncanto_Resource.xml' Size='11597' Type='Resource' Build='20130729171932' />
+<Source FileName='09 APPLE TV.xml' Size='14291' Type='Page' Build='20130729171970' />
+<Source FileName='08 LUCES.xml' Size='7533' Type='Page' Build='20130729171968' />
+<Source FileName='01 BLURAY.xml' Size='31261' Type='Page' Build='20130729171968' />
+<Source FileName='MEDIA MENU.xml' Size='9011' Type='Page' Build='20130729171967' />
+<Source FileName='07 IPOD FAMILY PA.xml' Size='13282' Type='Page' Build='20130729171965' />
+<Source FileName='06 IPOD FAMILY PB.xml' Size='13261' Type='Page' Build='20130729171965' />
+<Source FileName='05 IPOD RACK.xml' Size='13257' Type='Page' Build='20130729171965' />
+<Source FileName='04 MAC MINI.xml' Size='7871' Type='Page' Build='20130729171964' />
+<Source FileName='03 SKY AUDIO.xml' Size='16982' Type='Page' Build='20130729171962' />
+<Source FileName='02 SKY VIDEO TECLADO.xml' Size='24039' Type='Page' Build='20130729171959' />
+<Source FileName='02 SKY VIDEO.xml' Size='31281' Type='Page' Build='20130729171956' />
+<Source FileName='MENU INICIO.xml' Size='6962' Type='Page' Build='20130729171950' />
+</Sources>
+</Project>
+</File>

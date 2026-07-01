@@ -1,0 +1,216 @@
+#ifndef __S2_CLA_SCROLLING_FAVS_V1_H__
+#define __S2_CLA_SCROLLING_FAVS_V1_H__
+
+
+
+/*
+* STRUCTURE S2_CLA_Scrolling_Favs_v1__CHANNELSTRUCT
+*/
+#define CHANNELSTRUCT__S2_CLA_Scrolling_Favs_v1_CANAL_STRING_MAX_LEN 30
+START_STRUCTURE_DEFINITION( S2_CLA_Scrolling_Favs_v1, CHANNELSTRUCT )
+{
+   CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, CHANNELSTRUCT__CANAL, CHANNELSTRUCT__S2_CLA_Scrolling_Favs_v1_CANAL_STRING_MAX_LEN );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, CHANNELSTRUCT__CANAL );
+   unsigned short CHANNELSTRUCT__NUMBER;
+   unsigned short CHANNELSTRUCT__CATEGORY;
+};
+
+/*
+* STRUCTURE S2_CLA_Scrolling_Favs_v1__CATEGORIESSTRUCT
+*/
+#define CATEGORIESSTRUCT__S2_CLA_Scrolling_Favs_v1_NOMBRE_STRING_MAX_LEN 30
+START_STRUCTURE_DEFINITION( S2_CLA_Scrolling_Favs_v1, CATEGORIESSTRUCT )
+{
+   CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, CATEGORIESSTRUCT__NOMBRE, CATEGORIESSTRUCT__S2_CLA_Scrolling_Favs_v1_NOMBRE_STRING_MAX_LEN );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, CATEGORIESSTRUCT__NOMBRE );
+   unsigned short CATEGORIESSTRUCT__NUMBER;
+};
+
+
+/*
+* Constructor and Destructor
+*/
+int S2_CLA_Scrolling_Favs_v1_CHANNELSTRUCT_Constructor ( START_STRUCTURE_DEFINITION( S2_CLA_Scrolling_Favs_v1, CHANNELSTRUCT ) * me, int nVerbose );
+int S2_CLA_Scrolling_Favs_v1_CHANNELSTRUCT_Destructor ( START_STRUCTURE_DEFINITION( S2_CLA_Scrolling_Favs_v1, CHANNELSTRUCT ) * me, int nVerbose );
+int S2_CLA_Scrolling_Favs_v1_CATEGORIESSTRUCT_Constructor ( START_STRUCTURE_DEFINITION( S2_CLA_Scrolling_Favs_v1, CATEGORIESSTRUCT ) * me, int nVerbose );
+int S2_CLA_Scrolling_Favs_v1_CATEGORIESSTRUCT_Destructor ( START_STRUCTURE_DEFINITION( S2_CLA_Scrolling_Favs_v1, CATEGORIESSTRUCT ) * me, int nVerbose );
+
+/*
+* DIGITAL_INPUT
+*/
+#define __S2_CLA_Scrolling_Favs_v1_READFILE_DIG_INPUT 0
+#define __S2_CLA_Scrolling_Favs_v1_CATEGORIES_DIG_INPUT 1
+#define __S2_CLA_Scrolling_Favs_v1_CHANNELS_DIG_INPUT 2
+#define __S2_CLA_Scrolling_Favs_v1_NEXTLINE_DIG_INPUT 3
+#define __S2_CLA_Scrolling_Favs_v1_PREVLINE_DIG_INPUT 4
+#define __S2_CLA_Scrolling_Favs_v1_FIRSTLINE_DIG_INPUT 5
+#define __S2_CLA_Scrolling_Favs_v1_LASTLINE_DIG_INPUT 6
+
+#define __S2_CLA_Scrolling_Favs_v1_LINESEL_DIG_INPUT 7
+#define __S2_CLA_Scrolling_Favs_v1_LINESEL_ARRAY_LENGTH 10
+
+/*
+* ANALOG_INPUT
+*/
+#define __S2_CLA_Scrolling_Favs_v1_FILELOCATION_ANALOG_INPUT 3
+
+#define __S2_CLA_Scrolling_Favs_v1_MAINMENUNAME_STRING_INPUT 0
+#define __S2_CLA_Scrolling_Favs_v1_MAINMENUNAME_STRING_MAX_LEN 20
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __MAINMENUNAME, __S2_CLA_Scrolling_Favs_v1_MAINMENUNAME_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_ALLCHANNELSNAME_STRING_INPUT 1
+#define __S2_CLA_Scrolling_Favs_v1_ALLCHANNELSNAME_STRING_MAX_LEN 30
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __ALLCHANNELSNAME, __S2_CLA_Scrolling_Favs_v1_ALLCHANNELSNAME_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_NVRAM_FILE_STRING_INPUT 2
+#define __S2_CLA_Scrolling_Favs_v1_NVRAM_FILE_STRING_MAX_LEN 30
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __NVRAM_FILE, __S2_CLA_Scrolling_Favs_v1_NVRAM_FILE_STRING_MAX_LEN );
+
+
+
+/*
+* DIGITAL_OUTPUT
+*/
+#define __S2_CLA_Scrolling_Favs_v1_USING_FILE_DIG_OUTPUT 0
+#define __S2_CLA_Scrolling_Favs_v1_ENTER_DIG_OUTPUT 1
+
+
+/*
+* ANALOG_OUTPUT
+*/
+#define __S2_CLA_Scrolling_Favs_v1_SELECTIONNUMBER_ANALOG_OUTPUT 2
+#define __S2_CLA_Scrolling_Favs_v1_FAVSFOUNDLINES_ANALOG_OUTPUT 3
+
+#define __S2_CLA_Scrolling_Favs_v1_SELECTEDNAME$_STRING_OUTPUT 0
+#define __S2_CLA_Scrolling_Favs_v1_SELECTEDCATEGORY$_STRING_OUTPUT 1
+
+#define __S2_CLA_Scrolling_Favs_v1_LISTHEADER_STRING_OUTPUT 4
+#define __S2_CLA_Scrolling_Favs_v1_LISTHEADER_ARRAY_LENGTH 1
+#define __S2_CLA_Scrolling_Favs_v1_LINE_STRING_OUTPUT 5
+#define __S2_CLA_Scrolling_Favs_v1_LINE_ARRAY_LENGTH 10
+
+/*
+* Direct Socket Variables
+*/
+
+
+
+
+/*
+* INTEGER_PARAMETER
+*/
+/*
+* SIGNED_INTEGER_PARAMETER
+*/
+/*
+* LONG_INTEGER_PARAMETER
+*/
+/*
+* SIGNED_LONG_INTEGER_PARAMETER
+*/
+/*
+* INTEGER_PARAMETER
+*/
+/*
+* SIGNED_INTEGER_PARAMETER
+*/
+/*
+* LONG_INTEGER_PARAMETER
+*/
+/*
+* SIGNED_LONG_INTEGER_PARAMETER
+*/
+/*
+* STRING_PARAMETER
+*/
+
+
+/*
+* INTEGER
+*/
+CREATE_INTARRAY1D( S2_CLA_Scrolling_Favs_v1, __SUBINDEX, 150 );;
+
+
+/*
+* LONG_INTEGER
+*/
+
+
+/*
+* SIGNED_INTEGER
+*/
+
+
+/*
+* SIGNED_LONG_INTEGER
+*/
+
+
+/*
+* STRING
+*/
+#define __S2_CLA_Scrolling_Favs_v1_FILENAME_STRING_MAX_LEN 30
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __FILENAME, __S2_CLA_Scrolling_Favs_v1_FILENAME_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_SBUF_STRING_MAX_LEN 10000
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __SBUF, __S2_CLA_Scrolling_Favs_v1_SBUF_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_CBUF_STRING_MAX_LEN 1000
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __CBUF, __S2_CLA_Scrolling_Favs_v1_CBUF_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_CLINE_STRING_MAX_LEN 30
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __CLINE, __S2_CLA_Scrolling_Favs_v1_CLINE_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_SLINE_STRING_MAX_LEN 50
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __SLINE, __S2_CLA_Scrolling_Favs_v1_SLINE_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_TEMPSTRING_STRING_MAX_LEN 50
+CREATE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __TEMPSTRING, __S2_CLA_Scrolling_Favs_v1_TEMPSTRING_STRING_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_G_TEMPLINE_ARRAY_NUM_ELEMS 100
+#define __S2_CLA_Scrolling_Favs_v1_G_TEMPLINE_ARRAY_NUM_CHARS 30
+CREATE_STRING_ARRAY( S2_CLA_Scrolling_Favs_v1, __G_TEMPLINE, __S2_CLA_Scrolling_Favs_v1_G_TEMPLINE_ARRAY_NUM_ELEMS, __S2_CLA_Scrolling_Favs_v1_G_TEMPLINE_ARRAY_NUM_CHARS );
+
+/*
+* STRUCTURE
+*/
+#define __S2_CLA_Scrolling_Favs_v1_STRUCTREAD_STRUCT_MAX_LEN 150
+CREATE_STRUCTURE_ARRAY( S2_CLA_Scrolling_Favs_v1, __STRUCTREAD, CHANNELSTRUCT, __S2_CLA_Scrolling_Favs_v1_STRUCTREAD_STRUCT_MAX_LEN );
+#define __S2_CLA_Scrolling_Favs_v1_CATEGORIESREAD_STRUCT_MAX_LEN 50
+CREATE_STRUCTURE_ARRAY( S2_CLA_Scrolling_Favs_v1, __CATEGORIESREAD, CATEGORIESSTRUCT, __S2_CLA_Scrolling_Favs_v1_CATEGORIESREAD_STRUCT_MAX_LEN );
+
+START_GLOBAL_VAR_STRUCT( S2_CLA_Scrolling_Favs_v1 )
+{
+   void* InstancePtr;
+   struct GenericOutputString_s sGenericOutStr;
+   unsigned short LastModifiedArrayIndex;
+
+   DECLARE_IO_ARRAY( __LINESEL );
+   DECLARE_IO_ARRAY( __LISTHEADER );
+   DECLARE_IO_ARRAY( __LINE );
+   unsigned short __LINE1INDEX;
+   unsigned short __NUMUSEDLINES;
+   unsigned short __CATSLINES;
+   unsigned short __FAVSLINES;
+   unsigned short __FILELINES;
+   unsigned short __T_BFORE_ENTER;
+   unsigned short __T_ENTER_LNGT;
+   unsigned short __CATEGORYLINESEL;
+   unsigned short __LISTTYPE;
+   unsigned short __DISPLAYEDFAVS;
+   unsigned short __G_TEMP_LINES;
+   DECLARE_INTARRAY( S2_CLA_Scrolling_Favs_v1, __SUBINDEX );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __FILENAME );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __SBUF );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __CBUF );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __CLINE );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __SLINE );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __TEMPSTRING );
+   DECLARE_STRING_ARRAY( S2_CLA_Scrolling_Favs_v1, __G_TEMPLINE );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __MAINMENUNAME );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __ALLCHANNELSNAME );
+   DECLARE_STRING_STRUCT( S2_CLA_Scrolling_Favs_v1, __NVRAM_FILE );
+   DECLARE_STRUCT_ARRAY( S2_CLA_Scrolling_Favs_v1, __STRUCTREAD );
+   DECLARE_STRUCT_ARRAY( S2_CLA_Scrolling_Favs_v1, __CATEGORIESREAD );
+};
+
+START_NVRAM_VAR_STRUCT( S2_CLA_Scrolling_Favs_v1 )
+{
+};
+
+
+
+#endif //__S2_CLA_SCROLLING_FAVS_V1_H__
+

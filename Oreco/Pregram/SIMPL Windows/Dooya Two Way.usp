@@ -1,0 +1,190 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:	Chowmain
+System Name:	
+System Number:
+Programmer:		Richard Mullins
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+#SYMBOL_NAME "Dooya Two Way"
+// #HINT ""
+// #DEFINE_CONSTANT
+#CATEGORY "44" // Shades/Drapes
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+/*
+#HELP_BEGIN
+   (add additional lines of help lines)
+#HELP_END
+*/
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+#USER_SIMPLSHARP_LIBRARY "Dooya"
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+
+DIGITAL_INPUT _SKIP_,_SKIP_,Up,Down,Stop,_SKIP_,_SKIP_,_SKIP_;
+ANALOG_INPUT _SKIP_,Position;
+STRING_INPUT _SKIP_,_SKIP_,_SKIP_,ID$[16];
+// BUFFER_INPUT 
+
+DIGITAL_OUTPUT _SKIP_,_SKIP_,Up_FB,Down_FB,_SKIP_,_SKIP_,BatteryLow_FB,Enabled_FB;                                                      
+ANALOG_OUTPUT _SKIP_,Position_FB,_SKIP_,BatteryLevel_FB,Rssi_FB;
+// STRING_OUTPUT 
+
+DooyaDevice Shades;
+string id[16];
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+INTEGER_PARAMETER BatteryLowLevel;
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+STRING_PARAMETER DeviceId[64];
+
+/*******************************************************************************************
+  Parameter Properties
+  (Uncomment and declare parameter properties as needed)
+*******************************************************************************************/
+
+#BEGIN_PARAMETER_PROPERTIES BatteryLowLevel
+  propValidUnits = unitDecimal;
+  propDefaultUnit = unitDecimal;
+  propBounds = 1d , 10000d;
+  propDefaultValue = 1000d;
+  propShortDescription = "Please enter the battery low warning level";
+#END_PARAMETER_PROPERTIES
+
+#BEGIN_PARAMETER_PROPERTIES DeviceId
+  propValidUnits = unitString;
+  propDefaultUnit = unitString;
+  propDefaultValue = "";
+  propShortDescription = "Please enter the device id from the App";
+#END_PARAMETER_PROPERTIES
+
+/*******************************************************************************************
+  Functions
+  (Add any additional functions here)
+  Note:  Functions must be physically placed before the location in
+         the code that calls them.
+*******************************************************************************************/
+
+function setBattery(integer value)
+{
+  BatteryLevel_FB = value;
+  if(BatteryLowLevel > value)
+    BatteryLow_FB = 1;
+  else
+    BatteryLow_FB = 0;
+}
+
+function setOpenClose(integer value)
+{
+  integer level;
+
+  level = 100 - value;
+  Position_FB = level;
+
+	if(level = 0)
+  {
+    Up_FB = 0;
+    Down_FB = 1;	
+  }	
+  else
+  {
+    Down_FB = 0;
+    Up_FB = 1;
+  }
+}
+
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+
+PUSH Up
+{
+  if(Enabled_FB) Shades.OpenStd(id);
+}
+
+PUSH Down 
+{
+  if(Enabled_FB) Shades.CloseStd(id);
+}
+
+PUSH Stop 
+{
+  if(Enabled_FB) Shades.StopStd(id);
+}
+
+CHANGE Position 
+{
+  if(Enabled_FB) Shades.PositionStd(id, Position);
+}
+
+CHANGE ID$
+{
+  trace("Using %s as the device id", ID$);
+  id = ID$;  
+}
+
+
+EVENTHANDLER OnEnabledEvent(EnabledEventArgs e) 
+{
+  Enabled_FB = e.State;
+}
+
+EVENTHANDLER OnUpdateEvent(ResponseEventArgs e) 
+{
+  if(e.Id != id) return;
+
+  Rssi_FB = e.Response.Rssi;
+               
+  setOpenClose(e.Response.CurrentPosition);
+  setBattery(e.Response.BatteryLevel);
+}
+
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+function Main()
+{
+  WaitForInitializationComplete();
+  id = DeviceId;
+  RegisterEvent(DooyaDevice, UpdateEvent, OnUpdateEvent);
+  RegisterEvent(DooyaDevice, EnabledEvent, OnEnabledEvent);
+}
+
+

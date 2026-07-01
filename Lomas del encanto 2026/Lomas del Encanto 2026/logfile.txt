@@ -1,0 +1,80 @@
+WARNING(LGCMCVT220)  
+        ** Signal "RecPpal_TV_Power_On" on symbol S-8.1.1 has a previously defined driving source.
+WARNING(LGCMCVT220)  
+        ** Signal "RecPpal_Receiver_CBL_SAT" on symbol S-8.1.2 has a previously defined driving source.
+WARNING(LGCMCVT220)  
+        ** Signal "RecPpal_Screen_Up" on symbol S-8.1.3 has a previously defined driving source.
+WARNING(LGCMCVT220)  
+        ** Signal "RecPpal_TV_Power_On" on symbol S-8.1.4 has a previously defined driving source.
+WARNING(LGCMCVT220)  
+        ** Signal "RecPpal_Receiver_HDMI3" on symbol S-8.1.5 has a previously defined driving source.
+WARNING(LGCMCVT220)  
+        ** Signal "RecPpal_Screen_Up" on symbol S-8.1.6 has a previously defined driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Component" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Video_1" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Video_2" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_PC" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Power_Tgl" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Display" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Option" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Sleep" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_0" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_1" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_2" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_3" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_4" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_5" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_6" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_7" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_8" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_9" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Flashback" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_CC" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_AV_Mode" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_View_Mode" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Fav_CH" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Surround" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Audio" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Freeze" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Red" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Green" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Blue" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_TV_Yellow" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_Receiver_Power" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_Sky_Exit" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_AppleTV_Power_Off" has no driving source.
+WARNING(LGCMCVT102)  
+        ** Signal "RecPpal_AppleTV_Power_On" has no driving source.

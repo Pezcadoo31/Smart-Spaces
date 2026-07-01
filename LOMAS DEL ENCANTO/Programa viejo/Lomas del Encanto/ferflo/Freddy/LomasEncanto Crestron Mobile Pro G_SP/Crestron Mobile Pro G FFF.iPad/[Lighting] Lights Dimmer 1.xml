@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Page' Version='5.1.0'>
+<Control Type='Subpage' Name='[Lighting] Lights Dimmer 1'>
+<Position Units='Pixels' X='0' Y='0' />
+<Size Units='Pixels' Width='130' Height='580' />
+<VisualStyles>
+<VisualStyle>
+<Background>
+<Color  R='0' G='1' B='0.501961' A='0' />
+</Background>
+</VisualStyle>
+</VisualStyles>
+<Control Type='Button' Name='Image'>
+<Position Units='Pixels' X='4' Y='5' />
+<Size Units='Pixels' Width='124' Height='574' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Image Id='15' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Text'>
+<Position Units='Pixels' X='14' Y='12' />
+<Size Units='Pixels' Width='92' Height='91' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Text FontId='27' Alignment='CenterCenter' Wrap='False'>
+<Bindings>
+<Binding Id='41' Type='Serial' Property='Text'/>
+</Bindings>
+<Color  R='0.615686' G='0.772549' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='9' Y='342' />
+<Size Units='Pixels' Width='110' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.501961' A='0' />
+</Face>
+<Image Id='44' Alpha='1' />
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='45' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='122' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='122' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='122' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='9' Y='493' />
+<Size Units='Pixels' Width='110' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0' G='0' B='0.501961' A='0' />
+</Face>
+<Image Id='49' Alpha='1' />
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='1' B='1' A='0' />
+</Face>
+<Image Id='50' Alpha='1' />
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='123' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='123' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='123' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='Button'>
+<Position Units='Pixels' X='8' Y='419' />
+<Size Units='Pixels' Width='114' Height='56' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0.4' G='0.4' B='0.4' A='0' />
+</Face>
+<Image Id='47' Alpha='1' />
+<Text Id='191' FontId='10' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+<VisualStyle State='1' Mode='0'>
+<Face Type='2D'>
+<Color  R='1' G='0.501961' B='0' A='0' />
+</Face>
+<Image Id='48' Alpha='1' />
+<Text Id='191' FontId='10' Alignment='CenterCenter' Wrap='False'>
+<Color  R='1' G='1' B='1' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='124' Type='Digital' Property='State'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='124' Type='Digital' Value='True' />
+<Command Action='TouchUp' Id='124' Type='Digital' Value='False' />
+</Commands>
+</Control>
+<Control Type='Button' Name='SliderBackdrop' KeyClick='False'>
+<Position Units='Pixels' X='45' Y='82' />
+<Size Units='Pixels' Width='34' Height='248' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Face Type='2D'>
+<Color  R='0.752941' G='0.752941' B='0.752941' A='1' />
+</Face>
+<Image Id='145' Alpha='1' FillMode='0' />
+<Text FontId='29' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+</Control>
+<Control Type='Slider' Name='Slider' KeyClick='False'>
+<Position Units='Pixels' X='45' Y='82' />
+<Size Units='Pixels' Width='34' Height='248' />
+<VisualStyles>
+<VisualStyle State='0' Mode='0'>
+<Format Type='2' Signed='False'>
+<Slider Direction='2' SpringReturn='False' SignedTouch='False' />
+</Format>
+<Face Type='2D'>
+<Color  R='0' G='1' B='1' A='0' />
+</Face>
+<Image Id='146' Alpha='1' FillMode='0' />
+<Text FontId='29' Alignment='CenterCenter' Wrap='False'>
+<Color  R='0' G='0' B='0' A='1' />
+</Text>
+</VisualStyle>
+</VisualStyles>
+<Bindings>
+<Binding Id='1' Type='Analog' Property='Mode'/>
+</Bindings>
+<Commands>
+<Command Action='TouchDown' Id='1' Type='Analog' />
+<Command Action='AnalogFeedback' Id='1' Type='Analog' Value='Mode' />
+</Commands>
+</Control>
+</Control>
+</File>
