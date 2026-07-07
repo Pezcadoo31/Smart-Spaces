@@ -1859,6 +1859,7 @@ DvVr=1238
 Ad=01
 SmH=17
 RelStat=Release
+DbH=43
 ]
 [
 ObjTp=Dv
@@ -2262,6 +2263,7 @@ SmH=80
 RelStat=Release
 ProdLine=3-Series
 CmH=2
+DbH=40
 ]
 [
 ObjTp=Dv
@@ -2276,6 +2278,8 @@ SmH=81
 RelStat=Release
 ProdLine=3-Series
 CmH=3
+DbH=41
+CsH=9
 ]
 [
 ObjTp=Dv
@@ -2290,6 +2294,7 @@ SmH=82
 RelStat=Release
 ProdLine=3-Series
 CmH=4
+DbH=42
 ]
 [
 ObjTp=Dv
@@ -2334,6 +2339,7 @@ DvVr=1238
 Ad=01
 RelStat=None
 ProdLine=2-Series
+DbH=39
 ]
 [
 ObjTp=Dv
@@ -2887,7 +2893,7 @@ ObjTp=Cm
 H=3
 DvH=609
 Ptl=(RS232)
-Tis=1
+Tis=2
 BRt=9600
 Pty=N
 SBt=1
@@ -3263,6 +3269,49 @@ Mdl=Apple TV (4ta generation)
 DrF=Apple Apple TV (4ta generation).ir
 ]
 [
+ObjTp=Db
+H=39
+DvH=613
+Whc=3
+Mnf=Crestron
+Mdl=IP Client Ctrl
+Tpe=TCP/IP Client Control
+]
+[
+ObjTp=Db
+H=40
+DvH=608
+Whc=3
+Mnf=Crestron
+Mdl=CP3 two-way serial driver
+Tpe=Customizable CP3 two-way serial driver
+]
+[
+ObjTp=Db
+H=41
+DvH=609
+Whc=3
+Mnf=Crestron
+Mdl=CP3 RS-232 only two-way serial driver
+]
+[
+ObjTp=Db
+H=42
+DvH=610
+Whc=3
+Mnf=Crestron
+Mdl=CP3 RS-232 only two-way serial driver
+]
+[
+ObjTp=Db
+H=43
+DvH=580
+Whc=3
+Mnf=Crestron
+Mdl=C2I-USB-HID
+Tpe=USB port for HID Devices
+]
+[
 ObjTp=Ui
 H=1
 DvH=614
@@ -3309,6 +3358,11 @@ H=8
 DvH=614
 ]
 [
+ObjTp=Cs
+H=9
+DvH=609
+]
+[
 ObjTp=FP
 ]
 [
@@ -3316,7 +3370,7 @@ ObjTp=Bk
 Nm1=\
 Sx1=0
 Sy1=0
-Mx1=0
+Mx1=1
 ]
 [
 ObjTp=Bw
@@ -3324,14 +3378,13 @@ H=1
 Lx=0
 Ly=0
 Rx=1105
-Ry=907
+Ry=759
 Xm=-1
 Ym=-1
 SH=84
 Z=100
-P=9888
 Ht=1
-Hi=436
+Hi=1
 ]
 [
 ObjTp=Et
