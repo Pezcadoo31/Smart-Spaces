@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<File Type='Manifest' Version='5.1.0' ObjectDisplayList='3'>
+<Project FileName='iPad_v1.zip' Size='458825' Build='20170306172119'>
+<Sources>
+<Source FileName='iPad_v1.xml' Size='556' Type='Application' Build='20170306172119' />
+<Source FileName='iPad_v1_Resource.xml' Size='20415' Type='Resource' Build='20170306172119' />
+<Source FileName='00 -8 Family Pa Ajustes de Video.xml' Size='9277' Type='Subpage' Build='20170306172107' />
+<Source FileName='00 -7 Family Pb Ajustes de Video.xml' Size='9280' Type='Subpage' Build='20170306172105' />
+<Source FileName='Status generlaes.xml' Size='39327' Type='Page' Build='20170306172103' />
+<Source FileName='01 Vol Video Gym.xml' Size='4029' Type='Subpage' Build='20170306172199' />
+<Source FileName='01 Vol Amb Gym.xml' Size='5020' Type='Subpage' Build='20170306172199' />
+<Source FileName='GENERAL.xml' Size='22706' Type='Page' Build='20170306172199' />
+<Source FileName='000 Recamara Ppal Fuentes Video.xml' Size='8702' Type='Subpage' Build='20170306172196' />
+<Source FileName='000 Recamara Ajustes.xml' Size='8914' Type='Subpage' Build='20170306172194' />
+<Source FileName='01 Fuentes Video Gym.xml' Size='7038' Type='Subpage' Build='20170306172193' />
+<Source FileName='[Audio Sources] Sky Family PB.xml' Size='35232' Type='Subpage' Build='20170306172193' />
+<Source FileName='[Audio Sources] AIRPLAY.xml' Size='1330' Type='Subpage' Build='20170306172188' />
+<Source FileName='[Video Sources] Recamara TV Amazon.xml' Size='1840' Type='Subpage' Build='20170306172188' />
+<Source FileName='[Video Sources] TV Gimnasio.xml' Size='34277' Type='Subpage' Build='20170306172186' />
+<Source FileName='[Video Sources] TV Family Pb.xml' Size='38022' Type='Subpage' Build='20170306172185' />
+<Source FileName='[Video Sources] AppleTV Gimnasio.xml' Size='10436' Type='Subpage' Build='20170306172180' />
+<Source FileName='[Video Sources] Sky Recamara.xml' Size='45843' Type='Subpage' Build='20170306172178' />
+<Source FileName='04 Terraza Fuentes de audio.xml' Size='8493' Type='Subpage' Build='20170306172175' />
+<Source FileName='01 Gym Fuentes Video.xml' Size='7278' Type='Subpage' Build='20170306172174' />
+<Source FileName='02 Cocina Control de Iluminacion.xml' Size='13628' Type='Subpage' Build='20170306172172' />
+<Source FileName='2-5 Terraza Cocina Ajustes de Audio.xml' Size='8937' Type='Subpage' Build='20170306172171' />
+<Source FileName='2-5 Terraza Audio Jardin Cocina.xml' Size='8494' Type='Subpage' Build='20170306172169' />
+<Source FileName='[Video Sources] Bray.xml' Size='33652' Type='Subpage' Build='20170306172169' />
+<Source FileName='[Video Sources] Sky Gimnasio.xml' Size='46836' Type='Subpage' Build='20170306172166' />
+<Source FileName='2-1 Vestidor Control de Persianas.xml' Size='4544' Type='Subpage' Build='20170306172161' />
+<Source FileName='07 Sala Comedor Control de Persianas.xml' Size='8076' Type='Subpage' Build='20170306172161' />
+<Source FileName='[Video Sources] TV Family Pa.xml' Size='34288' Type='Subpage' Build='20170306172160' />
+<Source FileName='05 Jardin Ajustes de Audio.xml' Size='8920' Type='Subpage' Build='20170306172155' />
+<Source FileName='00 -8 Family Pa Ajustes de Audio.xml' Size='8926' Type='Subpage' Build='20170306172155' />
+<Source FileName='Vol TV Family Pa.xml' Size='4035' Type='Subpage' Build='20170306172153' />
+<Source FileName='Vol Audio Amb Family Pa.xml' Size='5035' Type='Subpage' Build='20170306172152' />
+<Source FileName='00 -8 Fuentes Audio Family Pa.xml' Size='8493' Type='Subpage' Build='20170306172152' />
+<Source FileName='Vol TV Family Pb.xml' Size='4035' Type='Subpage' Build='20170306172150' />
+<Source FileName='Vol Audio Amb Family Pb.xml' Size='5035' Type='Subpage' Build='20170306172150' />
+<Source FileName='00 -7 Fuentes Audio Family Pb.xml' Size='8493' Type='Subpage' Build='20170306172149' />
+<Source FileName='00 -8 Family Pa Control de Iluminacion.xml' Size='13624' Type='Subpage' Build='20170306172147' />
+<Source FileName='2-2 Salon Bar Control de Iluminacion.xml' Size='11274' Type='Subpage' Build='20170306172146' />
+<Source FileName='2-2 Salon Bar Ajustes de Audio.xml' Size='8932' Type='Subpage' Build='20170306172144' />
+<Source FileName='000 Rec Ppal Control de Iluminacion.xml' Size='13625' Type='Subpage' Build='20170306172143' />
+<Source FileName='2-1 Vestidor Ajustes de Audio.xml' Size='8923' Type='Subpage' Build='20170306172141' />
+<Source FileName='08 Salon Juegos Ajustes de Audio.xml' Size='8926' Type='Subpage' Build='20170306172139' />
+<Source FileName='07 Sala Comedor Ajustes de Audio.xml' Size='8926' Type='Subpage' Build='20170306172138' />
+<Source FileName='04 Terraza Ajustes de Audio.xml' Size='8921' Type='Subpage' Build='20170306172136' />
+<Source FileName='03 Sala Comedor Ajustes de Audio.xml' Size='8926' Type='Subpage' Build='20170306172136' />
+<Source FileName='02 Cocina Ajustes de Audio.xml' Size='8920' Type='Subpage' Build='20170306172135' />
+<Source FileName='01 Gym Ajustes de Audio.xml' Size='8917' Type='Subpage' Build='20170306172133' />
+<Source FileName='07 Sala Comedor Control de Iluminacion.xml' Size='11270' Type='Subpage' Build='20170306172132' />
+<Source FileName='04 Terraza Control de Iluminacion.xml' Size='11937' Type='Subpage' Build='20170306172130' />
+<Source FileName='01 Gym Control de Iluminacion.xml' Size='11504' Type='Subpage' Build='20170306172128' />
+<Source FileName='08 Salon Juegos Control de Iluminacion.xml' Size='11272' Type='Subpage' Build='20170306172127' />
+<Source FileName='[Video Sources] Videojuego Family PA.xml' Size='1337' Type='Subpage' Build='20170306172125' />
+<Source FileName='2-2 Fuentes Audio SAlon Bar.xml' Size='8490' Type='Subpage' Build='20170306172125' />
+<Source FileName='2-1 Fuentes Audio Vestidor Ppal.xml' Size='8494' Type='Subpage' Build='20170306172124' />
+<Source FileName='08 Fuentes Audio Salon de Juegos.xml' Size='8495' Type='Subpage' Build='20170306172122' />
+<Source FileName='07 Fuentes Audio Sala Comedor.xml' Size='8492' Type='Subpage' Build='20170306172121' />
+<Source FileName='05 Jardin Fuentes de audio.xml' Size='8490' Type='Subpage' Build='20170306172121' />
+<Source FileName='000 RECAMARA PPAL.xml' Size='12058' Type='Page' Build='20170306172103' />
+<Source FileName='05 JARDIN.xml' Size='13212' Type='Page' Build='20170306172185' />
+<Source FileName='00 -8 Fuentes Video Family PA.xml' Size='5634' Type='Subpage' Build='20170306172183' />
+<Source FileName='[Video Sources] Videojuego Family PB.xml' Size='1337' Type='Subpage' Build='20170306172183' />
+<Source FileName='[Video Sources] AppleTV Recamara Ppal.xml' Size='10441' Type='Subpage' Build='20170306172182' />
+<Source FileName='02 Cocina Control de Clima.xml' Size='13210' Type='Subpage' Build='20170306172180' />
+<Source FileName='Vol Audio Amb Recamara.xml' Size='5034' Type='Subpage' Build='20170306172178' />
+<Source FileName='Vol TV Recamara.xml' Size='4034' Type='Subpage' Build='20170306172178' />
+<Source FileName='[Video Sources] Sky Family PB.xml' Size='43863' Type='Subpage' Build='20170306172178' />
+<Source FileName='[Video Sources] Roku Recamara.xml' Size='10439' Type='Subpage' Build='20170306172174' />
+<Source FileName='[Audio Sources] NSP.xml' Size='39762' Type='Subpage' Build='20170306172172' />
+<Source FileName='04 Terraza Audio Vestibulo.xml' Size='8489' Type='Subpage' Build='20170306172169' />
+<Source FileName='03 Sala Comedor Fuentes Audio.xml' Size='8493' Type='Subpage' Build='20170306172167' />
+<Source FileName='02 Cocina Fuentes Audio.xml' Size='8487' Type='Subpage' Build='20170306172167' />
+<Source FileName='01 Gym Fuentes Audio.xml' Size='8484' Type='Subpage' Build='20170306172166' />
+<Source FileName='04 TERRAZA.xml' Size='13217' Type='Page' Build='20170306172164' />
+<Source FileName='03 SALA COMEDOR.xml' Size='12979' Type='Page' Build='20170306172160' />
+<Source FileName='02 COCINA.xml' Size='12953' Type='Page' Build='20170306172158' />
+<Source FileName='01 GYM.xml' Size='13304' Type='Page' Build='20170306172157' />
+<Source FileName='00 -8 FAMILY PA.xml' Size='17039' Type='Page' Build='20170306172155' />
+<Source FileName='[Video Sources] AppleTV Family PB.xml' Size='10437' Type='Subpage' Build='20170306172153' />
+<Source FileName='05 Jardin Control de Iluminacion.xml' Size='6124' Type='Subpage' Build='20170306172152' />
+<Source FileName='03 Sala Comedor Control de Iluminacion.xml' Size='13620' Type='Subpage' Build='20170306172152' />
+<Source FileName='00 -7 Family Pb Control de Iluminacion.xml' Size='13620' Type='Subpage' Build='20170306172149' />
+<Source FileName='[Video Sources] Sky Family PA.xml' Size='45850' Type='Subpage' Build='20170306172147' />
+<Source FileName='00 -7 Family Pb Ajustes de Audio.xml' Size='8928' Type='Subpage' Build='20170306172138' />
+<Source FileName='00 -7 Fuentes Video Family PB.xml' Size='7005' Type='Subpage' Build='20170306172136' />
+<Source FileName='00 -7 FAMILY PB.xml' Size='17300' Type='Page' Build='20170306172133' />
+<Source FileName='INICIO.xml' Size='26227' Type='Page' Build='20170306172130' />
+</Sources>
+</Project>
+</File>
