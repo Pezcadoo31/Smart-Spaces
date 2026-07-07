@@ -1,0 +1,9 @@
+<Device Model="CP2E">
+   <Network Type="Cresnet" Id="01"/>
+   <Network Type="Ethernet" Id="05">
+      <Device Model="iPhone" DeviceId="03" Name="Crestron Mobile iPad"/>
+      <Device Model="CEN-NSP-1" DeviceId="05" Name="CEN-NSP-UNO"/>
+      <Device Model="iPhone" DeviceId="08" Name="Crestron Mobile"/>
+      <Device Model="C2N-AMP-6X100" DeviceId="09" Name="C2N-AMP-6x100 (Ethernet)"/>
+   </Network>
+</Device>

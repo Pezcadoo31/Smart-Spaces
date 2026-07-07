@@ -1,0 +1,354 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer:
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+// #DEFINE_CONSTANT
+// #CATEGORY "" 
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+/*
+#HELP_BEGIN
+   (add additional lines of help lines)
+#HELP_END
+*/
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT cam01, cam02, cam03, cam04, cam05, cam06, cam07, cam08, cam09, cam10, cam11; 
+DIGITAL_INPUT matrix16, c_up, c_down, c_left, c_right, zoom_in, zoom_out; 
+// ANALOG_INPUT 
+// STRING_INPUT 
+// BUFFER_INPUT 
+
+// DIGITAL_OUTPUT 
+// ANALOG_OUTPUT 
+STRING_OUTPUT dvr_tx; 
+
+/*******************************************************************************************
+  SOCKETS
+  (Uncomment and define socket definitions as needed)
+*******************************************************************************************/
+// TCP_CLIENT
+// TCP_SERVER
+// UDP_SOCKET
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+// INTEGER_PARAMETER
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+// STRING_PARAMETER
+
+/*******************************************************************************************
+  Parameter Properties
+  (Uncomment and declare parameter properties as needed)
+*******************************************************************************************/
+/*
+#BEGIN_PARAMETER_PROPERTIES parameter_variable, parameter_variable, ...
+   // propValidUnits = // unitString or unitDecimal|unitHex|unitPercent|unitCharacter|unitTime|unitTicks;
+   // propDefaultUnit = // unitString, unitDecimal, unitHex, unitPercent, unitCharacter, unitTime or unitTicks;
+   // propBounds = lower_bound , upper_bound;
+   // propDefaultValue = ;  // or, propDefaultValue = "";
+   // propList = // { "value" , "label" } , { "value" , "label" } , ... ;
+   // propShortDescription = "status_bar_hint_text";
+   // #BEGIN_PROP_FULL_DESCRIPTION  line_1...  line_2...  line_n  #END_PROP_FULL_DESCRIPTION
+   // #BEGIN_PROP_NOTES line_1...  line_2...  line_n  #END_PROP_NOTES
+#END_PARAMETER_PROPERTIES
+*/
+
+/*******************************************************************************************
+  Structure Definitions
+  (Uncomment and define structure definitions as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: struct.myString = "";
+*******************************************************************************************/
+/*
+STRUCTURE MyStruct1
+{
+};
+
+MyStruct1 struct;
+*/
+
+/*******************************************************************************************
+  Global Variables
+  (Uncomment and declare global variables as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: myString = "";
+*******************************************************************************************/
+// INTEGER
+// LONG_INTEGER
+// SIGNED_INTEGER
+// SIGNED_LONG_INTEGER
+// STRING
+
+/*******************************************************************************************
+  Functions
+  (Add any additional functions here)
+  Note:  Functions must be physically placed before the location in
+         the code that calls them.
+*******************************************************************************************/
+/*
+Function MyFunction1()
+{
+    // TODO:  Add local variable declarations here
+
+    // TODO:  Add code here
+}
+*/
+
+/*
+Integer_Function MyIntFunction1()
+{
+    // TODO:  Add local variable declarations here
+
+    // TODO:  Add code here
+
+    Return (0);
+}
+*/
+
+/*
+String_Function MyStrFunction1()
+{
+    // TODO:  Add local variable declarations here
+
+    // TODO:  Add code here
+
+    Return ("");
+}
+*/
+
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+
+PUSH cam01
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x01\x02\x00\xCF"; //camera1 full screen
+}
+
+PUSH cam02
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x02\x02\x00\xD0"; //camera2 full screen
+}
+
+PUSH cam03
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x03\x02\x00\xd1"; //camera3 full screen
+}
+
+PUSH cam04
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x04\x02\x00\xd2"; //camera4 full screen
+}
+
+PUSH cam05
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x05\x02\x00\xd3"; //camera5 full screen
+}
+
+PUSH cam06
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x06\x02\x00\xd4"; //camera6 full screen
+}
+
+PUSH cam07
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x33\x01\x07\x02\x00\xd5"; //camera7 full screen
+}
+
+PUSH cam08
+{
+  dvr_tx = "\x90\x08\x33\x01\x08\x02\x00\xd6"; //camera8 full screen
+  delay (25);
+  dvr_tx = "\x90\x08\x21\x01\x01\x02\x00\xbd"; //begin pt mode
+  delay (25);
+  dvr_tx = "\x90\x08\x36\x01\x08\x00\x00\xd7"; //select camera8 for moving
+}
+
+PUSH cam09
+{
+  dvr_tx = "\x90\x08\x33\x01\x09\x02\x00\xd7"; //camera9 full screen
+  delay (25);
+  dvr_tx = "\x90\x08\x21\x01\x01\x02\x00\xbd"; //begin pt mode
+  delay (25);
+  dvr_tx = "\x90\x08\x36\x01\x09\x00\x00\xd8"; //select camera9 for moving
+}
+
+PUSH cam10
+{
+  dvr_tx = "\x90\x08\x33\x01\x0A\x02\x00\xd8"; //camera10 full screen
+  delay (25);
+  dvr_tx = "\x90\x08\x21\x01\x01\x02\x00\xbd"; //begin pt mode
+  delay (25);
+  dvr_tx = "\x90\x08\x36\x01\x0a\x00\x00\xd9"; //select camera10 for moving
+}
+
+PUSH cam11
+{
+  dvr_tx = "\x90\x08\x33\x01\x0B\x02\x00\xd9"; //camera11 full screen
+  delay (25);
+  dvr_tx = "\x90\x08\x21\x01\x01\x02\x00\xbd"; //begin pt mode
+  delay (25);
+  dvr_tx = "\x90\x08\x36\x01\x0b\x00\x00\xda"; //select camera11 for moving
+}
+
+PUSH matrix16
+{
+  dvr_tx = "\x90\x08\xfe\x01\x0f\x02\x00\xa8"; //login
+  delay (25);
+  dvr_tx = "\x90\x08\x1e\x01\x00\x02\x00\xb9"; //show 4x4 matrix
+}
+
+PUSH c_up
+{
+  dvr_tx = "\x90\x08\x0a\x01\x05\x00\x00\xa8";
+}
+
+PUSH c_down
+{
+  dvr_tx = "\x90\x08\x0b\x01\x05\x00\x00\xa9";
+}
+
+PUSH c_left
+{
+  dvr_tx = "\x90\x08\x0c\x01\x05\x00\x00\xaa";
+}
+
+PUSH c_right
+{
+  dvr_tx = "\x90\x08\x0d\x01\x05\x00\x00\xab";
+}
+
+PUSH zoom_in
+{
+  dvr_tx = "\x90\x08\x22\x01\x05\x00\x00\xc0";
+}
+
+PUSH zoom_out
+{
+  dvr_tx = "\x90\x08\x23\x01\x05\x00\x00\xc1";
+}
+
+/*
+RELEASE input
+{
+    // TODO:  Add code here
+}
+*/
+
+/*
+CHANGE input
+{
+    // TODO:  Add code here
+}
+*/
+
+/*
+EVENT
+{
+    // TODO:  Add code here
+}
+*/
+
+/*
+SOCKETCONNECT
+{
+    // TODO:  Add code here
+}
+*/
+
+/*
+SOCKETDISCONNECT
+{
+    // TODO:  Add code here
+}
+*/
+
+/*
+SOCKETRECEIVE
+{
+    // TODO:  Add code here
+}
+*/
+
+/*
+SOCKETSTATUS
+{
+    // TODO:  Add code here
+}
+*/
+
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+/*
+Function Main()
+{
+    // TODO:  Add code here
+    // Initialize declared global and local variables/arrays as needed.
+
+    // WaitForInitializationComplete();
+    // If you are reading any Input or Output variables, uncomment
+    //   the WaitForInitializationComplete statement above and read
+    //   them afterwards.  Input/Output variables will not have
+    //   their correct values set until after the logic processor
+    //   runs and propagates the values to them.
+}
+*/
+

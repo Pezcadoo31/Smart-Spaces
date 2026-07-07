@@ -1,0 +1,208 @@
+#define_constant FALSE	0
+#define_constant TRUE	1
+
+buffer_input From_Device[255];
+
+analog_output SPM_F;
+analog_output SST_F;
+analog_output DST_F;
+analog_output SSA_F;
+analog_output MST_F;
+analog_output FST_F;
+analog_output PST_F;
+analog_output AST_F;	
+analog_output CDS_F;
+analog_output VST_F;
+analog_output IST_F;
+analog_output SDC_F;
+analog_output SVC_F;
+analog_output STS_F;
+analog_output SAR_F;
+analog_output SDM_F;
+analog_output SAF_F;
+analog_output SL1_F;
+analog_output SL2_F;
+analog_output SSR_F;
+analog_output SSL_F;
+analog_output SFC_F;
+analog_output SBE_F;
+analog_output SMO_F;
+analog_output SVI_F;
+analog_output SVT_F;
+analog_output SVR_F;
+analog_output SCM_F;
+analog_output SCC_F;
+analog_output SCW_F;
+analog_output SCS_F;
+analog_output SMR_F;
+analog_output SMA_F;
+
+string_output Current_Title_Text;
+string_output Current_Chapter_Text;
+string_output Elapsed_Time_Text;
+
+analog_output C0x_F[6,6];
+
+								
+function fn_parseISCPMessage(
+	string szISCPMessage)
+{
+	string szCommand[3];
+	string szParameter[6];
+	
+	szCommand = mid(szISCPMessage, 1, 3);
+	szParameter = mid(szISCPMessage, 4, (len(szISCPMessage)-3));
+	
+	switch(1)
+	{
+		// "SPM" - Status mode notice
+		case(szCommand = "SPM"): SPM_F = hexToI(szParameter);
+
+		// "SST" - Action Status notice
+		case(szCommand = "SST"): SST_F = hexToI(szParameter);
+
+		// "DST" - Current disc status notice
+		case(szCommand = "DST"): DST_F = hexToI(szParameter);
+        
+		// "SSA" - Current SACD Disc status notice
+		case(szCommand = "SSA"): SSA_F = hexToI(szParameter);
+
+		// "MST" - Dimmer Level Status notice
+		case(szCommand = "MST"): MST_F = hexToI(szParameter);
+
+		// "FST" - FS Status notice
+		case(szCommand = "FST"): FST_F = hexToI(szParameter);
+
+		// "PST" - Progressive Video Out status notice
+		case(szCommand = "PST"): PST_F = hexToI(szParameter);
+
+		// "AST" - Aspect Ratio Status
+		// - This is the aspect ratio set in the menu, NOT the disc's aspect ratio.
+		case(szCommand = "AST"): AST_F = hexToI(szParameter);
+
+		// "CDS" - Current Disc Status
+		case(szCommand = "CDS"): CDS_F = hexToI(szParameter);
+
+		// "VST" - Video Output status notice
+		case(szCommand = "VST"): VST_F = hexToI(szParameter);
+
+		// "IST" - i.LINK Output status notice
+		case(szCommand = "IST"): IST_F = hexToI(szParameter);
+
+		// "C01"-"C06" DISC1-6 Status Notice
+		case(szCommand = "C01"): C0x_F[1] = hexToI(szParameter);
+		case(szCommand = "C02"): C0x_F[2] = hexToI(szParameter);
+		case(szCommand = "C03"): C0x_F[3] = hexToI(szParameter);
+		case(szCommand = "C04"): C0x_F[4] = hexToI(szParameter);
+		case(szCommand = "C05"): C0x_F[5] = hexToI(szParameter);
+		case(szCommand = "C06"): C0x_F[6] = hexToI(szParameter);
+
+		// "STG" - Title/Group/Folder No Status notice
+		case(szCommand = "STG"):
+		{
+			if(szParameter = "------") szParameter = "000000";
+
+			makeString(Current_Title_Text, "%02d/%02d", atoi(mid(szParameter, 1, 3)),
+														atoi(mid(szParameter, 4, 3)));
+		}
+		
+		// "STC" - Chapter/Track No Status notice
+		case(szCommand = "STC"):
+		{
+			if(szParameter = "------") szParameter = "000000";
+			
+			makeString(Current_Chapter_Text, "%02d/%02d", atoi(mid(szParameter, 1, 3)),
+														  atoi(mid(szParameter, 4, 3)));
+		}
+
+		// "SET" - Elapsed Time Status notice
+		case(szCommand = "SET"):
+		{
+			if(szParameter = "     ") szParameter = "00000";
+
+			makeString(Elapsed_Time_Text, "%02d:%02d:%02d", atoi(mid(szParameter, 1, 1)),
+															atoi(mid(szParameter, 2, 2)),
+															atoi(mid(szParameter, 4, 2)));
+		}
+		
+		// "SDC" - DVD Classification Status notice
+		case(szCommand = "SDC"): SDC_F = hexToI(szParameter);
+
+		// "SVC" - Video Compression Mode Status notice
+		case(szCommand = "SVC"): SVC_F = hexToI(szParameter);
+
+		// "STS" - TV System Status notice
+		case(szCommand = "STS"): STS_F = hexToI(szParameter);
+
+		// "SAR" - Aspect ratio Status notice
+		case(szCommand = "SAR"): SAR_F = hexToI(szParameter);
+
+		// "SDM" - Display Mode Status notice (without VR)
+		case(szCommand = "SDM"): SDM_F = hexToI(szParameter);
+
+		// "SAF" - Application Flag Status notice (VR only)
+		case(szCommand = "SAF"): SAF_F = hexToI(szParameter);
+
+		// "SL1" - Line21_SW1 Status notice (without ATS_AOB)
+		case(szCommand = "SL1"): SL1_F = hexToI(szParameter);
+
+		// "SL2" - Line21_SW2 Status notice (without ATS_AOB)
+		case(szCommand = "SL2"): SL2_F = hexToI(szParameter);
+
+		// "SSR" - Source/Video picture resolution Status notice
+		case(szCommand = "SSR"): SSR_F = hexToI(szParameter);
+
+		// "SSL" - Source picture letterboxed Status notice (without VR)
+		case(szCommand = "SSL"): SSL_F = hexToI(szParameter);
+
+		// "SFC" - Film camera mode Status notice (DVD-VIDEO only)
+		case(szCommand = "SFC"): SFC_F = hexToI(szParameter);
+
+		// "SBE" - Button exists Status notice (ATS_AOB only)
+		case(szCommand = "SBE"): SBE_F = hexToI(szParameter);
+
+		// "SMO" - HDMI Out picture resolution status notice
+		case(szCommand = "SMO"): SMO_F = hexToI(szParameter);
+
+		// "SVI" - Video Input status notice
+		case(szCommand = "SVI"): SVI_F = hexToI(szParameter);
+
+		// "SVT" - Video In (SD) TV System status notice
+		case(szCommand = "SVT"): SVT_F = hexToI(szParameter);
+
+		// "SVR" - Video In (HD) picture resolution status notice
+		case(szCommand = "SVR"): SVR_F = hexToI(szParameter);
+
+		// "SCM" - Language status notice
+		case(szCommand = "SCM"): SCM_F = hexToI(szParameter);
+
+		// "SCC" - CEC Control Setup status notice
+		case(szCommand = "SCC"): 
+		{
+			if(szParameter = "ON") SCC_F = TRUE;
+			else SCC_F = FALSE;
+		}
+		
+		// "SCW" - CEC Power Control Setup status notice
+		case(szCommand = "SCW"): SCW_F = hexToI(szParameter);
+
+		// "SCS" - CEC Direct Change Control Setup status notice
+		case(szCommand = "SCS"): SCS_F = hexToI(szParameter);
+
+		// "SMR" - HDMI Resolution Setup status notice
+		case(szCommand = "SMR"): SMR_F = hexToI(szParameter);
+
+		// "SMA" - HDMI Audio Setup status notice
+		case(szCommand = "SMA"): SMA_F = hexToI(szParameter);
+	}
+}
+
+change From_Device
+{
+	string szData[255];
+    
+	szData = gather("\x1A", From_Device, 500);
+	
+	if(szData <> "") fn_parseISCPMessage(mid(szData, 3, len(szData)-3));
+	else trace("Error parsing gathered string.");
+}
